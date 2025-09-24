@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "concurrently \"pnpm run dev:hono\" \"pnpm run dev:express\" \"pnpm run dev:next\"",
-    "dev:hono": ". .env; VERCEL_ORG_ID=$HONO_VERCEL_ORG_ID VERCEL_PROJECT_ID=$HONO_VERCEL_PROJECT_ID vercel dev --listen 3002",
-    "dev:express": ". .env; VERCEL_ORG_ID=$EXPRESS_VERCEL_ORG_ID VERCEL_PROJECT_ID=$EXPRESS_VERCEL_PROJECT_ID vercel dev --listen 3001",
+    "dev:hono": ". .env; VERCEL_ORG_ID=$HONO_VERCEL_ORG_ID VERCEL_PROJECT_ID=$HONO_VERCEL_PROJECT_ID vercel dev --listen 3001",
+    "dev:express": ". .env; VERCEL_ORG_ID=$EXPRESS_VERCEL_ORG_ID VERCEL_PROJECT_ID=$EXPRESS_VERCEL_PROJECT_ID vercel dev --listen 3002",
     "dev:next": "cd nextjs && pnpm run dev",
     "postinstall": "cd hono && pnpm install && cd ../express && pnpm install && cd ../nextjs && pnpm install"
   },
