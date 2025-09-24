@@ -1,0 +1,55 @@
+name: NextJS Drizzle Migrations
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'nextjs/db/schema/**'
+      - 'nextjs/drizzle.config.ts'
+      - 'nextjs/drizzle/**'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'nextjs/db/schema/**'
+      - 'nextjs/drizzle.config.ts'
+      - 'nextjs/drizzle/**'
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  migrate:
+    name: Run Database Migrations
+    runs-on: ubuntu-latest
+    
+    env:
+      POSTGRES_URL: ${{ secrets.POSTGRES_URL_NEXTJS }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+          run_install: false
+      
+      - name: Install dependencies
+        working-directory: ./nextjs
+        run: pnpm install
+      
+      - name: Run database migrations
+        working-directory: ./nextjs
+        run: pnpm migrate
+        env:
+          POSTGRES_URL: ${{ secrets.POSTGRES_URL_NEXTJS }}
+      
+      - name: Output migration status
+        working-directory: ./nextjs
+        run: echo "Database migrations completed successfully"
