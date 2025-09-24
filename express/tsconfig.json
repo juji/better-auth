@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "es2022",
+    "module": "commonjs",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    
+    /* Make output more readable */
+    "pretty": true,
+    "removeComments": false,
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+    "preserveConstEnums": true,
+    "newLine": "lf",
+    "noEmitOnError": true
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
+}
