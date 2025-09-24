@@ -2,6 +2,7 @@
 import { defineConfig } from 'drizzle-kit';
 
 console.log('Database URL:', process.env.POSTGRES_URL);
+console.log('Database URL string length:', process.env.POSTGRES_URL?.length);
 
 export default defineConfig({
   out: './drizzle',
