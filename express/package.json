@@ -7,7 +7,7 @@
     "build": "tsc --pretty",
     "build:clean": "rimraf dist && tsc --pretty",
     "start": "node dist/index.js",
-    "dev": "tsx watch src/index.ts",
+    "dev": "tsx watch --clear-screen=false src src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": ["express", "typescript", "authentication"],
