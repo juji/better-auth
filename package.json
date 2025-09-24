@@ -6,8 +6,9 @@
   "scripts": {
     "dev": "concurrently \"pnpm run dev:hono\" \"pnpm run dev:express\" \"pnpm run dev:next\"",
     "dev:hono": "cd hono && vercel dev --listen 3002",
-    "dev:express": "cd express && pnpm run dev",
-    "dev:next": "cd next-app && pnpm run dev"
+    "dev:express": "cd express && vercel dev --listen 3001",
+    "dev:next": "cd nextjs && pnpm run dev",
+    "postinstall": "cd hono && pnpm install && cd ../express && pnpm install && cd ../nextjs && pnpm install"
   },
   "keywords": [],
   "author": "",
