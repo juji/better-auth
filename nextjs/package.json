@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
-    "start": "next start",
-    "migrate": "drizzle-kit migrate"
+    "start": "drizzle-kit migrate && next start"
   },
   "dependencies": {
     "better-auth": "^1.3.16",
