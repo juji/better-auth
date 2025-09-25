@@ -1,5 +1,5 @@
 
-import { NextjsForm } from "@/components/forms/nextjs";
+import { NExtjsFormWithSuspense } from "@/components/forms/nextjs";
 import Link from "next/link";
 
 
@@ -10,7 +10,7 @@ export default function Home() {
       <h1>Auth experiment with <Link
         className="text-blue-600 hover:text-blue-800 dark:text-blue-400"
         href="https://www.better-auth.com" target="_blank" rel="noopener noreferrer">Better-Auth</Link></h1>
-      <NextjsForm />
+      <NExtjsFormWithSuspense />
     </div>
   );
 }

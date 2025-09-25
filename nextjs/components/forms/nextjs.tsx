@@ -5,6 +5,7 @@ import { ForgotPassword } from "@/components/forgot-password";
 import { useEffect, useState } from "react";
 import { Authenticated } from "@/components/authenticated";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from 'react'
 
 import { 
   useSession, 
@@ -156,4 +157,11 @@ export function NextjsForm() {
       ) : null}
       </div>
   );
+}
+
+
+export function NExtjsFormWithSuspense() {
+  return <Suspense fallback={<div>Loading...</div>}>
+    <NextjsForm />
+  </Suspense>
 }

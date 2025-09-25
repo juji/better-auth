@@ -1,5 +1,5 @@
 'use client';
-import { ResetPassword, type ResetPasswordSubmitParams } from '@/components/reset-password';
+import { ResetPasswordWithSuspense, type ResetPasswordSubmitParams } from '@/components/reset-password';
 import { resetPassword } from '@/lib/auth-client';
 
 export default function ResetPasswordPage(){
@@ -22,7 +22,7 @@ export default function ResetPasswordPage(){
   }
 
   return <div className="flex min-h-screen flex-col items-center justify-center py-2">
-    <ResetPassword 
+    <ResetPasswordWithSuspense 
       onSubmit={handleSubmit} 
       title="Reset Your Password (NextJs)"
       className="max-w-md mx-auto mt-10"

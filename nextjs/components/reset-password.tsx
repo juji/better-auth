@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import { Suspense } from 'react';
 
 export type ResetPasswordSubmitParams = {
   token: string;
@@ -165,4 +166,10 @@ export function ResetPassword({
       )}
     </div>
   );
+}
+
+export function ResetPasswordWithSuspense(props: ResetPasswordProps) {
+  return <Suspense fallback={<div>Loading...</div>}>
+    <ResetPassword {...props} />
+  </Suspense>
 }
