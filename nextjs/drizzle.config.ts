@@ -11,4 +11,9 @@ export default defineConfig({
   dbCredentials: {
     url: process.env.POSTGRES_URL!,
   },
+  ssl: {
+    rejectUnauthorized: false, // This allows self-signed certificates
+  },
+
+  
 });
