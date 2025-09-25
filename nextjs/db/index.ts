@@ -5,7 +5,8 @@ export const db = drizzle({
     connectionString: process.env.POSTGRES_URL,
     ...process.env.POSTGRES_CERT ? {
     ssl: {
-      cert: process.env.POSTGRES_CERT
+      rejectUnauthorized: true,
+      ca: process.env.POSTGRES_CERT
     }} : {},
   }
 });
