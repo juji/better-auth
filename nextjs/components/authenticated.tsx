@@ -50,12 +50,12 @@ export function Authenticated({
 
 
   return (
-    <div className="p-4 border rounded">
+    <div className="p-6 bg-white dark:bg-gray-900 rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-4">{hello}!</h2>
       <p className="mb-4">Welcome, {session.user.name || session.user.email}!</p>
       <p className="mb-4">You are logged in with the email: {session.user.email}</p>
 
-      <div className="mb-6 border p-4 rounded bg-slate-800">
+      <div className="mb-6 p-6 rounded-lg bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700">
 
         <form onSubmit={(e) => {
           e.preventDefault();
@@ -78,7 +78,7 @@ export function Authenticated({
             }
           });
         }}>
-          <h4>Change Password</h4>
+          <h3>Change Password</h3>
           {changePasswordSuccess && <p className="text-green-500">{changePasswordSuccess}</p>}
           {changePasswordError && <p className="text-red-500">{changePasswordError}</p>}
           <br />
