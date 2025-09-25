@@ -1,0 +1,52 @@
+name: Express Drizzle Migrations
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'express/drizzle.config.ts'
+      - 'express/src/lib/db/schema/**'
+      - 'express/src/lib/drizzle/**'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'express/drizzle.config.ts'
+      - 'express/src/lib/db/schema/**'
+      - 'express/src/lib/drizzle/**'
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  migrate:
+    name: Run Database Migrations
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+          run_install: false
+      
+      - name: Install dependencies
+        working-directory: ./express
+        run: pnpm install
+      
+      - name: Run database migrations
+        working-directory: ./express
+        run: pnpm migrate
+        env:
+          POSTGRES_URL: ${{ secrets.HONO_POSTGRES_URL }}
+      
+      - name: Output migration status
+        working-directory: ./express
+        run: echo "Database migrations completed successfully"
