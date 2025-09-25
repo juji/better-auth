@@ -7,6 +7,9 @@ export const auth = betterAuth({
     provider: "pg", // or "mysql", "sqlite",
     usePlural: true,
   }),
+  emailAndPassword: {    
+    enabled: true
+  }
 });
 
 // force build comment
