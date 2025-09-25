@@ -55,7 +55,7 @@ export function Authenticated({
       <p className="mb-4">Welcome, {session.user.name || session.user.email}!</p>
       <p className="mb-4">You are logged in with the email: {session.user.email}</p>
 
-      <div className="mb-6 p-6 rounded-lg bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700">
+      <div className="my-6 p-6 rounded-lg bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700">
 
         <form onSubmit={(e) => {
           e.preventDefault();
@@ -89,7 +89,8 @@ export function Authenticated({
               name="oldPassword"
               id="oldPassword"
               required
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md 
+                  dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <div className="mb-4">
@@ -99,7 +100,8 @@ export function Authenticated({
               name="newPassword"
               id="newPassword"
               required
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md 
+                  dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <button
