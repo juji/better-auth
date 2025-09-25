@@ -3,13 +3,20 @@ import { RegisterForm } from "@/components/register";
 import { LoginForm } from "@/components/login";
 import { ForgotPassword } from "@/components/forgot-password";
 import { useEffect, useState } from "react";
-import { useSession, signIn, signOut, signUp, requestPasswordReset } from "@/lib/auth-client" // import the auth client
 import { Authenticated } from "@/components/authenticated";
 import { useSearchParams } from "next/navigation";
+
+import { 
+  useSession, 
+  signIn, signOut, signUp, 
+  requestPasswordReset,
+  changePassword
+} from "@/lib/auth-client" // import the auth client
 
 import type { OnSignInParams } from "@/components/login";
 import type { onRegisterParams } from "@/components/register";
 import type { ForgotPasswordSubmitParams } from "@/components/forgot-password";
+import type { OnChangePasswordParams } from "@/components/authenticated";
 
 export function NextjsForm() {
 
@@ -96,6 +103,21 @@ export function NextjsForm() {
       }
     });
   }
+
+  async function onChangePassword(params: OnChangePasswordParams) {
+    await changePassword({
+      currentPassword: params.oldPassword,
+      newPassword: params.newPassword
+    }, {
+      onSuccess: () => {
+        params.fetchOptions?.onSuccess?.();
+      },
+      onError: (err) => {
+        params.fetchOptions?.onError?.(err.error.message || err.error.statusText || 'An error occurred');
+      }
+    });
+    refetch();
+  }
   
   return (
       <div className="my-4 w-1/2">
@@ -104,6 +126,7 @@ export function NextjsForm() {
           hello={'Hello from NextJs'}
           session={session} 
           onSignOut={onSignOut}
+          onChangePassword={onChangePassword}
         />
       ) : null }
       {authState === 'register' ? (
