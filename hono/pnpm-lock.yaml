@@ -14,6 +14,9 @@ importers:
       hono:
         specifier: ^4.9.8
         version: 4.9.8
+      nodemailer:
+        specifier: ^7.0.6
+        version: 7.0.6
     devDependencies:
       '@types/node':
         specifier: ^20.11.17
@@ -209,6 +212,10 @@ packages:
     resolution: {integrity: sha512-JW8Bb4RFWD9iOKxg5PbUarBYGM99IcxFl2FPBo2gSJO11jjUDqlP1Bmfyqt8Z/dGhIQ63PMA9LdcLefXyIasyg==}
     engines: {node: '>=16.9.0'}
 
+  nodemailer@7.0.6:
+    resolution: {integrity: sha512-F44uVzgwo49xboqbFgBGkRaiMgtoBrBEWCVincJPK9+S9Adkzt/wXCLKbf7dxucmxfTI5gHGB+bEmdyzN6QKjw==}
+    engines: {node: '>=6.0.0'}
+
   resolve-pkg-maps@1.0.0:
     resolution: {integrity: sha512-seS2Tj26TBVOC2NIc2rOe2y2ZO7efxITtLZcGSOnHHNOQ7CkiUBfw0Iw2ck6xkIhPwLhKNLS8BO+hEpngQlqzw==}
 
@@ -350,6 +357,8 @@ snapshots:
       resolve-pkg-maps: 1.0.0
 
   hono@4.9.8: {}
+
+  nodemailer@7.0.6: {}
 
   resolve-pkg-maps@1.0.0: {}
 

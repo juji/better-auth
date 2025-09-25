@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  # PostgreSQL for Next.js
+  postgres-next:
+    image: postgres:latest
+    container_name: postgres-next
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: next
+    ports:
+      - "5440:5432"
+    volumes:
+      - postgres-next-data:/var/lib/postgresql/data
+    networks:
+      - better-auth-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # PostgreSQL for Hono
+  postgres-hono:
+    image: postgres:latest
+    container_name: postgres-hono
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: hono
+    ports:
+      - "5441:5432"
+    volumes:
+      - postgres-hono-data:/var/lib/postgresql/data
+    networks:
+      - better-auth-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # PostgreSQL for Express
+  postgres-express:
+    image: postgres:latest
+    container_name: postgres-express
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: express
+    ports:
+      - "5442:5432"
+    volumes:
+      - postgres-express-data:/var/lib/postgresql/data
+    networks:
+      - better-auth-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+networks:
+  better-auth-network:
+    driver: bridge
+
+volumes:
+  postgres-next-data:
+  postgres-hono-data:
+  postgres-express-data:
