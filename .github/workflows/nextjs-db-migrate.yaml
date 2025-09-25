@@ -21,10 +21,6 @@ jobs:
   migrate:
     name: Run Database Migrations
     runs-on: ubuntu-latest
-    
-    env:
-      POSTGRES_URL: ${{ secrets.POSTGRES_URL_NEXTJS }}
-      POSTGRES_CERT: ${{ secrets.POSTGRES_CERT }}
 
     steps:
       - name: Checkout repository
@@ -49,8 +45,12 @@ jobs:
         working-directory: ./nextjs
         run: pnpm migrate
         env:
-          POSTGRES_URL: ${{ secrets.POSTGRES_URL_NEXTJS }}
-          POSTGRES_CERT: ${{ secrets.POSTGRES_CERT }}
+          POSTGRES_HOST: ${{ secrets.NEXTJS_POSTGRES_HOST }}
+          POSTGRES_PORT: ${{ secrets.NEXTJS_POSTGRES_PORT }}
+          POSTGRES_USER: ${{ secrets.NEXTJS_POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.NEXTJS_POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ secrets.NEXTJS_POSTGRES_DB }}
+          POSTGRES_CERT: ${{ secrets.NEXTJS_POSTGRES_CERT }}
       
       - name: Output migration status
         working-directory: ./nextjs
