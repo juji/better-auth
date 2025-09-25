@@ -24,6 +24,7 @@ jobs:
     
     env:
       POSTGRES_URL: ${{ secrets.POSTGRES_URL_NEXTJS }}
+      POSTGRES_CERT: ${{ secrets.POSTGRES_CERT }}
 
     steps:
       - name: Checkout repository
@@ -49,6 +50,7 @@ jobs:
         run: pnpm migrate
         env:
           POSTGRES_URL: ${{ secrets.POSTGRES_URL_NEXTJS }}
+          POSTGRES_CERT: ${{ secrets.POSTGRES_CERT }}
       
       - name: Output migration status
         working-directory: ./nextjs
