@@ -45,7 +45,7 @@ jobs:
         working-directory: ./express
         run: pnpm migrate
         env:
-          POSTGRES_URL: ${{ secrets.HONO_POSTGRES_URL }}
+          POSTGRES_URL: ${{ secrets.EXPRESS_POSTGRES_URL }}
       
       - name: Output migration status
         working-directory: ./express
