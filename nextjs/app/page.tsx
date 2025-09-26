@@ -1,6 +1,7 @@
 
 import { NExtjsFormWithSuspense } from "@/components/forms/nextjs";
 import { ExpressFormWithSuspense } from "@/components/forms/express";
+import { HonoFormWithSuspense } from "@/components/forms/hono";
 import Link from "next/link";
 
 
@@ -13,6 +14,7 @@ export default function Home() {
         href="https://www.better-auth.com" target="_blank" rel="noopener noreferrer">Better-Auth</Link></h1>
       <NExtjsFormWithSuspense />
       <ExpressFormWithSuspense />
+      <HonoFormWithSuspense />
     </div>
   );
 }

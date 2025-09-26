@@ -1,6 +1,8 @@
-import { transporter } from "./connect";
+import { transporter } from "./connect.js";
 
-export async function send(to: string, subject: string, text: string) {
+export async function sendEmail(
+  { to, subject, text }: { to: string; subject: string; text: string }
+) {
 
   console.log(`Sending email to ${to} with subject "${subject}" and text: ${text}`);
   await transporter.sendMail({

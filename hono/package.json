@@ -2,7 +2,9 @@
   "name": "hono",
   "type": "module",
   "scripts": {
-    "migrate": "drizzle-kit migrate"
+    "migrate": "drizzle-kit migrate",
+    "generate": "drizzle-kit generate",
+    "generate-auth": "npx @better-auth/cli generate --output ./src/lib/db/schema/auth.ts"
   },
   "dependencies": {
     "@hono/node-server": "^1.19.4",
