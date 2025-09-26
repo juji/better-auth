@@ -162,13 +162,15 @@ export function Authenticated({
   onSignOut,
   onChangePassword,
   hello = 'Hello',
-  protectedResourceUrl
+  protectedResourceUrl,
+  onPasskeyRegistration,
 }: {
   session: { user: { name?: string; email: string } },
   onSignOut: () => void
   onChangePassword: (params: OnChangePasswordParams) => void
   hello?: string
   protectedResourceUrl?: string
+  onPasskeyRegistration?: () => void
 }) {
 
   return (
@@ -186,6 +188,19 @@ export function Authenticated({
       <div className="py-1">
         <ChangePasswordForm onChangePassword={onChangePassword} />
       </div>
+
+      { onPasskeyRegistration ? (<div className="pb-1 mb-5">
+        <button
+          onClick={() => {
+            onPasskeyRegistration();
+          }}
+          className="p-2 bg-amber-700 hover:bg-amber-600 text-white font-medium cursor-pointer
+            rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2
+            w-full"
+        >
+          Register Passkey
+        </button> 
+      </div>) : null }
 
       <button
         onClick={() => {

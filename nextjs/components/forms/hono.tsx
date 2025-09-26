@@ -11,6 +11,7 @@ import {
   useSession, 
   signIn, signOut, signUp, 
   requestPasswordReset,
+  passkey,
   changePassword
 } from "@/lib/auth-client-hono" // import the auth client
 
@@ -125,6 +126,7 @@ export function HonoForm() {
         onError?.('An error occurred');
       }
     });
+    
   }
 
   async function handlePasskeyLogin() {
@@ -133,15 +135,19 @@ export function HonoForm() {
       autoFill: true,
       fetchOptions: {
         onSuccess(context) {
-            // Redirect to dashboard after successful authentication
-            window.location.href = "/dashboard";
+          refetch();
         },
         onError(context) {
-            // Handle authentication errors
-            console.error("Authentication failed:", context.error.message);
+          // Handle authentication errors
+          console.error("Authentication failed:", context.error.message);
         }
-    }
+      }
     })
+  }
+
+  async function handlePassKeyRegistration(){
+    console.log("Passkey registration clicked");
+    await passkey.addPasskey()
   }
 
   async function onChangePassword(params: OnChangePasswordParams) {
@@ -182,6 +188,7 @@ export function HonoForm() {
           onSignOut={onSignOut}
           onChangePassword={onChangePassword}
           protectedResourceUrl={process.env.NEXT_PUBLIC_HONO_SERVER + "/protected"}
+          onPasskeyRegistration={handlePassKeyRegistration}
         />
       ) : null }
       {authState === 'register' ? (

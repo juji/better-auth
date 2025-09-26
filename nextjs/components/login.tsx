@@ -108,6 +108,7 @@ export function LoginForm({
             id={emailId}
             name="email"
             type="email"
+            autoComplete="email webauthn"
             required
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md 
               dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -123,6 +124,7 @@ export function LoginForm({
             id={passwordId}
             name="password"
             type="password"
+            autoComplete="current-password webauthn"
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md 
               dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter your password"

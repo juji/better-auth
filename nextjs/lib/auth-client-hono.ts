@@ -9,7 +9,8 @@ export const {
   signUp,
   resetPassword,
   requestPasswordReset,
-  changePassword
+  changePassword,
+  passkey
 } = createAuthClient({
   baseURL: (process.env.NEXT_PUBLIC_HONO_SERVER || "http://localhost:3000") + '/auth',
   plugins: [

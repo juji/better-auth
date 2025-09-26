@@ -3,12 +3,18 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { db } from "./db/index.js";
 import { sendEmail } from "./mailer/index.js";
 
-import { users, accounts, verifications, sessions } from "./db/schema/auth.js";
 import { createAuthMiddleware } from "better-auth/api";
 import { magicLink } from "better-auth/plugins";
 import { openAPI } from "better-auth/plugins"
 import { passkey } from "better-auth/plugins/passkey"
 
+import { 
+  users, 
+  accounts, 
+  verifications, 
+  sessions, 
+  passkeys 
+} from "./db/schema/auth.js";
 
 
 export const auth = betterAuth({
@@ -77,6 +83,7 @@ export const auth = betterAuth({
       accounts: accounts,
       sessions: sessions,
       verifications: verifications,
+      passkeys: passkeys
     },
   }),
   advanced: {
