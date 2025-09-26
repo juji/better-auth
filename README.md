@@ -16,7 +16,7 @@ Every auth method have email + password auth. Also comes with forgot-password an
 
 The Application is hosted in https://better-auth-nextjs-tawny.vercel.app/
 
-It is a nextjs app that contains the three auth method.
+It is the nextjs app. Also contains the three auth method.
 
 ## Database & ORM
 
