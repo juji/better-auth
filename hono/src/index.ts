@@ -18,13 +18,19 @@ app.use('/*', cors({
 
 app.on(["POST", "GET"], "/auth/*", (c) => auth.handler(c.req.raw));
 
-const welcomeStrings = [
-  'Hello Hono!',
-  'Auth docs at <a href="https://better-auth-hono-ashen.vercel.app/auth/reference">https://better-auth-hono-ashen.vercel.app/auth/reference</a>',
-]
+const welcomeStrings = `
+<html><body style="margin: 0; padding: 0;">
+<div style="background-color: #000; color: #eaeaea; padding: 16px; font-family: Arial, sans-serif; height: 100vh;">
+  <p>Hello From Hono!</p>
+  <p>Auth docs at <a style="color: #c2ffc2;" 
+    href="https://better-auth-hono-ashen.vercel.app/auth/reference">
+    https://better-auth-hono-ashen.vercel.app/auth/reference</a></p>
+</div>
+</body></html>
+`
 
 app.get('/', (c) => {
-  return c.html(welcomeStrings.join('<br />'))
+  return c.html(welcomeStrings)
 })
 
 app.get('/protected', authMiddleware, (c) => {
