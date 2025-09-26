@@ -13,11 +13,11 @@ export default function Home() {
         className="text-blue-600 hover:text-blue-800 dark:text-blue-400"
         href="https://www.better-auth.com" target="_blank" rel="noopener noreferrer">Better-Auth</Link></h1>
       <hr className="my-8 w-full border-t border-gray-300 dark:border-gray-700" />
+      <HonoFormWithSuspense />
+      <hr className="my-8 w-full border-t border-gray-300 dark:border-gray-700" />
       <NExtjsFormWithSuspense />
       <hr className="my-8 w-full border-t border-gray-300 dark:border-gray-700" />
       <ExpressFormWithSuspense />
-      <hr className="my-8 w-full border-t border-gray-300 dark:border-gray-700" />
-      <HonoFormWithSuspense />
     </div>
   );
 }
