@@ -42,10 +42,18 @@ export const auth = betterAuth({
           ctx.params.id === 'github' ||
           ctx.params.id === 'google'
         ) {
+
+          console.log(ctx.context)
           
           const location = ctx.context.responseHeaders?.get('location');
+          const cookie = ctx.context.responseHeaders?.get('set-cookie');
           if(!location) {
             console.error('No location header found');
+            return;
+          }
+
+          if(!cookie) {
+            console.error('No set-cookie header found');
             return;
           }
           
@@ -60,6 +68,16 @@ export const auth = betterAuth({
           // since CORS_ORIGINS is expected to be multiple
           // Redirect to frontend
           ctx.setHeader('location', `${process.env.CORS_ORIGINS}${error ? `?honoerror=${error}` : ''}`);
+
+          const cookieParts = cookie.split(';'); // get only the first part
+          const cookieNameValue = cookieParts[0].split('=');
+          ctx.setCookie(cookieNameValue[0], cookieNameValue[1], {
+            httpOnly: true,
+            secure: process.env.BETTER_AUTH_URL?.startsWith("https") ? true : false,
+            sameSite: process.env.BETTER_AUTH_URL?.startsWith("https") ? "none" : "lax",
+            path: '/',
+            partitioned: true // New browser standards will mandate this for foreign cookies
+          });
 
         }
       }
