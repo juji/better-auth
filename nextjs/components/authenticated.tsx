@@ -51,6 +51,32 @@ export function Authenticated({
   const oldPasswordId = useId()
   const newPasswordId = useId()
 
+  function changePassword(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    const oldPassword = formData.get('oldPassword') as string;
+    const newPassword = formData.get('newPassword') as string;
+    setIsChangingPassword(true);
+    onChangePassword({
+      oldPassword,
+      newPassword,
+      fetchOptions: {
+        onSuccess: () => {
+          setChangePasswordError(null);
+          setIsChangingPassword(false);
+          setChangePasswordSuccess('Password changed successfully');
+          form.reset();
+        },
+        onError: (err) => {
+          setChangePasswordError(err);
+          setIsChangingPassword(false);
+          form.reset();
+        }
+      }
+    });
+  }
+
   return (
     <div className="p-6 bg-white dark:bg-gray-900 rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-4">{hello}!</h2>
@@ -59,27 +85,7 @@ export function Authenticated({
 
       <div className="my-6 p-6 rounded-lg bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700">
 
-        <form onSubmit={(e) => {
-          e.preventDefault();
-          const formData = new FormData(e.currentTarget);
-          const oldPassword = formData.get('oldPassword') as string;
-          const newPassword = formData.get('newPassword') as string;
-          onChangePassword({ 
-            oldPassword, 
-            newPassword,
-            fetchOptions: {
-              onSuccess: () => {
-                setChangePasswordError(null);
-                setIsChangingPassword(false);
-                setChangePasswordSuccess('Password changed successfully');
-              },
-              onError: (err) => {
-                setChangePasswordError(err);
-                setIsChangingPassword(false);
-              }
-            }
-          });
-        }}>
+        <form onSubmit={changePassword}>
           <h3>Change Password</h3>
           {changePasswordSuccess && <p className="text-green-500">{changePasswordSuccess}</p>}
           {changePasswordError && <p className="text-red-500">{changePasswordError}</p>}
@@ -110,9 +116,10 @@ export function Authenticated({
             disabled={isChangingPassword}
             type="submit"
             className="mb-4 py-2 px-4 bg-green-600 hover:bg-green-700 text-white font-medium 
-              rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+              rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2
+              disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Change Password
+            {isChangingPassword ? 'Changing Password...' : 'Change Password'}
           </button>
         </form>
       </div>
