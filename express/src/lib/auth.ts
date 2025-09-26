@@ -1,9 +1,9 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
-import { db } from "@/db";
-import { sendEmail } from "./mailer";
+import { db } from "./db/index.js";
+import { sendEmail } from "./mailer/index.js";
 
-import { users, accounts, verifications, sessions } from "@/db/schema/auth";
+import { users, accounts, verifications, sessions } from "./db/schema/auth.js";
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
@@ -16,9 +16,6 @@ export const auth = betterAuth({
       verifications: verifications,
     },
   }),
-  advanced: {
-    cookiePrefix: "j-nextjs", // custom cookie prefix
-  },
   emailAndPassword: {    
     enabled: true,
     sendResetPassword: async ({user, url}) => {

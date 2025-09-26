@@ -34,14 +34,17 @@ export function NextjsForm() {
   useEffect(() => {
 
     console.log('state', state);
+    console.log('session', session);
+
     // If the user is already logged in
-    if (session) {
+    if (session?.user?.id) {
       setAuthState('authenticated')
     }else if(state === 'nextjs-register' || state === 'nextjs-login' || state === 'nextjs-forgot-password'){
       setAuthState(state.replace('nextjs-', '') as 'register'|'login'|'forgot-password');
     }else{
       setAuthState('login')
     }
+
   }, [session, state ]);
 
   async function onSignOut() {
