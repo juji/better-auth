@@ -35,3 +35,4 @@ We are using [DrizzleOrm](https://orm.drizzle.team) to connect to postgres.
 The Hono App has these:
 
 - Github oAuth
+- Google oAuth
