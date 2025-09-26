@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Suspense } from 'react';
@@ -82,6 +82,10 @@ export function ResetPassword({
     });
   }
 
+  const emailId = useId();
+  const passwordId = useId();
+  const confirmPasswordId = useId();
+
   return (
     <div className={`p-6 bg-white dark:bg-gray-900 rounded-lg shadow-md ${className}`}>
       <h2 className="text-2xl font-bold mb-6">{title}</h2>
@@ -114,11 +118,11 @@ export function ResetPassword({
           
           <form onSubmit={onSubmitLocal} className="space-y-4">
             <div>
-              <label htmlFor="password" className="block text-sm font-medium mb-1">
+              <label htmlFor={passwordId} className="block text-sm font-medium mb-1">
                 New Password
               </label>
               <input
-                id="password"
+                id={passwordId}
                 name="password"
                 type="password"
                 required
@@ -130,11 +134,11 @@ export function ResetPassword({
             </div>
 
             <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium mb-1">
+              <label htmlFor={confirmPasswordId} className="block text-sm font-medium mb-1">
                 Confirm New Password
               </label>
               <input
-                id="confirmPassword"
+                id={confirmPasswordId}
                 name="confirmPassword"
                 type="password"
                 required

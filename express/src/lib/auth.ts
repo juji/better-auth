@@ -6,6 +6,8 @@ import { sendEmail } from "./mailer/index.js";
 import { users, accounts, verifications, sessions } from "./db/schema/auth.js";
 
 export const auth = betterAuth({
+  trustedOrigins: process.env.CORS_ORIGINS?.split(",") || [],
+  basePath: "/auth",
   database: drizzleAdapter(db, {
     provider: "pg", // or "mysql", "sqlite",
     usePlural: true,
@@ -16,6 +18,9 @@ export const auth = betterAuth({
       verifications: verifications,
     },
   }),
+  advanced: {
+    cookiePrefix: "j-express", // custom cookie prefix
+  },
   emailAndPassword: {    
     enabled: true,
     sendResetPassword: async ({user, url}) => {

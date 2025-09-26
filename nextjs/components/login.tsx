@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useId, useState } from 'react';
 
 export type OnSignInParams = { 
   email: string
@@ -57,6 +57,10 @@ export function LoginForm({
     });
   }
 
+  const emailId = useId();
+  const passwordId = useId();
+  const rememberId = useId();
+
   return (
     <div className={`p-6 bg-white dark:bg-gray-900 rounded-lg shadow-md ${className}`}>
       <h2 className="text-2xl font-bold mb-6">{title}</h2>
@@ -67,11 +71,11 @@ export function LoginForm({
       )}
       <form onSubmit={onSubmit} className="space-y-4">
         <div>
-          <label htmlFor="email" className="block text-sm font-medium mb-1">
+          <label htmlFor={emailId} className="block text-sm font-medium mb-1">
             Email Address
           </label>
           <input
-            id="email"
+            id={emailId}
             name="email"
             type="email"
             required
@@ -82,11 +86,11 @@ export function LoginForm({
         </div>
 
         <div>
-          <label htmlFor="password" className="block text-sm font-medium mb-1">
+          <label htmlFor={passwordId} className="block text-sm font-medium mb-1">
             Password
           </label>
           <input
-            id="password"
+            id={passwordId}
             name="password"
             type="password"
             required
@@ -99,13 +103,13 @@ export function LoginForm({
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             <input
-              id="remember"
+              id={rememberId}
               name="remember"
               type="checkbox"
               className="h-4 w-4 text-blue-600 focus:ring-blue-500 
                 border-gray-300 rounded"
             />
-            <label htmlFor="remember" className="ml-2 block text-sm text-gray-700 dark:text-gray-300">
+            <label htmlFor={rememberId} className="ml-2 block text-sm text-gray-700 dark:text-gray-300">
               Remember me
             </label>
           </div>

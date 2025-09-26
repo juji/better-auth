@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useId, useState } from 'react';
 
 export type ForgotPasswordSubmitParams = {
   email: string;
@@ -47,6 +47,8 @@ export function ForgotPassword({
 
   }
 
+  const emailId = useId();
+
   return (
     <div className={`p-6 bg-white dark:bg-gray-900 rounded-lg shadow-md ${className}`}>
       <h2 className="text-2xl font-bold mb-6">{title}</h2>
@@ -79,11 +81,11 @@ export function ForgotPassword({
           
           <form onSubmit={onSubmitLocal} className="space-y-4">
             <div>
-              <label htmlFor="email" className="block text-sm font-medium mb-1">
+              <label htmlFor={emailId} className="block text-sm font-medium mb-1">
                 Email Address
               </label>
               <input
-                id="email"
+                id={emailId}
                 name="email"
                 type="email"
                 required

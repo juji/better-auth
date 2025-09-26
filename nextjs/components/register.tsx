@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useId, useState } from 'react';
 
 export type onRegisterParams = {
   email: string
@@ -61,6 +61,11 @@ export function RegisterForm({ className = '', onRegister, title, onLoginClicked
 
   }
 
+  const nameId = useId();
+  const emailId = useId();
+  const passwordId = useId();
+  const confirmPasswordId = useId();
+
   return (
     <div className={`p-6 bg-white dark:bg-gray-900 rounded-lg shadow-md ${className}`}>
       <h2 className="text-2xl font-bold mb-6">{title || 'Create an Account'}</h2>
@@ -71,11 +76,11 @@ export function RegisterForm({ className = '', onRegister, title, onLoginClicked
       )}
       <form onSubmit={onSubmit} className="space-y-4">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium mb-1">
+          <label htmlFor={nameId} className="block text-sm font-medium mb-1">
             Full Name
           </label>
           <input
-            id="name"
+            id={nameId}
             name="name"
             type="text"
             required
@@ -86,11 +91,11 @@ export function RegisterForm({ className = '', onRegister, title, onLoginClicked
         </div>
 
         <div>
-          <label htmlFor="email" className="block text-sm font-medium mb-1">
+          <label htmlFor={emailId} className="block text-sm font-medium mb-1">
             Email Address
           </label>
           <input
-            id="email"
+            id={emailId}
             name="email"
             type="email"
             required
@@ -101,11 +106,11 @@ export function RegisterForm({ className = '', onRegister, title, onLoginClicked
         </div>
 
         <div>
-          <label htmlFor="password" className="block text-sm font-medium mb-1">
+          <label htmlFor={passwordId} className="block text-sm font-medium mb-1">
             Password
           </label>
           <input
-            id="password"
+            id={passwordId}
             name="password"
             type="password"
             required
@@ -117,11 +122,11 @@ export function RegisterForm({ className = '', onRegister, title, onLoginClicked
         </div>
 
         <div>
-          <label htmlFor="confirmPassword" className="block text-sm font-medium mb-1">
+          <label htmlFor={confirmPasswordId} className="block text-sm font-medium mb-1">
             Confirm Password
           </label>
           <input
-            id="confirmPassword"
+            id={confirmPasswordId}
             name="confirmPassword"
             type="password"
             required

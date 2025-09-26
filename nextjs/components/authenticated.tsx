@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from "react"
+import { useEffect, useId, useState } from "react"
 
 
 export type OnChangePasswordParams = {
@@ -48,6 +48,8 @@ export function Authenticated({
     }
   },[ changePasswordError ])
 
+  const oldPasswordId = useId()
+  const newPasswordId = useId()
 
   return (
     <div className="p-6 bg-white dark:bg-gray-900 rounded-lg shadow-md">
@@ -83,22 +85,22 @@ export function Authenticated({
           {changePasswordError && <p className="text-red-500">{changePasswordError}</p>}
           <br />
           <div className="mb-4">
-            <label className="block text-sm font-medium mb-1" htmlFor="oldPassword">Old Password</label>
+            <label className="block text-sm font-medium mb-1" htmlFor={oldPasswordId}>Old Password</label>
             <input
               type="password"
               name="oldPassword"
-              id="oldPassword"
+              id={oldPasswordId}
               required
               className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md 
                   dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-medium mb-1" htmlFor="newPassword">New Password</label>
+            <label className="block text-sm font-medium mb-1" htmlFor={newPasswordId}>New Password</label>
             <input
               type="password"
               name="newPassword"
-              id="newPassword"
+              id={newPasswordId}
               required
               className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md 
                   dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
