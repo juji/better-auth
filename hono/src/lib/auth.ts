@@ -6,6 +6,7 @@ import { sendEmail } from "./mailer/index.js";
 import { users, accounts, verifications, sessions } from "./db/schema/auth.js";
 import { createAuthMiddleware } from "better-auth/api";
 import { magicLink } from "better-auth/plugins";
+import { openAPI } from "better-auth/plugins"
 
 
 
@@ -13,6 +14,7 @@ export const auth = betterAuth({
   trustedOrigins: process.env.CORS_ORIGINS?.split(",") || [],
   basePath: "/auth",
   plugins: [
+    openAPI(),
     magicLink({
       sendMagicLink: async ({ email, token, url }, request) => {
         await sendEmail({

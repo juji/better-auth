@@ -34,5 +34,7 @@ We are using [DrizzleOrm](https://orm.drizzle.team) to connect to postgres.
 
 The Hono App has these:
 
-- Github oAuth
-- Google oAuth
+- Enabled Github oAuth
+- Enabled Google oAuth
+- Enabled magic link
+- OpenApi docs at https://better-auth-hono-ashen.vercel.app/auth/reference
