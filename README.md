@@ -18,6 +18,18 @@ The Application is hosted in https://better-auth-nextjs-tawny.vercel.app/
 
 It is a nextjs app that contains the three auth method.
 
+## Database & ORM
+
+Databse is [postgres](https://www.postgresql.org).. local db on dev, and remote db (Neon, Supabase, Aiven) on live.
+
+Check them out:
+
+- https://neon.com (Express)
+- https://supabase.com (Hono)
+- https://aiven.io (Next.js)
+
+We are using [DrizzleOrm](https://orm.drizzle.team) to connect to postgres.
+
 ## Hono: the one with the most feature.
 
 The Hono App has these:
