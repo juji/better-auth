@@ -1,14 +1,14 @@
 # Better Auth - checking out the new Auth lib.
 
-So, what should we build..?
+So, what did we build..?
 
-- A next.js app
-- A Hono server
-- an Express server
+- A [Next.js](nextjs.org) app
+- A [Hono](hono.dev) server
+- an [Express](https://expressjs.com) server
 
-Two auth method should be created:
+Three auth method were created:
 
-- Auth with nextjs's api directory
+- Auth with Nextjs's api directory
 - Auth with a hono server
 - Auth with an Express server
 
