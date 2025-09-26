@@ -17,22 +17,22 @@ export const auth = betterAuth({
       if(ctx.path === '/callback/:id'){
         if(ctx.params.id === 'github') {
           
-          // Redirect to frontend
           const location = ctx.context.responseHeaders?.get('location');
           if(!location) {
             console.error('No location header found');
             return;
           }
-
+          
           const url = new URL(location);
           const error = new URLSearchParams(url.search).get('error');
-
+          
           // console.log('location', location);
           // console.log('error', error);
-
+          
           // use CORS_ORIGINS because it is the frontend URL
           // this will not work universally
           // since CORS_ORIGINS is expected to be multiple
+          // Redirect to frontend
           ctx.setHeader('location', `${process.env.CORS_ORIGINS}${error ? `?honoerror=${error}` : ''}`);
 
         }
