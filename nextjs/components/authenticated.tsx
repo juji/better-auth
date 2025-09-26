@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useId, useState } from "react"
+import useSWR from 'swr'
 
 
 export type OnChangePasswordParams = {
@@ -12,16 +13,50 @@ export type OnChangePasswordParams = {
   }
 }
 
+const fetcher = (url: string, options?: RequestInit) => fetch(url, {
+  ...options||{},
+  ...url.startsWith('http') && !url.startsWith(window.location.origin) ? {
+    mode: 'cors',
+    credentials: 'include'
+  } : {}
+}).then(res => res.json())
+
+function AccessProtectedResource({ url }: { url: string }) {
+
+  const { data, error, isLoading } = useSWR(url, fetcher)
+  const [ showData, setShowData ] = useState<boolean>(false);
+
+  function toggleData() {
+    setShowData(!showData);
+  }
+
+  return isLoading ? <p>Accessing protected resource...</p> : 
+    error ? <p className="text-red-500">Error accessing protected resource: {error instanceof Error ? error.message : 'Unknown error'}</p> : 
+    <div>
+      <p className="text-green-500">
+        Protected resource accessed successfully:&nbsp;
+        <button className={`text-white underline cursor-pointer`} onClick={toggleData}>{showData ? 'Hide data' : 'Show data'}</button>
+      </p>
+      {showData ? (
+        <blockquote className="p-4 bg-gray-100 dark:bg-gray-800 rounded my-2 overflow-x-scroll">
+          <pre>{JSON.stringify(data, null, 2)}</pre>
+        </blockquote> 
+      ) : null}
+    </div>
+}
+
 export function Authenticated({
   session,
   onSignOut,
   onChangePassword,
-  hello = 'Hello'
+  hello = 'Hello',
+  protectedResourceUrl
 }: {
   session: { user: { name?: string; email: string } },
   onSignOut: () => void
   onChangePassword: (params: OnChangePasswordParams) => void
   hello?: string
+  protectedResourceUrl?: string
 }) {
 
   const [ changePasswordError, setChangePasswordError ] = useState<string | null>(null);
@@ -82,6 +117,12 @@ export function Authenticated({
       <h2 className="text-2xl font-bold mb-4">{hello}!</h2>
       <p className="mb-4">Welcome, {session.user.name || session.user.email}!</p>
       <p className="mb-4">You are logged in with the email: {session.user.email}</p>
+
+      {protectedResourceUrl ? (
+        <div className="py-4">
+          <AccessProtectedResource url={protectedResourceUrl} />
+        </div>
+      ) : null}
 
       <div className="my-6 p-6 rounded-lg bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700">
 

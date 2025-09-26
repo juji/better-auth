@@ -1,10 +1,14 @@
 import { Hono } from 'hono'
 
-import { auth } from "./lib/auth.js"; // path to your auth file
+import { auth, type Session } from "./lib/auth.js"; // path to your auth file
 import { cors } from "hono/cors";
+import { authMiddleware } from './middlewares/auth.js';
 
+type Variables = {
+  session?: Session
+}
 
-const app = new Hono()
+const app = new Hono<{ Variables: Variables }>()
 
 app.use('/*', cors({
   origin: process.env.CORS_ORIGINS?.split(",") || [],
@@ -21,6 +25,10 @@ const welcomeStrings = [
 
 app.get('/', (c) => {
   return c.text(welcomeStrings.join('\n\n'))
+})
+
+app.get('/protected', authMiddleware, (c) => {
+  return c.json({ message: 42, authSession: c.get('session') });
 })
 
 export default app

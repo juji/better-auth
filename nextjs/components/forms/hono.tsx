@@ -142,6 +142,7 @@ export function HonoForm() {
           session={session} 
           onSignOut={onSignOut}
           onChangePassword={onChangePassword}
+          protectedResourceUrl={process.env.NEXT_PUBLIC_HONO_SERVER + "/protected"}
         />
       ) : null }
       {authState === 'register' ? (

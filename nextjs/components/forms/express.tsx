@@ -142,6 +142,7 @@ export function ExpressForm() {
           session={session} 
           onSignOut={onSignOut}
           onChangePassword={onChangePassword}
+          protectedResourceUrl={process.env.NEXT_PUBLIC_EXPRESS_SERVER + "/protected"}
         />
       ) : null }
       {authState === 'register' ? (

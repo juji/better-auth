@@ -142,6 +142,7 @@ export function NextjsForm() {
           session={session} 
           onSignOut={onSignOut}
           onChangePassword={onChangePassword}
+          protectedResourceUrl="/api/protected"
         />
       ) : null }
       {authState === 'register' ? (

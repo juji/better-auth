@@ -20,11 +20,13 @@ export const auth = betterAuth({
   }),
   advanced: {
     cookiePrefix: "j-auth-hono", // custom cookie prefix
-    // defaultCookieAttributes: {
-    //   sameSite: "none",
-    //   secure: process.env.BETTER_AUTH_URL?.startsWith("https") ? true : false,
-    //   partitioned: true // New browser standards will mandate this for foreign cookies
-    // }
+    ...process.env.BETTER_AUTH_URL?.startsWith('http://localhost') ? {} : {
+      defaultCookieAttributes: {
+        sameSite: "none",
+        secure: process.env.BETTER_AUTH_URL?.startsWith("https") ? true : false,
+        partitioned: true // New browser standards will mandate this for foreign cookies
+      }
+    }
   },
   emailAndPassword: {    
     enabled: true,
@@ -42,4 +44,4 @@ export const auth = betterAuth({
   }
 });
 
-// force build comment
+export type Session = typeof auth.$Infer.Session
