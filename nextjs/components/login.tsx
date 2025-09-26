@@ -19,8 +19,10 @@ type LoginFormProps = {
   title: string
   onRegisterClicked: () => void
   onForgotPasswordClicked: () => void
-  oauthProviders: string[]
+  oauthProviders?: string[]
   authError?: string | null
+  onSubmitMagicLink?: (email: string) => Promise<void>
+  allowMagicLink?: boolean
 }
 
 export function LoginForm({ 
@@ -30,7 +32,9 @@ export function LoginForm({
   onForgotPasswordClicked,
   onSignInSocial,
   oauthProviders = [],
-  authError
+  authError,
+  onSubmitMagicLink,
+  allowMagicLink
 }: LoginFormProps) {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -51,6 +55,18 @@ export function LoginForm({
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
     const rememberMe = formData.get('remember') === 'on';
+
+    if(!password && !allowMagicLink) {
+      setError('Password is required');
+      setIsLoading(false);
+      return;
+    }
+    
+    if(!password && allowMagicLink) {
+      await onSubmitMagicLink?.(email);
+      setIsLoading(false);
+      return;
+    }
 
     await onSignIn({ 
       email, 
@@ -105,11 +121,13 @@ export function LoginForm({
             id={passwordId}
             name="password"
             type="password"
-            required
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md 
               dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter your password"
           />
+          {allowMagicLink ? <p
+            className="mt-2 text-sm text-gray-500 dark:text-gray-400 text-right"
+          >Leave password empty to login with magic link</p> : null }
         </div>
 
         <div className="flex items-center justify-between">

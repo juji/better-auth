@@ -18,7 +18,9 @@ type RegisterFormProps = {
   title: string
   onLoginClicked: () => void
   onSignInSocial?: (provider: string) => Promise<void>
-  oauthProviders: string[]
+  oauthProviders?: string[]
+  onSubmitMagicLink?: (email: string) => Promise<void>
+  allowMagicLink?: boolean
 }
 
 export function RegisterForm({ 
@@ -27,7 +29,9 @@ export function RegisterForm({
   title, 
   onLoginClicked,
   onSignInSocial,
-  oauthProviders = []
+  oauthProviders = [],
+  onSubmitMagicLink,
+  allowMagicLink
 }: RegisterFormProps) {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -41,6 +45,18 @@ export function RegisterForm({
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
     const confirmPassword = formData.get('confirmPassword') as string;
+
+    if(!password && !allowMagicLink) {
+      setError('Password is required');
+      setIsLoading(false);
+      return;
+    }
+
+    if(!password && allowMagicLink) {
+      await onSubmitMagicLink?.(email);
+      setIsLoading(false);
+      return;
+    }
 
     if (password !== confirmPassword) {
       setError('Passwords do not match');
@@ -122,12 +138,14 @@ export function RegisterForm({
             id={passwordId}
             name="password"
             type="password"
-            required
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md 
               dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Create a password"
             minLength={8}
           />
+          {allowMagicLink ? <p
+            className="mt-2 text-sm text-gray-500 dark:text-gray-400 text-right"
+          >Leave password empty to register with magic link</p> : null }
         </div>
 
         <div>
@@ -138,12 +156,14 @@ export function RegisterForm({
             id={confirmPasswordId}
             name="confirmPassword"
             type="password"
-            required
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md 
               dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Confirm your password"
             minLength={8}
           />
+          {allowMagicLink ? <p
+            className="mt-2 text-sm text-gray-500 dark:text-gray-400 text-right"
+          >Leave password empty to register with magic link</p> : null }
         </div>
 
         <button

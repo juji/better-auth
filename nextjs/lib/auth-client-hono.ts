@@ -1,4 +1,6 @@
 import { createAuthClient } from "better-auth/react"
+import { magicLinkClient } from "better-auth/client/plugins";
+
 
 export const {
   useSession,
@@ -9,6 +11,9 @@ export const {
   requestPasswordReset,
   changePassword
 } = createAuthClient({
-  baseURL: (process.env.NEXT_PUBLIC_HONO_SERVER || "http://localhost:3000") + '/auth'
+  baseURL: (process.env.NEXT_PUBLIC_HONO_SERVER || "http://localhost:3000") + '/auth',
+  plugins: [
+    magicLinkClient()
+  ]
 })
 

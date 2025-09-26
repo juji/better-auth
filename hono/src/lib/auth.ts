@@ -5,11 +5,24 @@ import { sendEmail } from "./mailer/index.js";
 
 import { users, accounts, verifications, sessions } from "./db/schema/auth.js";
 import { createAuthMiddleware } from "better-auth/api";
+import { magicLink } from "better-auth/plugins";
+
 
 
 export const auth = betterAuth({
   trustedOrigins: process.env.CORS_ORIGINS?.split(",") || [],
   basePath: "/auth",
+  plugins: [
+    magicLink({
+      sendMagicLink: async ({ email, token, url }, request) => {
+        await sendEmail({
+          to: email,
+          subject: "Login With Magic Link",
+          text: `Click the link to login: ${url}\nToken: ${token}`,
+        });
+      }
+    }),
+  ],
   hooks: {
     after: createAuthMiddleware(async (ctx) => {
 

@@ -135,7 +135,7 @@ export function ExpressForm() {
   }
   
   return (
-      <div className="my-4 w-1/2">
+      <div className="my-4 w-1/2 min-w-[354px]">
       { authState === 'authenticated' && session ? (
         <Authenticated 
           hello={'Hello from Express.js'}

@@ -149,8 +149,15 @@ export function HonoForm() {
     refetch();
   }
 
+  async function handleMagicLink(email: string) {
+    await signIn.magicLink({
+      email,
+      callbackURL: window.location.origin + '/'
+    })
+  }
+
   return (
-      <div className="my-4 w-1/2">
+      <div className="my-4 w-1/2 min-w-[354px]">
       { authState === 'authenticated' && session ? (
         <Authenticated 
           hello={'Hello from Hono'}
@@ -168,6 +175,8 @@ export function HonoForm() {
           onRegister={onRegister}
           oauthProviders={['github', 'google']}
           onSignInSocial={handleSignInSocial}
+          allowMagicLink={true}
+          onSubmitMagicLink={handleMagicLink}
         />
       ) : null}     
       {authState === 'login' ? (
@@ -180,6 +189,8 @@ export function HonoForm() {
           oauthProviders={['github', 'google']}
           onSignInSocial={handleSignInSocial}
           authError={errorState}
+          allowMagicLink={true}
+          onSubmitMagicLink={handleMagicLink}
         />
       ) : null}
       {authState === 'forgot-password' ? (
