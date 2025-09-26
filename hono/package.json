@@ -4,7 +4,8 @@
   "scripts": {
     "migrate": "drizzle-kit migrate",
     "generate": "drizzle-kit generate",
-    "generate-auth": "npx @better-auth/cli generate --output ./src/lib/db/schema/auth.ts"
+    "generate-auth": "npx @better-auth/cli generate --output ./src/lib/db/schema/auth.ts",
+    "dev": "tsx watch src/dev.ts"
   },
   "dependencies": {
     "@hono/node-server": "^1.19.4",

@@ -4,10 +4,47 @@ import { db } from "./db/index.js";
 import { sendEmail } from "./mailer/index.js";
 
 import { users, accounts, verifications, sessions } from "./db/schema/auth.js";
+import { createAuthMiddleware } from "better-auth/api";
+
 
 export const auth = betterAuth({
   trustedOrigins: process.env.CORS_ORIGINS?.split(",") || [],
   basePath: "/auth",
+  hooks: {
+    after: createAuthMiddleware(async (ctx) => {
+
+      // Special handling for oAuth callbacks to redirect to frontend
+      if(ctx.path === '/callback/:id'){
+        if(ctx.params.id === 'github') {
+          
+          // Redirect to frontend
+          const location = ctx.context.responseHeaders?.get('location');
+          if(!location) {
+            console.error('No location header found');
+            return;
+          }
+
+          const url = new URL(location);
+          const error = new URLSearchParams(url.search).get('error');
+
+          // console.log('location', location);
+          // console.log('error', error);
+
+          // use CORS_ORIGINS because it is the frontend URL
+          // this will not work universally
+          // since CORS_ORIGINS is expected to be multiple
+          ctx.setHeader('location', `${process.env.CORS_ORIGINS}${error ? `?honoerror=${error}` : ''}`);
+
+        }
+      }
+    }),
+  },
+  socialProviders: {
+    github: { 
+      clientId: process.env.GITHUB_CLIENT_ID as string, 
+      clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
+    }, 
+  },
   database: drizzleAdapter(db, {
     provider: "pg", // or "mysql", "sqlite",
     usePlural: true,

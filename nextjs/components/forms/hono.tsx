@@ -22,9 +22,17 @@ import type { OnChangePasswordParams } from "@/components/authenticated";
 export function HonoForm() {
 
   const [ authState, setAuthState ] = useState<'register'|'login'|'forgot-password'|'authenticated'|null>(null);
+  const [ errorState, setError ] = useState<string | null>(null);
 
   const searchParams = useSearchParams();
   const state = searchParams.get('state');
+  const honoError = searchParams.get('honoerror');
+
+  useEffect(() => {
+    if(honoError) {
+      setError(honoError);
+    }
+  }, [honoError]);
 
   const { 
     data: session, 
@@ -133,7 +141,14 @@ export function HonoForm() {
     });
     refetch();
   }
-  
+
+  async function handleSignInSocial(provider: string) {
+    await signIn.social({
+      provider: provider,
+    })
+    refetch();
+  }
+
   return (
       <div className="my-4 w-1/2">
       { authState === 'authenticated' && session ? (
@@ -151,6 +166,8 @@ export function HonoForm() {
           title="Sign Up (Hono)"
           onLoginClicked={() => setAuthState('login')}
           onRegister={onRegister}
+          oauthProviders={['github']}
+          onSignInSocial={handleSignInSocial}
         />
       ) : null}     
       {authState === 'login' ? (
@@ -160,6 +177,9 @@ export function HonoForm() {
           onRegisterClicked={() => setAuthState('register')}
           onForgotPasswordClicked={() => setAuthState('forgot-password')}
           onSignIn={onSignIn}
+          oauthProviders={['github']}
+          onSignInSocial={handleSignInSocial}
+          authError={errorState}
         />
       ) : null}
       {authState === 'forgot-password' ? (

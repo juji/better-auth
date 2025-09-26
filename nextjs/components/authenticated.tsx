@@ -45,19 +45,11 @@ function AccessProtectedResource({ url }: { url: string }) {
     </div>
 }
 
-export function Authenticated({
-  session,
-  onSignOut,
+function ChangePasswordForm({
   onChangePassword,
-  hello = 'Hello',
-  protectedResourceUrl
-}: {
-  session: { user: { name?: string; email: string } },
-  onSignOut: () => void
+}:{
   onChangePassword: (params: OnChangePasswordParams) => void
-  hello?: string
-  protectedResourceUrl?: string
-}) {
+}){
 
   const [ changePasswordError, setChangePasswordError ] = useState<string | null>(null);
   const [ changePasswordSuccess, setChangePasswordSuccess ] = useState<string | null>(null);
@@ -112,22 +104,18 @@ export function Authenticated({
     });
   }
 
+  const [ isOpen, setIsOpen ] = useState<boolean>(false);
+
   return (
-    <div className="p-6 bg-white dark:bg-gray-900 rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-4">{hello}!</h2>
-      <p className="mb-4">Welcome, {session.user.name || session.user.email}!</p>
-      <p className="mb-4">You are logged in with the email: {session.user.email}</p>
-
-      {protectedResourceUrl ? (
-        <div className="py-4">
-          <AccessProtectedResource url={protectedResourceUrl} />
-        </div>
-      ) : null}
-
       <div className="my-6 p-6 rounded-lg bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700">
 
-        <form onSubmit={changePassword}>
+        <div className="flex justify-between">
           <h3>Change Password</h3>
+          <button type="button" 
+          onClick={() => setIsOpen(!isOpen)}
+          className="cursor-pointer">{isOpen ? 'Close' : 'Open'}</button>
+        </div>
+        { isOpen ? (<form onSubmit={changePassword}>
           {changePasswordSuccess && <p className="text-green-500">{changePasswordSuccess}</p>}
           {changePasswordError && <p className="text-red-500">{changePasswordError}</p>}
           <br />
@@ -156,13 +144,47 @@ export function Authenticated({
           <button
             disabled={isChangingPassword}
             type="submit"
-            className="mb-4 py-2 px-4 bg-green-600 hover:bg-green-700 text-white font-medium 
+            className="mt-2 mb-0 py-2 px-4 bg-green-600 hover:bg-green-700 text-white font-medium 
               rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2
               disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isChangingPassword ? 'Changing Password...' : 'Change Password'}
           </button>
-        </form>
+        </form>) : null }
+        
+      </div>
+  );
+
+}
+
+export function Authenticated({
+  session,
+  onSignOut,
+  onChangePassword,
+  hello = 'Hello',
+  protectedResourceUrl
+}: {
+  session: { user: { name?: string; email: string } },
+  onSignOut: () => void
+  onChangePassword: (params: OnChangePasswordParams) => void
+  hello?: string
+  protectedResourceUrl?: string
+}) {
+
+  return (
+    <div className="p-6 bg-white dark:bg-gray-900 rounded-lg shadow-md">
+      <h2 className="text-2xl font-bold mb-4">{hello}!</h2>
+      <p className="mb-4">Welcome, {session.user.name || session.user.email}!</p>
+      <p className="mb-4">You are logged in with the email: {session.user.email}</p>
+
+      {protectedResourceUrl ? (
+        <div className="py-1">
+          <AccessProtectedResource url={protectedResourceUrl} />
+        </div>
+      ) : null}
+
+      <div className="py-1">
+        <ChangePasswordForm onChangePassword={onChangePassword} />
       </div>
 
       <button

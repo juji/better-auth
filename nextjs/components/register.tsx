@@ -17,9 +17,18 @@ type RegisterFormProps = {
   onRegister: (params: onRegisterParams) => Promise<void>
   title: string
   onLoginClicked: () => void
+  onSignInSocial?: (provider: string) => Promise<void>
+  oauthProviders: string[]
 }
 
-export function RegisterForm({ className = '', onRegister, title, onLoginClicked }: RegisterFormProps) {
+export function RegisterForm({ 
+  className = '', 
+  onRegister, 
+  title, 
+  onLoginClicked,
+  onSignInSocial,
+  oauthProviders = []
+}: RegisterFormProps) {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -154,6 +163,36 @@ export function RegisterForm({ className = '', onRegister, title, onLoginClicked
           Sign in
         </button>
       </p>
+
+      { oauthProviders.length > 0 ? (<>
+        <div className="mt-6">
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-300 dark:border-gray-700" />
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-2 bg-white dark:bg-gray-900 text-gray-500">Or continue with</span>
+            </div>
+          </div> 
+        </div>
+        <div className="mt-6">
+          {oauthProviders.map((provider) => (
+            <button
+              key={provider}
+              type="button"
+              onClick={() => {
+                onSignInSocial?.(provider);
+              }}
+              className="w-full mb-2 py-2 px-4 border border-gray-300 dark:border-gray-700 rounded-md 
+                bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 
+                dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 
+                focus:ring-offset-2 transition-colors flex items-center justify-center"
+            >
+              Register with {provider}
+            </button>
+          ))}
+        </div>
+      </>) : null }
     </div>
   );
 }
