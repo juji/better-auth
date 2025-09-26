@@ -20,11 +20,11 @@ app.on(["POST", "GET"], "/auth/*", (c) => auth.handler(c.req.raw));
 
 const welcomeStrings = [
   'Hello Hono!',
-  'To learn more about Hono on Vercel, visit https://vercel.com/docs/frameworks/backend/hono'
+  'Auth docs at <a href="https://better-auth-hono-ashen.vercel.app/auth/reference">https://better-auth-hono-ashen.vercel.app/auth/reference</a>',
 ]
 
 app.get('/', (c) => {
-  return c.text(welcomeStrings.join('\n\n'))
+  return c.html(welcomeStrings.join('<br />'))
 })
 
 app.get('/protected', authMiddleware, (c) => {
