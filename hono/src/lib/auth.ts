@@ -15,7 +15,10 @@ export const auth = betterAuth({
 
       // Special handling for oAuth callbacks to redirect to frontend
       if(ctx.path === '/callback/:id'){
-        if(ctx.params.id === 'github') {
+        if(
+          ctx.params.id === 'github' ||
+          ctx.params.id === 'google'
+        ) {
           
           const location = ctx.context.responseHeaders?.get('location');
           if(!location) {
@@ -43,7 +46,11 @@ export const auth = betterAuth({
     github: { 
       clientId: process.env.GITHUB_CLIENT_ID as string, 
       clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
-    }, 
+    },
+    google: { 
+      clientId: process.env.GOOGLE_CLIENT_ID as string, 
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+    },
   },
   database: drizzleAdapter(db, {
     provider: "pg", // or "mysql", "sqlite",

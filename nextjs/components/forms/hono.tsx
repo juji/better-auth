@@ -166,7 +166,7 @@ export function HonoForm() {
           title="Sign Up (Hono)"
           onLoginClicked={() => setAuthState('login')}
           onRegister={onRegister}
-          oauthProviders={['github']}
+          oauthProviders={['github', 'google']}
           onSignInSocial={handleSignInSocial}
         />
       ) : null}     
@@ -177,7 +177,7 @@ export function HonoForm() {
           onRegisterClicked={() => setAuthState('register')}
           onForgotPasswordClicked={() => setAuthState('forgot-password')}
           onSignIn={onSignIn}
-          oauthProviders={['github']}
+          oauthProviders={['github', 'google']}
           onSignInSocial={handleSignInSocial}
           authError={errorState}
         />
