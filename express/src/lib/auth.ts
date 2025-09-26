@@ -19,7 +19,7 @@ export const auth = betterAuth({
     },
   }),
   advanced: {
-    cookiePrefix: "j-express", // custom cookie prefix
+    cookiePrefix: "j-auth-express", // custom cookie prefix
   },
   emailAndPassword: {    
     enabled: true,

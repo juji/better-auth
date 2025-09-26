@@ -17,9 +17,9 @@ export const auth = betterAuth({
     },
   }),
   advanced: {
-    cookiePrefix: "j-nextjs", // custom cookie prefix
+    cookiePrefix: "j-auth-nextjs", // custom cookie prefix
   },
-  emailAndPassword: {    
+  emailAndPassword: {
     enabled: true,
     sendResetPassword: async ({user, url}) => {
       await sendEmail({

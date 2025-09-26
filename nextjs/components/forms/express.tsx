@@ -28,13 +28,24 @@ export function ExpressForm() {
 
   const { 
     data: session, 
+    isPending, //loading state
+    error, //error object
     refetch //refetch the session
   } = useSession();
 
   useEffect(() => {
 
-    console.log('state', state);
-    console.log('session', session);
+    // console.log('state', state);
+    // console.log('session', session);
+    // console.log('isPending', isPending);
+    // console.log('error', error);
+
+    if(isPending) return; // still loading
+
+    if(error){
+      setAuthState('login'); // on error, show login form
+      return;
+    }
 
     // If the user is already logged in
     if (session?.user?.id) {
@@ -45,7 +56,7 @@ export function ExpressForm() {
       setAuthState('login')
     }
 
-  }, [session, state ]);
+  }, [session, state, isPending, error ]);
 
   async function onSignOut() {
     await signOut();
