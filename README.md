@@ -20,7 +20,7 @@ It is a nextjs app that contains the three auth method.
 
 ## Database & ORM
 
-Databse is [postgres](https://www.postgresql.org).. local db on dev, and remote db (Neon, Supabase, Aiven) on live.
+Database is [postgres](https://www.postgresql.org).. local db on dev, and remote db (Neon, Supabase, Aiven) on live.
 
 Check them out:
 
