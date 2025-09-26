@@ -18,7 +18,7 @@ The Application is hosted in https://better-auth-nextjs-tawny.vercel.app/
 
 It is a nextjs app that contains the three auth method.
 
-# Hono: the one with the most feature.
+## Hono: the one with the most feature.
 
 The Hono App has these:
 
