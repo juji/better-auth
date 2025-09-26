@@ -20,11 +20,11 @@ export const auth = betterAuth({
   }),
   advanced: {
     cookiePrefix: "j-auth-express", // custom cookie prefix
-    defaultCookieAttributes: {
-      sameSite: "none",
-      secure: process.env.BETTER_AUTH_URL?.startsWith("https") ? true : false,
-      partitioned: true // New browser standards will mandate this for foreign cookies
-    }
+    // defaultCookieAttributes: {
+    //   sameSite: "none",
+    //   secure: process.env.BETTER_AUTH_URL?.startsWith("https") ? true : false,
+    //   partitioned: true // New browser standards will mandate this for foreign cookies
+    // }
   },
   emailAndPassword: {    
     enabled: true,
