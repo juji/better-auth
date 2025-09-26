@@ -127,6 +127,23 @@ export function HonoForm() {
     });
   }
 
+  async function handlePasskeyLogin() {
+    console.log("Passkey login clicked");
+    await signIn.passkey({
+      autoFill: true,
+      fetchOptions: {
+        onSuccess(context) {
+            // Redirect to dashboard after successful authentication
+            window.location.href = "/dashboard";
+        },
+        onError(context) {
+            // Handle authentication errors
+            console.error("Authentication failed:", context.error.message);
+        }
+    }
+    })
+  }
+
   async function onChangePassword(params: OnChangePasswordParams) {
     await changePassword({
       currentPassword: params.oldPassword,
@@ -191,6 +208,7 @@ export function HonoForm() {
           authError={errorState}
           allowMagicLink={true}
           onSubmitMagicLink={handleMagicLink}
+          onPasskeyLogin={handlePasskeyLogin}
         />
       ) : null}
       {authState === 'forgot-password' ? (

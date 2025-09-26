@@ -23,6 +23,7 @@ type LoginFormProps = {
   authError?: string | null
   onSubmitMagicLink?: (email: string) => Promise<void>
   allowMagicLink?: boolean
+  onPasskeyLogin?: () => Promise<void> 
 }
 
 export function LoginForm({ 
@@ -34,7 +35,8 @@ export function LoginForm({
   oauthProviders = [],
   authError,
   onSubmitMagicLink,
-  allowMagicLink
+  allowMagicLink,
+  onPasskeyLogin
 }: LoginFormProps) {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -171,7 +173,7 @@ export function LoginForm({
         </button>
       </p>
 
-      { oauthProviders.length > 0 ? (<>
+      { onPasskeyLogin || oauthProviders.length > 0 ? (
         <div className="mt-6">
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
@@ -182,6 +184,9 @@ export function LoginForm({
             </div>
           </div> 
         </div>
+      ) : null }
+
+      { oauthProviders.length > 0 ? (<>
         <div className="mt-6">
           {oauthProviders.map((provider) => (
             <button
@@ -200,6 +205,21 @@ export function LoginForm({
           ))}
         </div>
       </>) : null }
+
+      { onPasskeyLogin ? (
+        <button
+              type="button"
+              onClick={() => {
+                onPasskeyLogin?.();
+              }}
+              className="w-full mb-2 py-2 px-4 border border-gray-300 dark:border-gray-700 rounded-md 
+                bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 
+                dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 
+                focus:ring-offset-2 transition-colors flex items-center justify-center"
+            >
+              Sign in with passkey
+            </button>
+      ) : null }
 
     </div>
   );
