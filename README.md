@@ -38,5 +38,6 @@ The Hono App has these features:
 - Google oAuth
 - Magic Link login
 - Passkwy login
+- Multiple Session support
 - OpenApi docs at https://better-auth-honojujiplay.com/auth/reference
 
