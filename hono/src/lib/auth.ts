@@ -108,15 +108,21 @@ export const auth = betterAuth({
   }),
   advanced: {
     cookiePrefix: "j-auth-hono", // custom cookie prefix
+    // whether to use cross subdomain cookies
     ...process.env.BETTER_AUTH_URL?.startsWith('http://localhost') ? {} : {
-      defaultCookieAttributes: {
-        sameSite: "none",
+      crossSubDomainCookies: {
+        enabled: true,
         domain: process.env.CORS_ORIGIN?.replace('http://', '').replace('https://', ''),
-        httpOnly: true,
-        secure: process.env.BETTER_AUTH_URL?.startsWith("https") ? true : false,
-        partitioned: true // New browser standards will mandate this for foreign cookies
       }
-    }
+    }, 
+    // ...process.env.BETTER_AUTH_URL?.startsWith('http://localhost') ? {} : {
+    //   defaultCookieAttributes: {
+    //     sameSite: "none",
+    //     httpOnly: true,
+    //     secure: process.env.BETTER_AUTH_URL?.startsWith("https") ? true : false,
+    //     partitioned: true // New browser standards will mandate this for foreign cookies
+    //   }
+    // }
   },
   emailAndPassword: {    
     enabled: true,
