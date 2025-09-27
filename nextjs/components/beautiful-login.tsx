@@ -30,33 +30,28 @@ export default function BeautifulLogin() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-black flex items-center justify-center p-4">
       <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        {/* Left side - Heading and description */}
-        <AuthHeader />
+        {/* Left side - Heading and description or logged in state */}
+        {session && !shouldShowForm ? (
+          <LoggedIn />
+        ) : (
+          <AuthHeader />
+        )}
 
         {/* Right side - Login form or success state */}
         <div className="flex justify-center lg:justify-end">
           <div className="w-full max-w-md">
-            {/* Glassmorphism card */}
-            <div className="backdrop-blur-lg bg-black/20 border border-white/10 rounded-2xl p-8 shadow-2xl">
-              {session && !shouldShowForm ? (
-                <LoggedIn />
-              ) : (
-                /* Login/Register forms */
-                <>
+            {!session ? (
+              /* Login/Register forms */
+              <>
 
-                  {currentView === 'login' ? (
-                    <LoginForm onSwitchToRegister={handleSwitchToRegister} />
-                  ) : (
-                    <RegisterForm onSwitchToLogin={handleSwitchToLogin} />
-                  )}
+                {currentView === 'login' ? (
+                  <LoginForm onSwitchToRegister={handleSwitchToRegister} />
+                ) : (
+                  <RegisterForm onSwitchToLogin={handleSwitchToLogin} />
+                )}
 
-                </>
-              )}
-
-              {/* Decorative elements */}
-              <div className="absolute -top-4 -right-4 w-8 h-8 bg-purple-500/20 rounded-full blur-sm"></div>
-              <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-pink-500/20 rounded-full blur-sm"></div>
-            </div>
+              </>
+            ) : null}
           </div>
         </div>
       </div>

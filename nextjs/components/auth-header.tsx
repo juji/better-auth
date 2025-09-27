@@ -7,7 +7,7 @@ export function AuthHeader() {
           Better Auth
         </span>
       </h1>
-      <p className="text-xl text-gray-300 mb-8 leading-relaxed">
+      <p className="text-xl text-gray-300 mb-8 leading-relaxed max-w-xl mx-auto lg:max-w-xl lg:mx-0">
         An Experiment for <a href="https://www.better-auth.com" className="text-purple-400 hover:text-purple-300 underline cursor-pointer" target="_blank" rel="noopener noreferrer">Better-Auth</a>: A modern open source authentication library, The most comprehensive authentication framework for TypeScript. Try Signing in.
       </p>
       <div className="flex flex-wrap justify-center lg:justify-start gap-4">

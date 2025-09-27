@@ -51,7 +51,7 @@ export function LoginForm({ onSwitchToRegister }: LoginFormProps) {
     }
   };
   return (
-    <>
+    <div className="backdrop-blur-lg bg-black/20 border border-white/10 rounded-2xl p-8 shadow-2xl">
       <div className="text-center mb-8">
         <h2 className="text-2xl font-bold text-white mb-2">Welcome Back</h2>
         <p className="text-gray-300">Sign in to your account</p>
@@ -163,6 +163,10 @@ export function LoginForm({ onSwitchToRegister }: LoginFormProps) {
           Don't have an account? <span className="font-semibold">Sign Up</span>
         </button>
       </div>
-    </>
+
+      {/* Decorative elements */}
+      <div className="absolute -top-4 -right-4 w-8 h-8 bg-purple-500/20 rounded-full blur-sm"></div>
+      <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-pink-500/20 rounded-full blur-sm"></div>
+    </div>
   );
 }
