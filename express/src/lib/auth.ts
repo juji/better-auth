@@ -6,7 +6,7 @@ import { sendEmail } from "./mailer/index.js";
 import { users, accounts, verifications, sessions } from "./db/schema/auth.js";
 
 export const auth = betterAuth({
-  trustedOrigins: process.env.CORS_ORIGIN,
+  trustedOrigins: [process.env.CORS_ORIGIN],
   basePath: "/auth",
   database: drizzleAdapter(db, {
     provider: "pg", // or "mysql", "sqlite",
@@ -23,6 +23,8 @@ export const auth = betterAuth({
     ...process.env.BETTER_AUTH_URL?.startsWith('http://localhost') ? {} : {
       defaultCookieAttributes: {
         sameSite: "none",
+        domain: process.env.CORS_ORIGIN?.replace('http://', '').replace('https://', ''),
+        httpOnly: true,
         secure: process.env.BETTER_AUTH_URL?.startsWith("https") ? true : false,
         partitioned: true // New browser standards will mandate this for foreign cookies
       }
