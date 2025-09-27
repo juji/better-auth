@@ -14,7 +14,7 @@ Three auth method were created:
 
 Every auth method have email + password auth. Also comes with forgot-password and change password routine.
 
-The Application is hosted in https://better-auth-nextjs-tawny.vercel.app/
+The Application is hosted at https://better-auth.jujiplay.com/
 
 It is the nextjs app. Also contains the three auth method.
 
