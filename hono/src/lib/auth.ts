@@ -33,13 +33,63 @@ export const auth = betterAuth({
       }
     }),
   ],
+  hooks: {
+    after: createAuthMiddleware(async (ctx) => {
+
+      // Special handling for oAuth callbacks to redirect to frontend
+      // if(ctx.path === '/callback/:id'){
+      //   if(
+      //     ctx.params.id === 'github' ||
+      //     ctx.params.id === 'google'
+      //   ) {
+
+      //     console.log(ctx.context)
+          
+      //     const location = ctx.context.responseHeaders?.get('location');
+      //     const cookie = ctx.context.responseHeaders?.get('set-cookie');
+      //     if(!location) {
+      //       console.error('No location header found');
+      //       return;
+      //     }
+
+      //     if(!cookie) {
+      //       console.error('No set-cookie header found');
+      //       return;
+      //     }
+          
+      //     const url = new URL(location);
+      //     const error = new URLSearchParams(url.search).get('error');
+          
+      //     // console.log('location', location);
+      //     // console.log('error', error);
+          
+      //     // use CORS_ORIGINS because it is the frontend URL
+      //     // this will not work universally
+      //     // since CORS_ORIGINS is expected to be multiple
+      //     // Redirect to frontend
+      //     ctx.setHeader('location', `${process.env.CORS_ORIGINS}${error ? `?honoerror=${error}` : ''}`);
+
+      //     const cookieParts = cookie.split(';'); // get only the first part
+      //     const cookieNameValue = cookieParts[0].split('=');
+      //     ctx.setCookie(cookieNameValue[0], cookieNameValue[1], {
+      //       httpOnly: true,
+      //       secure: process.env.CORS_ORIGINS?.startsWith("https") ? true : false,
+      //       sameSite: process.env.CORS_ORIGINS?.startsWith("https") ? "none" : "lax",
+      //       path: '/',
+      //       domain: process.env.CORS_ORIGINS?.replace('http://', '').replace('https://', ''), 
+      //       partitioned: true // New browser standards will mandate this for foreign cookies
+      //     });
+
+      //   }
+      // }
+    }),
+  },
   socialProviders: {
     github: { 
       clientId: process.env.GITHUB_CLIENT_ID as string, 
       clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
     },
     google: { 
-      prompt: "select_account",
       clientId: process.env.GOOGLE_CLIENT_ID as string, 
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     },

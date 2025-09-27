@@ -168,8 +168,10 @@ export function HonoForm() {
   async function handleSignInSocial(provider: string) {
     await signIn.social({
       provider: provider,
-      callbackURL: '/oauth-landing',
-      errorCallbackURL: '/oauth-landing' 
+      // callbackURL: '/oauth-landing',
+      // errorCallbackURL: '/oauth-landing' 
+      callbackURL: window.location.origin + '/',
+      errorCallbackURL: window.location.origin + '/'
     })
     refetch();
   }
