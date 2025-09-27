@@ -222,6 +222,7 @@ export default function MultiSessionPage() {
             <li>• <strong>Activate:</strong> Switch to using this session on this device</li>
             <li>• <strong>Revoke:</strong> End this session (user will be logged out from that device)</li>
             <li>• <strong>Current Session:</strong> The session you're actively using right now</li>
+            <li>• <strong>Browser Logout:</strong> When you logout, all sessions started in this browser will be logged out</li>
             <li>• Sessions automatically expire based on your security settings</li>
             <li>• Regularly review and revoke suspicious sessions for better security</li>
             <li>• Each session represents a unique login from a device/browser combination</li>

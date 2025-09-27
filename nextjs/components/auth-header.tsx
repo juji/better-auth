@@ -31,6 +31,50 @@ export function AuthHeader() {
       <div className="mt-6">
         <p>Try accessing <Link className="hover:text-purple-300 underline" href="/protected">protected page</Link></p>
       </div>
+
+      <div className="backdrop-blur-lg bg-black/20 border border-white/10 rounded-xl p-6 mt-8 shadow-2xl max-w-[564px] mx-auto">
+        <div className="w-full text-left mb-6">
+          <h3 className="text-xl font-semibold text-white">Tech Stack</h3>
+        </div>
+        <div className="grid text-left grid-cols-2 sm:grid-cols-3 gap-4">
+          <div className=" text-gray-300">
+            <div>
+              <div className="font-semibold text-white">Next.js 15</div>
+              <div className="text-xs text-gray-400">React Framework</div>
+            </div>
+          </div>
+          <div className=" text-gray-300">
+            <div>
+              <div className="font-semibold text-white">TypeScript</div>
+              <div className="text-xs text-gray-400">Type Safety</div>
+            </div>
+          </div>
+          <div className=" text-gray-300">
+            <div>
+              <div className="font-semibold text-white">Tailwind CSS</div>
+              <div className="text-xs text-gray-400">Styling</div>
+            </div>
+          </div>
+          <div className=" text-gray-300">
+            <div>
+              <div className="font-semibold text-white">Better Auth</div>
+              <div className="text-xs text-gray-400">Authentication</div>
+            </div>
+          </div>
+          <div className=" text-gray-300">
+            <div>
+              <div className="font-semibold text-white">PostgreSQL</div>
+              <div className="text-xs text-gray-400">Database</div>
+            </div>
+          </div>
+          <div className=" text-gray-300">
+            <div>
+              <div className="font-semibold text-white">Hono</div>
+              <div className="text-xs text-gray-400">API Server</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
