@@ -33,6 +33,29 @@ app.get('/', (c) => {
   return c.html(welcomeStrings)
 })
 
+app.get('/oauth-landing', (c) => {
+  return c.html(`
+<html><body style="margin: 0; padding: 0; background-color: #000; color: #eaeaea; font-family: Arial, sans-serif;">
+<div style="height: 100vh; display: flex; justify-content: center; align-items: center;">
+  <p>OAuth Landing Page. Redirecting...</p>
+</div>
+<script>
+  // Extract the query parameters from the URL
+  const params = new URLSearchParams(window.location.search);
+  const error = params.get('error');
+  console.log('error', error);
+  // Redirect to the frontend application with the error message if exists
+  // this will not work universally 
+  // because CORS_ORIGINS is expected to be multiple
+  //
+  setTimeout(() => {
+    window.location.href = '${process.env.CORS_ORIGINS}/' + (error ? '?error=' + error : '');
+  }, 3000);
+</script>
+</body></html>
+`)
+})
+
 app.get('/protected', authMiddleware, (c) => {
   return c.json({ message: 42, authSession: c.get('session') });
 })
