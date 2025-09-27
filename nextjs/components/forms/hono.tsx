@@ -165,10 +165,10 @@ export function HonoForm() {
     })
   }
 
-  async function listPasskeys() : Promise<Passkey[] | null>{
-    const { data } = await passkey.listUserPasskeys();
-    return data?.length ? data : null;
-  }
+  // async function listPasskeys() : Promise<Passkey[] | null>{
+  //   const { data } = await passkey.listUserPasskeys();
+  //   return data?.length ? data : null;
+  // }
 
   async function handlePasskeyLogin() {
     console.log("Passkey login clicked");

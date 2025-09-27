@@ -267,7 +267,7 @@ export function Authenticated({
       <p className="mb-4">You are logged in with the email: {session.user.email}</p>
 
       {protectedResourceUrl ? (
-        <div className="py-1">
+        <div className="py-1" key={session.session.token}>
           <AccessProtectedResource url={protectedResourceUrl} />
         </div>
       ) : null}
