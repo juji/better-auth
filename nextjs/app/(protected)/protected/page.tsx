@@ -1,15 +1,19 @@
 
+import { AccessProtectedResource } from "@/components/access-protected-resource";
+
 
 export default function ProtectedPage() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center py-2">
-      <h1 className="text-3xl font-bold mb-4">Protected Page</h1>
-      <p className="text-lg mb-4">You have successfully accessed a protected page!</p>
-      <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
-        <p className="text-sm text-gray-600 dark:text-gray-400">
-          Welcome to the protected area!
+    <div className="text-white p-8">
+      {/* Page content goes here */}
+      <div className="mb-12 space-y-6">
+        <h1 className="text-4xl font-bold text-white mb-6">Protected Resource Demo</h1>
+        <p className="text-gray-300 leading-relaxed text-lg max-w-3xl">
+          This page shows how authenticated users can access protected API resources.
+          Your session credentials are automatically included in requests to secure endpoints.
         </p>
       </div>
+      <AccessProtectedResource url={process.env.NEXT_PUBLIC_HONO_SERVER + "/protected"} />
     </div>
   );
 }

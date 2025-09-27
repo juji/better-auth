@@ -4,9 +4,10 @@ import { SocialButtons } from './social-buttons';
 
 interface RegisterFormProps {
   onSwitchToLogin: () => void;
+  onSuccess?: () => void;
 }
 
-export function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
+export function RegisterForm({ onSwitchToLogin, onSuccess }: RegisterFormProps) {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [confirmPassword, setConfirmPassword] = React.useState('');
@@ -47,6 +48,9 @@ export function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
       setEmail('');
       setPassword('');
       setConfirmPassword('');
+      
+      // Call onSuccess callback if provided
+      onSuccess?.();
     } catch (err: any) {
       console.error('Registration error:', err);
       setError(err.message || 'An error occurred during registration');

@@ -1,4 +1,5 @@
 import { signOut, useSession } from '@/lib/auth-client-hono';
+import Link from 'next/link';
 
 export function LoggedIn() {
   const { data: session } = useSession();
@@ -19,6 +20,12 @@ export function LoggedIn() {
           <p className="text-white font-medium">{session?.user?.email}</p>
           <p className="text-gray-400 text-sm">{session?.user?.name}</p>
         </div>
+        <Link
+          href="/protected"
+          className="w-full py-3 px-4 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-semibold rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all transform hover:scale-105 active:scale-95 cursor-pointer block text-center mb-4 shadow-lg hover:shadow-cyan-500/25"
+        >
+          Go to Protected Page
+        </Link>
         <button
           onClick={() => signOut()}
           className="w-full py-3 px-4 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all transform hover:scale-105 active:scale-95 cursor-pointer"

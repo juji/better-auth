@@ -20,7 +20,7 @@ import type { OnSignInParams } from "@/components/login";
 import type { onRegisterParams } from "@/components/register";
 import type { ForgotPasswordSubmitParams } from "@/components/forgot-password";
 import type { OnChangePasswordParams } from "@/components/authenticated";
-import type { Passkey } from "better-auth/plugins/passkey";
+// import type { Passkey } from "better-auth/plugins/passkey";
 import { Session, User } from "better-auth";
 
 export function HonoForm() {

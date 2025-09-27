@@ -5,9 +5,10 @@ import { SocialButtons } from './social-buttons';
 interface LoginFormProps {
   onSwitchToRegister: () => void;
   onSwitchToForgotPassword: () => void;
+  onSuccess?: () => void;
 }
 
-export function LoginForm({ onSwitchToRegister, onSwitchToForgotPassword }: LoginFormProps) {
+export function LoginForm({ onSwitchToRegister, onSwitchToForgotPassword, onSuccess }: LoginFormProps) {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(false);
@@ -45,6 +46,9 @@ export function LoginForm({ onSwitchToRegister, onSwitchToForgotPassword }: Logi
       // Clear form fields after successful login
       setEmail('');
       setPassword('');
+      
+      // Call onSuccess callback if provided
+      onSuccess?.();
     } catch (err: any) {
       console.error('Login error:', err);
       setError(err.message || 'An error occurred during login');

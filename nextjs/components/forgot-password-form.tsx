@@ -3,9 +3,10 @@ import { requestPasswordReset } from '@/lib/auth-client-hono';
 
 interface ForgotPasswordFormProps {
   onSwitchToLogin: () => void;
+  onSuccess?: () => void;
 }
 
-export function ForgotPasswordForm({ onSwitchToLogin }: ForgotPasswordFormProps) {
+export function ForgotPasswordForm({ onSwitchToLogin, onSuccess }: ForgotPasswordFormProps) {
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
@@ -27,6 +28,8 @@ export function ForgotPasswordForm({ onSwitchToLogin }: ForgotPasswordFormProps)
         setError(result.error.message || 'Failed to send reset email');
       } else {
         setMessage('Password reset email sent! Check your inbox.');
+        // Call onSuccess callback if provided
+        onSuccess?.();
       }
     } catch (err) {
       setError('An unexpected error occurred');
