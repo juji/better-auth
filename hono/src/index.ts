@@ -11,7 +11,7 @@ type Variables = {
 const app = new Hono<{ Variables: Variables }>()
 
 app.use('/*', cors({
-  origin: process.env.CORS_ORIGINS?.split(",") || [],
+  origin: process.env.CORS_ORIGIN,
   allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   credentials: true,
 }))
@@ -46,10 +46,10 @@ app.get('/oauth-landing', (c) => {
   console.log('error', error);
   // Redirect to the frontend application with the error message if exists
   // this will not work universally 
-  // because CORS_ORIGINS is expected to be multiple
+  // because CORS_ORIGIN is expected to be multiple
   //
   setTimeout(() => {
-    window.location.href = '${process.env.CORS_ORIGINS}/' + (error ? '?error=' + error : '');
+    window.location.href = '${process.env.CORS_ORIGIN}/' + (error ? '?error=' + error : '');
   }, 3000);
 </script>
 </body></html>

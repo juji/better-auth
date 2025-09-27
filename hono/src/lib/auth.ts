@@ -18,7 +18,7 @@ import {
 
 
 export const auth = betterAuth({
-  trustedOrigins: process.env.CORS_ORIGINS?.split(",") || [],
+  trustedOrigins: process.env.CORS_ORIGIN,
   basePath: "/auth",
   plugins: [
     openAPI(),
@@ -63,20 +63,20 @@ export const auth = betterAuth({
       //     // console.log('location', location);
       //     // console.log('error', error);
           
-      //     // use CORS_ORIGINS because it is the frontend URL
+      //     // use CORS_ORIGIN because it is the frontend URL
       //     // this will not work universally
-      //     // since CORS_ORIGINS is expected to be multiple
+      //     // since CORS_ORIGIN is expected to be multiple
       //     // Redirect to frontend
-      //     ctx.setHeader('location', `${process.env.CORS_ORIGINS}${error ? `?honoerror=${error}` : ''}`);
+      //     ctx.setHeader('location', `${process.env.CORS_ORIGIN}${error ? `?honoerror=${error}` : ''}`);
 
       //     const cookieParts = cookie.split(';'); // get only the first part
       //     const cookieNameValue = cookieParts[0].split('=');
       //     ctx.setCookie(cookieNameValue[0], cookieNameValue[1], {
       //       httpOnly: true,
-      //       secure: process.env.CORS_ORIGINS?.startsWith("https") ? true : false,
-      //       sameSite: process.env.CORS_ORIGINS?.startsWith("https") ? "none" : "lax",
+      //       secure: process.env.CORS_ORIGIN?.startsWith("https") ? true : false,
+      //       sameSite: process.env.CORS_ORIGIN?.startsWith("https") ? "none" : "lax",
       //       path: '/',
-      //       domain: process.env.CORS_ORIGINS?.replace('http://', '').replace('https://', ''), 
+      //       domain: process.env.CORS_ORIGIN?.replace('http://', '').replace('https://', ''), 
       //       partitioned: true // New browser standards will mandate this for foreign cookies
       //     });
 
@@ -110,7 +110,7 @@ export const auth = betterAuth({
     ...process.env.BETTER_AUTH_URL?.startsWith('http://localhost') ? {} : {
       defaultCookieAttributes: {
         sameSite: "none",
-        domain: process.env.CORS_ORIGINS?.replace('http://', '').replace('https://', ''),
+        domain: process.env.CORS_ORIGIN?.replace('http://', '').replace('https://', ''),
         httpOnly: true,
         secure: process.env.BETTER_AUTH_URL?.startsWith("https") ? true : false,
         partitioned: true // New browser standards will mandate this for foreign cookies

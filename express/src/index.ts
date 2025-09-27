@@ -7,7 +7,7 @@ import { authMiddleware } from './middlewares/auth.js';
 const app = express()
 
 const corsOptions = {
-  origin: process.env.CORS_ORIGINS?.split(",") || [], // Allow all origins
+  origin: process.env.CORS_ORIGIN, // Allow all origins
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'], // Allowed methods
   "credentials": true, // Enable cookies and credentials
 }
