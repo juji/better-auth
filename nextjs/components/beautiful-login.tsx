@@ -7,7 +7,6 @@ import { RegisterForm } from './register-form';
 import { ForgotPasswordForm } from './forgot-password-form';
 import { AuthHeader } from './auth-header';
 import { LoggedIn } from './logged-in';
-import { LoggedInRight } from './logged-in-right';
 
 export default function BeautifulLogin() {
   const [currentView, setCurrentView] = useState<'login' | 'register' | 'forgot-password' | 'loggedin'>('login');
@@ -30,15 +29,13 @@ export default function BeautifulLogin() {
   }, [session]);
 
   return (
-    <div className={`min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-black flex ${session ? '' : 'items-center justify-center'} p-4`}>
-      <div className={`w-full max-w-6xl gap-6 grid mx-auto ${session ? 'lg:grid-cols-[auto_1fr] grid-cols-1' : 'grid-cols-1 lg:grid-cols-2'}`}>
+    <div className={`min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-black flex p-4 lg:px-16`}>
+      <div className={`
+        w-full max-w-6xl gap-6 grid mx-auto grid-cols-1 lg:grid-cols-2
+        py-16
+      `}>
         
-        {/* Left side - Heading and description or logged in state */}
-        {session ? (
-          <LoggedIn />
-        ) : (
-          <AuthHeader />
-        )}
+        <AuthHeader />
 
         {/* Right side - Login form or success state */}
         {currentView === 'login' ? (
@@ -46,7 +43,8 @@ export default function BeautifulLogin() {
         ) : currentView === 'forgot-password' ? (
           <ForgotPasswordForm onSwitchToLogin={handleSwitchToLogin} />
         ) : currentView === 'loggedin' ? (
-          <LoggedInRight />
+          // <LoggedInRight />
+          <LoggedIn />
         ) : (
           <RegisterForm onSwitchToLogin={handleSwitchToLogin} />
         )}
