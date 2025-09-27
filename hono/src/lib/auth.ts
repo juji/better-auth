@@ -36,7 +36,7 @@ export const auth = betterAuth({
   hooks: {
     after: createAuthMiddleware(async (ctx) => {
 
-      // Special handling for oAuth callbacks to redirect to frontend
+      // // Special handling for oAuth callbacks to redirect to frontend
       // if(ctx.path === '/callback/:id'){
       //   if(
       //     ctx.params.id === 'github' ||
@@ -110,6 +110,8 @@ export const auth = betterAuth({
     ...process.env.BETTER_AUTH_URL?.startsWith('http://localhost') ? {} : {
       defaultCookieAttributes: {
         sameSite: "none",
+        domain: process.env.CORS_ORIGINS?.replace('http://', '').replace('https://', ''),
+        httpOnly: true,
         secure: process.env.BETTER_AUTH_URL?.startsWith("https") ? true : false,
         partitioned: true // New browser standards will mandate this for foreign cookies
       }
