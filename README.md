@@ -36,5 +36,5 @@ The Hono App has these:
 
 - Enabled Github oAuth
 - Enabled Google oAuth
+- OpenApi docs at https://better-auth-honojujiplay.com/auth/reference
 - Enabled magic link
-- OpenApi docs at https://better-auth-hono-ashen.vercel.app/auth/reference
