@@ -18,7 +18,9 @@ import {
 
 
 export const auth = betterAuth({
-  trustedOrigins: [process.env.CORS_ORIGIN || ''],
+  ...process.env.CORS_ORIGIN ? {
+    trustedOrigins: [process.env.CORS_ORIGIN],
+  } : {},
   basePath: "/auth",
   plugins: [
     openAPI(),
