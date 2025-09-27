@@ -4,56 +4,52 @@ import { useState, useEffect } from 'react';
 import { useSession, signOut } from '@/lib/auth-client-hono';
 import { LoginForm } from './login-form';
 import { RegisterForm } from './register-form';
+import { ForgotPasswordForm } from './forgot-password-form';
 import { AuthHeader } from './auth-header';
 import { LoggedIn } from './logged-in';
+import { LoggedInRight } from './logged-in-right';
 
 export default function BeautifulLogin() {
-  const [currentView, setCurrentView] = useState<'login' | 'register'>('login');
+  const [currentView, setCurrentView] = useState<'login' | 'register' | 'forgot-password' | 'loggedin'>('login');
 
   const { data: session, isPending } = useSession();
 
   console.log('Session state:', { session, isPending });
 
-    // Temporary debug: force show form if there's an error
-  const shouldShowForm = !session;
-
   const handleSwitchToRegister = () => setCurrentView('register');
   const handleSwitchToLogin = () => setCurrentView('login');
+  const handleSwitchToForgotPassword = () => setCurrentView('forgot-password');
 
   // Reset to login view when user logs out
   useEffect(() => {
-    if (!session) {
+    if (session) {
+      setCurrentView('loggedin');
+    }else{
       setCurrentView('login');
     }
   }, [session]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-black flex items-center justify-center p-4">
-      <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <div className={`min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-black flex ${session ? '' : 'items-center justify-center'} p-4`}>
+      <div className={`w-full max-w-6xl gap-6 grid mx-auto ${session ? 'lg:grid-cols-[auto_1fr] grid-cols-1' : 'grid-cols-1 lg:grid-cols-2'}`}>
+        
         {/* Left side - Heading and description or logged in state */}
-        {session && !shouldShowForm ? (
+        {session ? (
           <LoggedIn />
         ) : (
           <AuthHeader />
         )}
 
         {/* Right side - Login form or success state */}
-        <div className="flex justify-center lg:justify-end">
-          <div className="w-full max-w-md">
-            {!session ? (
-              /* Login/Register forms */
-              <>
-
-                {currentView === 'login' ? (
-                  <LoginForm onSwitchToRegister={handleSwitchToRegister} />
-                ) : (
-                  <RegisterForm onSwitchToLogin={handleSwitchToLogin} />
-                )}
-
-              </>
-            ) : null}
-          </div>
-        </div>
+        {currentView === 'login' ? (
+          <LoginForm onSwitchToRegister={handleSwitchToRegister} onSwitchToForgotPassword={handleSwitchToForgotPassword} />
+        ) : currentView === 'forgot-password' ? (
+          <ForgotPasswordForm onSwitchToLogin={handleSwitchToLogin} />
+        ) : currentView === 'loggedin' ? (
+          <LoggedInRight />
+        ) : (
+          <RegisterForm onSwitchToLogin={handleSwitchToLogin} />
+        )}
       </div>
     </div>
   );

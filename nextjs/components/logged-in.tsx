@@ -4,7 +4,9 @@ export function LoggedIn() {
   const { data: session } = useSession();
 
   return (
-    <div className="backdrop-blur-lg bg-black/20 border border-white/10 rounded-2xl p-8 shadow-2xl">
+    <div className="flex justify-center lg:justify-end">
+      <div className="w-full">
+        <div className="backdrop-blur-lg bg-black/20 border border-white/10 rounded-2xl p-8 shadow-2xl">
       <div className="text-center">
         <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
           <svg className="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -28,6 +30,8 @@ export function LoggedIn() {
       {/* Decorative elements */}
       <div className="absolute -top-4 -right-4 w-8 h-8 bg-purple-500/20 rounded-full blur-sm"></div>
       <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-pink-500/20 rounded-full blur-sm"></div>
+    </div>
+    </div>
     </div>
   );
 }

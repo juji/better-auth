@@ -54,7 +54,9 @@ export function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
     }
   };
   return (
-    <div className="backdrop-blur-lg bg-black/20 border border-white/10 rounded-2xl p-8 shadow-2xl">
+    <div className="flex justify-center lg:justify-end">
+      <div className="w-full max-w-md">
+        <div className="backdrop-blur-lg bg-black/20 border border-white/10 rounded-2xl p-8 shadow-2xl">
       <div className="text-center mb-8">
         <h2 className="text-2xl font-bold text-white mb-2">Join Us</h2>
         <p className="text-gray-300">Create your new account</p>
@@ -184,6 +186,8 @@ export function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
       {/* Decorative elements */}
       <div className="absolute -top-4 -right-4 w-8 h-8 bg-purple-500/20 rounded-full blur-sm"></div>
       <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-pink-500/20 rounded-full blur-sm"></div>
+    </div>
+    </div>
     </div>
   );
 }
