@@ -6,7 +6,7 @@ import { sendEmail } from "./mailer/index.js";
 import { users, accounts, verifications, sessions } from "./db/schema/auth.js";
 
 export const auth = betterAuth({
-  trustedOrigins: [process.env.CORS_ORIGIN],
+  trustedOrigins: process.env.CORS_ORIGINS?.split(",").map(s => s.trim()) || [],
   basePath: "/auth",
   database: drizzleAdapter(db, {
     provider: "pg", // or "mysql", "sqlite",
@@ -20,21 +20,10 @@ export const auth = betterAuth({
   }),
   advanced: {
     cookiePrefix: "j-auth-express", // custom cookie prefix
-    // whether to use cross subdomain cookies
-    ...process.env.BETTER_AUTH_URL?.startsWith('http://localhost') ? {} : {
-      crossSubDomainCookies: {
-        enabled: true,
-        domain: process.env.CORS_ORIGIN?.replace('http://', '').replace('https://', ''),
-      }
-    },
-    // ...process.env.BETTER_AUTH_URL?.startsWith('http://localhost') ? {} : {
-    //   defaultCookieAttributes: {
-    //     sameSite: "none",
-    //     httpOnly: true,
-    //     secure: process.env.BETTER_AUTH_URL?.startsWith("https") ? true : false,
-    //     partitioned: true // New browser standards will mandate this for foreign cookies
-    //   }
-    // }
+    crossSubDomainCookies: {
+      enabled: true,
+      domain: process.env.CROSS_SUBDOMAIN_COOKIE_DOMAIN,
+    }
   },
   emailAndPassword: {    
     enabled: true,

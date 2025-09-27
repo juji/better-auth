@@ -10,13 +10,15 @@ type Variables = {
 
 const app = new Hono<{ Variables: Variables }>()
 
-app.use('/*', cors({
-  origin: process.env.CORS_ORIGIN || '',
-  allowHeaders: ["Content-Type", "Authorization"],
-  allowMethods: ["POST", "GET", "OPTIONS"],
-  exposeHeaders: ["Content-Length"],
-  credentials: true,
-}))
+if(process.env.CORS_ORIGINS){
+  app.use('/*', cors({
+    origin: process.env.CORS_ORIGINS.split(",").map(s => s.trim()),
+    allowMethods: ["POST", "GET", "OPTIONS"],
+    allowHeaders: ["Content-Type", "Authorization"],
+    exposeHeaders: ["Content-Length"],
+    credentials: true,
+  }))
+}
 
 app.on(["POST", "GET"], "/auth/*", (c) => auth.handler(c.req.raw));
 

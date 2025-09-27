@@ -3,7 +3,6 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { db } from "./db/index.js";
 import { sendEmail } from "./mailer/index.js";
 
-import { createAuthMiddleware } from "better-auth/api";
 import { magicLink } from "better-auth/plugins";
 import { openAPI } from "better-auth/plugins"
 import { passkey } from "better-auth/plugins/passkey"
@@ -18,9 +17,7 @@ import {
 
 
 export const auth = betterAuth({
-  ...process.env.CORS_ORIGIN ? {
-    trustedOrigins: [process.env.CORS_ORIGIN],
-  } : {},
+  trustedOrigins: process.env.CORS_ORIGINS?.split(",").map(s => s.trim()) || [],
   basePath: "/auth",
   plugins: [
     openAPI(),
@@ -35,57 +32,6 @@ export const auth = betterAuth({
       }
     }),
   ],
-  hooks: {
-    after: createAuthMiddleware(async (ctx) => {
-
-      // // Special handling for oAuth callbacks to redirect to frontend
-      // if(ctx.path === '/callback/:id'){
-      //   if(
-      //     ctx.params.id === 'github' ||
-      //     ctx.params.id === 'google'
-      //   ) {
-
-      //     console.log(ctx.context)
-          
-      //     const location = ctx.context.responseHeaders?.get('location');
-      //     const cookie = ctx.context.responseHeaders?.get('set-cookie');
-      //     if(!location) {
-      //       console.error('No location header found');
-      //       return;
-      //     }
-
-      //     if(!cookie) {
-      //       console.error('No set-cookie header found');
-      //       return;
-      //     }
-          
-      //     const url = new URL(location);
-      //     const error = new URLSearchParams(url.search).get('error');
-          
-      //     // console.log('location', location);
-      //     // console.log('error', error);
-          
-      //     // use CORS_ORIGIN because it is the frontend URL
-      //     // this will not work universally
-      //     // since CORS_ORIGIN is expected to be multiple
-      //     // Redirect to frontend
-      //     ctx.setHeader('location', `${process.env.CORS_ORIGIN}${error ? `?honoerror=${error}` : ''}`);
-
-      //     const cookieParts = cookie.split(';'); // get only the first part
-      //     const cookieNameValue = cookieParts[0].split('=');
-      //     ctx.setCookie(cookieNameValue[0], cookieNameValue[1], {
-      //       httpOnly: true,
-      //       secure: process.env.CORS_ORIGIN?.startsWith("https") ? true : false,
-      //       sameSite: process.env.CORS_ORIGIN?.startsWith("https") ? "none" : "lax",
-      //       path: '/',
-      //       domain: process.env.CORS_ORIGIN?.replace('http://', '').replace('https://', ''), 
-      //       partitioned: true // New browser standards will mandate this for foreign cookies
-      //     });
-
-      //   }
-      // }
-    }),
-  },
   socialProviders: {
     github: { 
       clientId: process.env.GITHUB_CLIENT_ID as string, 
@@ -110,23 +56,12 @@ export const auth = betterAuth({
   }),
   advanced: {
     cookiePrefix: "j-auth-hono", // custom cookie prefix
-    // whether to use cross subdomain cookies
-    ...process.env.BETTER_AUTH_URL?.startsWith('http://localhost') ? {} : {
-      crossSubDomainCookies: {
-        enabled: true,
-        domain: process.env.CORS_ORIGIN?.replace('http://', '').replace('https://', ''),
-      }
-    }, 
-    // ...process.env.BETTER_AUTH_URL?.startsWith('http://localhost') ? {} : {
-    //   defaultCookieAttributes: {
-    //     sameSite: "none",
-    //     httpOnly: true,
-    //     secure: process.env.BETTER_AUTH_URL?.startsWith("https") ? true : false,
-    //     partitioned: true // New browser standards will mandate this for foreign cookies
-    //   }
-    // }
+    crossSubDomainCookies: {
+      enabled: true,
+      domain: process.env.CROSS_SUBDOMAIN_COOKIE_DOMAIN,
+    }
   },
-  emailAndPassword: {    
+  emailAndPassword: {
     enabled: true,
     sendResetPassword: async ({user, url}) => {
       await sendEmail({
