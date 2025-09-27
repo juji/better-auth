@@ -19,6 +19,7 @@ import type { OnSignInParams } from "@/components/login";
 import type { onRegisterParams } from "@/components/register";
 import type { ForgotPasswordSubmitParams } from "@/components/forgot-password";
 import type { OnChangePasswordParams } from "@/components/authenticated";
+import type { Passkey } from "better-auth/plugins/passkey";
 
 export function HonoForm() {
 
@@ -79,13 +80,13 @@ export function HonoForm() {
       rememberMe, // whether to remember the session
     }, {
       onSuccess: () => {
+        refetch();
         fetchOptions?.onSuccess?.();
       },
       onError: (err) => {
         fetchOptions?.onError?.(err.error.message || err.error.statusText || 'An error occurred');
       }
     });
-    refetch();
   }
 
   async function onRegister({
@@ -97,13 +98,13 @@ export function HonoForm() {
       name, // user display name
     }, {
       onSuccess: () => {
+        refetch();
         fetchOptions?.onSuccess?.();
       },
       onError: (err) => {
         fetchOptions?.onError?.(err.error.message || err.error.statusText || 'An error occurred');
       }
     });
-    refetch();
   }
 
   async function onForgotPassword(
@@ -127,27 +128,6 @@ export function HonoForm() {
       }
     });
     
-  }
-
-  async function handlePasskeyLogin() {
-    console.log("Passkey login clicked");
-    await signIn.passkey({
-      autoFill: true,
-      fetchOptions: {
-        onSuccess(context) {
-          refetch();
-        },
-        onError(context) {
-          // Handle authentication errors
-          console.error("Authentication failed:", context.error.message);
-        }
-      }
-    })
-  }
-
-  async function handlePassKeyRegistration(){
-    console.log("Passkey registration clicked");
-    await passkey.addPasskey()
   }
 
   async function onChangePassword(params: OnChangePasswordParams) {
@@ -183,6 +163,37 @@ export function HonoForm() {
     })
   }
 
+  async function listPasskeys() : Promise<Passkey[] | null>{
+    const { data } = await passkey.listUserPasskeys();
+    return data?.length ? data : null;
+  }
+
+  async function handlePasskeyLogin() {
+    console.log("Passkey login clicked");
+    await signIn.passkey({
+      autoFill: false,
+      fetchOptions: {
+        onSuccess(context) {
+          console.log("Passkey login successful:", context);
+          refetch();
+        },
+        onError(context) {
+          // Handle authentication errors
+          console.error("Authentication failed:", context.error.message);
+        }
+      }
+    })
+  }
+
+  async function handlePassKeyRegistration(){
+    console.log("Passkey registration clicked");
+    try{
+      await passkey.addPasskey()
+    }catch(e){
+      console.error("Passkey registration failed:", e);
+    }
+  }
+
   return (
       <div className="my-4 w-1/2 min-w-[354px]">
       { authState === 'authenticated' && session ? (
@@ -193,6 +204,7 @@ export function HonoForm() {
           onChangePassword={onChangePassword}
           protectedResourceUrl={process.env.NEXT_PUBLIC_HONO_SERVER + "/protected"}
           onPasskeyRegistration={handlePassKeyRegistration}
+          listPassKeys={listPasskeys}
         />
       ) : null }
       {authState === 'register' ? (

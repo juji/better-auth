@@ -108,7 +108,7 @@ export function LoginForm({
             id={emailId}
             name="email"
             type="email"
-            autoComplete="email webauthn"
+            autoComplete="username webauthn"
             required
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md 
               dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -150,7 +150,7 @@ export function LoginForm({
           <div className="text-sm">
             <button
               onClick={onForgotPasswordClicked}
-              className="text-blue-600 hover:text-blue-800 dark:text-blue-400"
+              className="text-blue-600 hover:text-blue-300 dark:text-blue-400 cursor-pointer"
             >
               Forgot password?
             </button>
@@ -162,7 +162,7 @@ export function LoginForm({
           disabled={isLoading}
           className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium 
             rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
-            disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            disabled:opacity-50 disabled:cursor-not-allowed transition-colors cursor-pointer"
         >
           {isLoading ? 'Signing in...' : 'Sign in'}
         </button>
@@ -170,7 +170,7 @@ export function LoginForm({
 
       <p className="mt-4 text-sm text-center">
         Don't have an account?{' '}
-        <button onClick={onRegisterClicked} className="text-blue-600 hover:text-blue-800 dark:text-blue-400">
+        <button onClick={onRegisterClicked} className="text-blue-600 hover:text-blue-300 dark:text-blue-400 cursor-pointer">
           Create one
         </button>
       </p>
@@ -200,7 +200,7 @@ export function LoginForm({
               className="w-full mb-2 py-2 px-4 border border-gray-300 dark:border-gray-700 rounded-md 
                 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 
                 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 
-                focus:ring-offset-2 transition-colors flex items-center justify-center"
+                focus:ring-offset-2 transition-colors flex items-center justify-center cursor-pointer"
             >
               Sign in with {provider}
             </button>
@@ -217,7 +217,7 @@ export function LoginForm({
               className="w-full mb-2 py-2 px-4 border border-gray-300 dark:border-gray-700 rounded-md 
                 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 
                 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 
-                focus:ring-offset-2 transition-colors flex items-center justify-center"
+                focus:ring-offset-2 transition-colors flex items-center justify-center cursor-pointer"
             >
               Sign in with passkey
             </button>

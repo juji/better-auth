@@ -1,5 +1,6 @@
 'use client'
 
+import { Passkey } from "better-auth/plugins/passkey"
 import { useEffect, useId, useState } from "react"
 import useSWR from 'swr'
 
@@ -164,6 +165,7 @@ export function Authenticated({
   hello = 'Hello',
   protectedResourceUrl,
   onPasskeyRegistration,
+  listPassKeys
 }: {
   session: { user: { name?: string; email: string } },
   onSignOut: () => void
@@ -171,7 +173,19 @@ export function Authenticated({
   hello?: string
   protectedResourceUrl?: string
   onPasskeyRegistration?: () => void
+  listPassKeys?: () => Promise<Passkey[]|null>
 }) {
+
+  const [ passkeys, setPasskeys ] = useState<Passkey[] | null>(null);
+
+  useEffect(() => {
+    if(onPasskeyRegistration && listPassKeys){
+      (async () => {
+        const pks = await listPassKeys();
+        setPasskeys(pks);
+      })();
+    }
+  },[ onPasskeyRegistration, listPassKeys ])
 
   return (
     <div className="p-6 bg-white dark:bg-gray-900 rounded-lg shadow-md">
@@ -206,7 +220,7 @@ export function Authenticated({
         onClick={() => {
           onSignOut()
         }}
-        className="py-2 px-4 bg-red-600 hover:bg-red-700 text-white font-medium 
+        className="py-2 px-4 bg-red-600 hover:bg-red-700 text-white font-medium cursor-pointer
           rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
       >
         Logout

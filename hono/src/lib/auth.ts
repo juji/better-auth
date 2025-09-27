@@ -21,7 +21,13 @@ export const auth = betterAuth({
   basePath: "/auth",
   plugins: [
     openAPI(),
-    passkey(), 
+    passkey(
+      {
+        rpID: process.env.BETTER_AUTH_PASSKEY_RPID || "localhost",
+        rpName: "BetterAuth Demo",
+        origin: process.env.BETTER_AUTH_PASSKEY_ORIGIN || "http://localhost:3000",
+      }
+    ), 
     magicLink({
       sendMagicLink: async ({ email, token, url }, request) => {
         await sendEmail({
