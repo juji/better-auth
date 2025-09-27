@@ -1,5 +1,6 @@
 'use client'
 
+import { Session, User } from "better-auth"
 import { Passkey } from "better-auth/plugins/passkey"
 import { useEffect, useId, useState } from "react"
 import useSWR from 'swr'
@@ -158,6 +159,72 @@ function ChangePasswordForm({
 
 }
 
+function SessionList({ 
+  sessions,
+  currentSession,
+  addSession,
+  revokeSession,
+  activateSession
+}: { 
+  currentSession: {session: Session, user: User},
+  sessions: {session: Session, user: User}[],
+  addSession?: () => void,
+  revokeSession?: (session: Session) => void,
+  activateSession?: (session: Session) => void
+}) {
+
+  console.log('Rendering SessionList with sessions:', sessions);
+  console.log('Current session:', currentSession);
+
+  return (<>
+    <div className="my-1 mb-8 p-6 rounded-lg bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700">
+      <h3 className="mb-4 flex justify-between items-center">
+        Sessions
+        <small className="text-gray-500 dark:text-gray-400 text-sm">({sessions.length} active)</small>
+      </h3>
+      {sessions.length === 0 ? (
+        <p>No active sessions.</p>
+      ) : (
+        <ul className="space-y-4">
+          {sessions.map(({ session, user }, index) => (
+            <li key={index} className="p-4 border border-gray-200 dark:border-gray-700 rounded">
+              <p><strong>Token:</strong> {session.token}</p>
+              <p><strong>User:</strong> {user.email} {user.name ? `(${user.name})` : ''}</p>
+              <p><strong>Created At:</strong> {new Date(session.createdAt).toLocaleString()}</p>
+              {sessions.length > 1 && session.token === currentSession.session.token ? (
+                <p className="flex justify-between mt-1">
+                  <span className="text-green-600 font-semibold">current session.</span>
+                  <button onClick={() => revokeSession && revokeSession(session)} className="text-red-400 hover:text-red-200 cursor-pointer">Revoke</button>
+                </p>
+              ) : <p className="flex justify-between mt-1">
+                <button onClick={() => activateSession && activateSession(session)} className="text-blue-400 hover:text-blue-200 cursor-pointer">Activate</button>
+                <button onClick={() => revokeSession && revokeSession(session)} className="text-red-400 hover:text-red-200 cursor-pointer">Revoke</button>
+              </p>}
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {/* Add Session button */}
+    {addSession ? (
+      <div className="pt-1 mt-5">
+        <button
+          onClick={() => {
+            addSession();
+          }}
+          className="p-2 bg-amber-700 hover:bg-amber-600 text-white font-medium cursor-pointer
+            rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2
+            w-full"
+        >
+          Add Session
+        </button>
+      </div>
+    ) : null}
+    </div>
+    
+  </>);
+}
+
 export function Authenticated({
   session,
   onSignOut,
@@ -165,27 +232,33 @@ export function Authenticated({
   hello = 'Hello',
   protectedResourceUrl,
   onPasskeyRegistration,
-  listPassKeys
+  listSessions,
+  addSession,
+  revokeSession,
+  activateSession
 }: {
-  session: { user: { name?: string; email: string } },
+  session: { user: User, session: Session },
   onSignOut: () => void
   onChangePassword: (params: OnChangePasswordParams) => void
   hello?: string
   protectedResourceUrl?: string
   onPasskeyRegistration?: () => void
-  listPassKeys?: () => Promise<Passkey[]|null>
+  listSessions?: () => Promise<{session: Session, user: User}[] | null>
+  addSession?: () => void
+  revokeSession?: (session: Session) => void
+  activateSession?: (session: Session) => void
 }) {
 
-  const [ passkeys, setPasskeys ] = useState<Passkey[] | null>(null);
+  const [ sessions, setSessions ] = useState<{session: Session, user: User}[] | null>(null);
 
   useEffect(() => {
-    if(onPasskeyRegistration && listPassKeys){
+    if(listSessions){
       (async () => {
-        const pks = await listPassKeys();
-        setPasskeys(pks);
+        const ss = await listSessions();
+        setSessions(ss);
       })();
     }
-  },[ onPasskeyRegistration, listPassKeys ])
+  },[ listSessions ]);
 
   return (
     <div className="p-6 bg-white dark:bg-gray-900 rounded-lg shadow-md">
@@ -202,6 +275,13 @@ export function Authenticated({
       <div className="py-1">
         <ChangePasswordForm onChangePassword={onChangePassword} />
       </div>
+
+      { sessions ? (<SessionList 
+        addSession={addSession} 
+        revokeSession={revokeSession}
+        activateSession={activateSession}
+        sessions={sessions} 
+        currentSession={session} />) : null }
 
       { onPasskeyRegistration ? (<div className="pb-1 mb-5">
         <button

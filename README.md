@@ -32,9 +32,11 @@ We are using [DrizzleOrm](https://orm.drizzle.team) to connect to postgres.
 
 ## Hono: the one with the most feature.
 
-The Hono App has these:
+The Hono App has these features:
 
-- Enabled Github oAuth
-- Enabled Google oAuth
+- Github oAuth
+- Google oAuth
+- Magic Link login
+- Passkwy login
 - OpenApi docs at https://better-auth-honojujiplay.com/auth/reference
-- Enabled magic link
+

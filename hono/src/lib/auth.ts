@@ -6,6 +6,7 @@ import { sendEmail } from "./mailer/index.js";
 import { magicLink } from "better-auth/plugins";
 import { openAPI } from "better-auth/plugins"
 import { passkey } from "better-auth/plugins/passkey"
+import { multiSession } from "better-auth/plugins"
 
 import { 
   users, 
@@ -28,6 +29,7 @@ export const auth = betterAuth({
         origin: process.env.BETTER_AUTH_PASSKEY_ORIGIN || "http://localhost:3000",
       }
     ), 
+    multiSession(),
     magicLink({
       sendMagicLink: async ({ email, token, url }, request) => {
         await sendEmail({

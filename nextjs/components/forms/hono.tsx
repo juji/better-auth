@@ -12,7 +12,8 @@ import {
   signIn, signOut, signUp, 
   requestPasswordReset,
   passkey,
-  changePassword
+  changePassword,
+  multiSession,
 } from "@/lib/auth-client-hono" // import the auth client
 
 import type { OnSignInParams } from "@/components/login";
@@ -20,6 +21,7 @@ import type { onRegisterParams } from "@/components/register";
 import type { ForgotPasswordSubmitParams } from "@/components/forgot-password";
 import type { OnChangePasswordParams } from "@/components/authenticated";
 import type { Passkey } from "better-auth/plugins/passkey";
+import { Session, User } from "better-auth";
 
 export function HonoForm() {
 
@@ -194,9 +196,48 @@ export function HonoForm() {
     }
   }
 
+  // multiSession example
+  async function listSessions(): Promise<{session: Session, user: User}[] | null>{
+    const { data, error } = await multiSession.listDeviceSessions();
+    if(error){
+      console.error("List sessions error:", error);
+      return null;
+    }else{
+      console.log("List sessions:", data);
+      return data;
+    }
+  }
+
+  async function revokeSession(session: Session) {
+    const { error } = await multiSession.revoke({
+      sessionToken: session.token
+    });
+    if(error){
+      console.error("Revoke session error:", error);
+    }else{
+      console.log("Session revoked");
+      // Refresh the session list after revoking
+      refetch();
+    }
+  }
+
+  async function activateSession(session: Session) {
+    const { error } = await multiSession.setActive({
+      sessionToken: session.token
+    });
+    if(error){
+      console.error("Activate session error:", error);
+    }else{
+      console.log("Session activated");
+      refetch();
+    }
+  }
+
+  const [ addSession, setAddSession ] = useState<boolean>(false);
+
   return (
       <div className="my-4 w-1/2 min-w-[354px]">
-      { authState === 'authenticated' && session ? (
+      { authState === 'authenticated' && session && !addSession ? (
         <Authenticated 
           hello={'Hello from Hono'}
           session={session} 
@@ -204,7 +245,10 @@ export function HonoForm() {
           onChangePassword={onChangePassword}
           protectedResourceUrl={process.env.NEXT_PUBLIC_HONO_SERVER + "/protected"}
           onPasskeyRegistration={handlePassKeyRegistration}
-          listPassKeys={listPasskeys}
+          listSessions={listSessions}
+          addSession={() => setAddSession(true)}
+          revokeSession={revokeSession}
+          activateSession={activateSession}
         />
       ) : null }
       {authState === 'register' ? (
@@ -219,7 +263,7 @@ export function HonoForm() {
           onSubmitMagicLink={handleMagicLink}
         />
       ) : null}     
-      {authState === 'login' ? (
+      {authState === 'login' || addSession ? (
         <LoginForm
           className={`w-full`}
           title="Sign In (Hono)"
