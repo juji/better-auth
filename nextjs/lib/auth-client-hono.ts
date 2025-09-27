@@ -6,6 +6,7 @@ import { multiSessionClient } from "better-auth/client/plugins"
 
 export const {
   useSession,
+  getSession,
   signIn,
   signOut,
   signUp,
