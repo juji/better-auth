@@ -39,24 +39,28 @@ export default function ProtectedPageLayout({
         <nav className="px-4 space-y-2 flex-1">
           <Link
             href="/protected"
+            onClick={() => setSidebarOpen(false)}
             className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
           >
             Home
           </Link>
           <Link
             href="/protected/change-password"
+            onClick={() => setSidebarOpen(false)}
             className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
           >
             Change Password
           </Link>
           <Link
             href="/protected/multi-session"
+            onClick={() => setSidebarOpen(false)}
             className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
           >
             Multiple Sessions
           </Link>
           <Link
             href="/protected/passkey"
+            onClick={() => setSidebarOpen(false)}
             className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
           >
             Passkey Management

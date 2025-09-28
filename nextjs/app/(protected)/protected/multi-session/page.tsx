@@ -122,16 +122,16 @@ export default function MultiSessionPage() {
             </div>
           ) : sessions && sessions.length > 0 ? (
             <div className="space-y-4">
-              <div className="flex items-center justify-between mb-6">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 space-y-4 sm:space-y-0">
                 <h2 className="text-xl font-semibold text-white">
-                  Your Sessions ({sessions.length})
+                  Sessions ({sessions.length})
                 </h2>
-                <div className="flex space-x-3">
+                <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3">
                   <button
                     onClick={handleAddSession}
                     className="px-3 py-1.5 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-500 hover:to-purple-600 text-white rounded transition-all duration-200 cursor-pointer text-sm shadow-lg hover:shadow-purple-500/25 transform hover:scale-105 active:scale-95"
                   >
-                    Add New Session
+                    + Session
                   </button>
                   <button
                     onClick={loadSessions}
@@ -147,8 +147,8 @@ export default function MultiSessionPage() {
                   key={sessionData.session.id || index}
                   className="p-4 bg-black/30 border border-white/10 rounded-lg hover:bg-black/40 transition-colors"
                 >
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between">
+                    <div className="flex-1 mb-4 sm:mb-0">
                       <div className="flex items-center space-x-3 mb-2">
                         <span className="text-lg">{getDeviceInfo(sessionData.session)}</span>
                         <div className="flex items-center space-x-2">
@@ -181,7 +181,7 @@ export default function MultiSessionPage() {
                       </div>
                     </div>
 
-                    <div className="flex space-x-2 ml-4">
+                    <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
                       {currentSession?.session?.id !== sessionData.session.id && (
                         <button
                           onClick={() => handleActivateSession(sessionData.session)}

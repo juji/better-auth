@@ -93,11 +93,11 @@ export default function PasskeyPage() {
             </div>
           ) : passkeys && passkeys.length > 0 ? (
             <div className="space-y-4">
-              <div className="flex items-center justify-between mb-6">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 space-y-4 sm:space-y-0">
                 <h2 className="text-xl font-semibold text-white">
                   Your Passkeys ({passkeys.length})
                 </h2>
-                <div className="flex space-x-3">
+                <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3">
                   <button
                     onClick={handleRegisterPasskey}
                     disabled={isRegistering}
@@ -126,42 +126,42 @@ export default function PasskeyPage() {
                   key={passkeyData.id || index}
                   className="p-4 bg-black/30 border border-white/10 rounded-lg hover:bg-black/40 transition-colors"
                 >
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center space-x-3 mb-2">
-                        <span className="text-lg">🔐</span>
-                        <div className="flex items-center space-x-2">
-                          <span className="px-2 py-1 bg-blue-500/20 text-blue-400 text-xs rounded-full border border-blue-500/30">
-                            Passkey
-                          </span>
+                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between">
+                      <div className="flex-1 mb-4 sm:mb-0">
+                        <div className="flex items-center space-x-3 mb-2">
+                          <span className="text-lg">🔐</span>
+                          <div className="flex items-center space-x-2">
+                            <span className="px-2 py-1 bg-blue-500/20 text-blue-400 text-xs rounded-full border border-blue-500/30">
+                              Passkey
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className="text-sm text-gray-400 space-y-1">
+                          <div>
+                            <span className="font-medium">Name:</span> {passkeyData.name || 'Unnamed Passkey'}
+                          </div>
+                          <div>
+                            <span className="font-medium">Device Type:</span> {passkeyData.deviceType}
+                          </div>
+                          <div>
+                            <span className="font-medium">Backed Up:</span> {passkeyData.backedUp ? 'Yes' : 'No'}
+                          </div>
+                          <div>
+                            <span className="font-medium">Created:</span> {formatDate(passkeyData.createdAt)}
+                          </div>
                         </div>
                       </div>
 
-                      <div className="text-sm text-gray-400 space-y-1">
-                        <div>
-                          <span className="font-medium">Name:</span> {passkeyData.name || 'Unnamed Passkey'}
-                        </div>
-                        <div>
-                          <span className="font-medium">Device Type:</span> {passkeyData.deviceType}
-                        </div>
-                        <div>
-                          <span className="font-medium">Backed Up:</span> {passkeyData.backedUp ? 'Yes' : 'No'}
-                        </div>
-                        <div>
-                          <span className="font-medium">Created:</span> {formatDate(passkeyData.createdAt)}
-                        </div>
+                      <div className="flex justify-end">
+                        <button
+                          onClick={() => handleDeletePasskey(passkeyData.id)}
+                          className="px-3 py-1 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white text-sm rounded transition-all duration-200 cursor-pointer shadow-lg hover:shadow-red-500/25 transform hover:scale-105 active:scale-95"
+                        >
+                          Delete
+                        </button>
                       </div>
                     </div>
-
-                    <div className="flex space-x-2 ml-4">
-                      <button
-                        onClick={() => handleDeletePasskey(passkeyData.id)}
-                        className="px-3 py-1 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white text-sm rounded transition-all duration-200 cursor-pointer shadow-lg hover:shadow-red-500/25 transform hover:scale-105 active:scale-95"
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </div>
                 </div>
               ))}
             </div>
