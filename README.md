@@ -7,7 +7,7 @@ A demonstration of [Better Auth](https://www.better-auth.com) - a modern, open-s
 This project showcases three different server implementations of Better Auth:
 
 - **[Next.js](https://nextjs.org)** - Full-stack React framework with App Router
-- **[Hono](https://hono.dev)** - Lightweight, fast web framework for Cloudflare Workers, Fastify, and more
+- **[Hono](https://hono.dev)** - Lightweight, fast web framework
 - **[Express](https://expressjs.com)** - Traditional Node.js web framework
 
 ## ✨ Features
