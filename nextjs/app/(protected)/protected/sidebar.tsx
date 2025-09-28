@@ -75,6 +75,78 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
             >
               Passkey Management
             </Link>
+
+            {/* Example links for testing overflow */}
+            <Link
+              href="#"
+              onClick={() => setSidebarOpen(false)}
+              className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
+            >
+              Dashboard
+            </Link>
+            <Link
+              href="#"
+              onClick={() => setSidebarOpen(false)}
+              className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
+            >
+              Analytics
+            </Link>
+            <Link
+              href="#"
+              onClick={() => setSidebarOpen(false)}
+              className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
+            >
+              User Profile
+            </Link>
+            <Link
+              href="#"
+              onClick={() => setSidebarOpen(false)}
+              className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
+            >
+              Settings
+            </Link>
+            <Link
+              href="#"
+              onClick={() => setSidebarOpen(false)}
+              className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
+            >
+              Notifications
+            </Link>
+            <Link
+              href="#"
+              onClick={() => setSidebarOpen(false)}
+              className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
+            >
+              Messages
+            </Link>
+            <Link
+              href="#"
+              onClick={() => setSidebarOpen(false)}
+              className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
+            >
+              Reports
+            </Link>
+            <Link
+              href="#"
+              onClick={() => setSidebarOpen(false)}
+              className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
+            >
+              Help & Support
+            </Link>
+            <Link
+              href="#"
+              onClick={() => setSidebarOpen(false)}
+              className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
+            >
+              API Documentation
+            </Link>
+            <Link
+              href="#"
+              onClick={() => setSidebarOpen(false)}
+              className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
+            >
+              System Status
+            </Link>
           </nav>
         </div>
 
