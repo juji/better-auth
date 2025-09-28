@@ -18,6 +18,25 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
     router.push('/');
   };
 
+  // Navigation links data
+  const navigationLinks = [
+    { href: '/protected', text: 'Home' },
+    { href: '/protected/change-password', text: 'Change Password' },
+    { href: '/protected/session-management', text: 'Session Management' },
+    { href: '/protected/multi-session', text: 'Multiple Sessions' },
+    { href: '/protected/passkey', text: 'Passkey Management' },
+    { href: '#', text: 'Dashboard' },
+    { href: '#', text: 'Analytics' },
+    { href: '#', text: 'User Profile' },
+    { href: '#', text: 'Settings' },
+    { href: '#', text: 'Notifications' },
+    { href: '#', text: 'Messages' },
+    { href: '#', text: 'Reports' },
+    { href: '#', text: 'Help & Support' },
+    { href: '#', text: 'API Documentation' },
+    { href: '#', text: 'System Status' },
+  ];
+
   return (
     <>
       {/* Mobile sidebar backdrop */}
@@ -40,113 +59,16 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
         {/* Center Section - Scrollable */}
         <div className="flex-1 overflow-y-auto">
           <nav className="px-4 py-4 space-y-2">
-            <Link
-              href="/protected"
-              onClick={() => setSidebarOpen(false)}
-              className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
-            >
-              Home
-            </Link>
-            <Link
-              href="/protected/change-password"
-              onClick={() => setSidebarOpen(false)}
-              className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
-            >
-              Change Password
-            </Link>
-            <Link
-              href="/protected/session-management"
-              onClick={() => setSidebarOpen(false)}
-              className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
-            >
-              Session Management
-            </Link>
-            <Link
-              href="/protected/multi-session"
-              onClick={() => setSidebarOpen(false)}
-              className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
-            >
-              Multiple Sessions
-            </Link>
-            <Link
-              href="/protected/passkey"
-              onClick={() => setSidebarOpen(false)}
-              className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
-            >
-              Passkey Management
-            </Link>
-
-            {/* Example links for testing overflow */}
-            <Link
-              href="#"
-              onClick={() => setSidebarOpen(false)}
-              className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
-            >
-              Dashboard
-            </Link>
-            <Link
-              href="#"
-              onClick={() => setSidebarOpen(false)}
-              className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
-            >
-              Analytics
-            </Link>
-            <Link
-              href="#"
-              onClick={() => setSidebarOpen(false)}
-              className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
-            >
-              User Profile
-            </Link>
-            <Link
-              href="#"
-              onClick={() => setSidebarOpen(false)}
-              className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
-            >
-              Settings
-            </Link>
-            <Link
-              href="#"
-              onClick={() => setSidebarOpen(false)}
-              className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
-            >
-              Notifications
-            </Link>
-            <Link
-              href="#"
-              onClick={() => setSidebarOpen(false)}
-              className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
-            >
-              Messages
-            </Link>
-            <Link
-              href="#"
-              onClick={() => setSidebarOpen(false)}
-              className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
-            >
-              Reports
-            </Link>
-            <Link
-              href="#"
-              onClick={() => setSidebarOpen(false)}
-              className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
-            >
-              Help & Support
-            </Link>
-            <Link
-              href="#"
-              onClick={() => setSidebarOpen(false)}
-              className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
-            >
-              API Documentation
-            </Link>
-            <Link
-              href="#"
-              onClick={() => setSidebarOpen(false)}
-              className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
-            >
-              System Status
-            </Link>
+            {navigationLinks.map((link, index) => (
+              <Link
+                key={index}
+                href={link.href}
+                onClick={() => setSidebarOpen(false)}
+                className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
+              >
+                {link.text}
+              </Link>
+            ))}
           </nav>
         </div>
 
