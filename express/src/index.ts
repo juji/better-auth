@@ -1,8 +1,5 @@
 import express from 'express'
 import cors from 'cors'
-import { toNodeHandler } from "better-auth/node";
-import { auth } from './lib/auth.js';
-import { authMiddleware } from './middlewares/auth.js';
 
 const app = express()
 
@@ -14,7 +11,6 @@ if(process.env.CORS_ORIGINS){
   }));
 }
 
-app.all("/auth/{*any}", toNodeHandler(auth));
 
 
 const welcomeStrings = [
@@ -26,8 +22,8 @@ app.get('/', (_req, res) => {
   res.send(welcomeStrings.join('\n\n'))
 })
 
-app.get('/protected', authMiddleware, (req, res) => {
-  res.json({ message: 42, authSession: req.session })
+app.get('/protected', (req, res) => {
+  res.json({ message: 42, authSession: 'not implemented yet' })
 })
 
 
