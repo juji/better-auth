@@ -12,6 +12,7 @@
     "@types/cors": "^2.8.19",
     "@types/express": "5.0.0",
     "@types/node": "20.11.17",
+    "dotenv": "^17.2.2",
     "tsx": "^4.20.5",
     "typescript": "5.8.3"
   }
