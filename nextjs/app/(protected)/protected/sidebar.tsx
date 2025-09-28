@@ -108,7 +108,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
           >
             <span>{link.text}</span>
             <svg
-              className={`w-4 h-4 transition-transform ${isExpanded ? 'rotate-90' : ''}`}
+              className={`w-4 h-4 transition-transform duration-200 ease-in-out ${isExpanded ? 'rotate-90' : ''}`}
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -116,11 +116,15 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </button>
-          {isExpanded && (
-            <div>
+          <div
+            className={`overflow-hidden transition-all duration-300 ease-in-out ${
+              isExpanded ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+            }`}
+          >
+            <div className="py-1">
               {link.children!.map((child) => renderNavigationLink(child, level + 1))}
             </div>
-          )}
+          </div>
         </div>
       );
     }
