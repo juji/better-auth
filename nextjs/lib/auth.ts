@@ -10,7 +10,7 @@ export interface AuthResult {
     message?: string | undefined;
     status: number;
     statusText: string;
-} | null | string;
+  } | null | string;
 }
 
 export async function authenticateRequest(request: Request): Promise<AuthResult> {
