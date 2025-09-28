@@ -16,19 +16,32 @@ export default function BeautifulLogin() {
   const [ currentView, setCurrentView ] = useState<'login' | 'register' | 'forgot-password' | 'loggedin'>('login');
   const [ viewFromUrl, setViewFromUrl ] = useState<'login' | 'register' | 'forgot-password' | 'loggedin' | null>(null);
 
-  // Get view from query parameter using useEffect
+  // Get view from hash using useEffect
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const urlParams = new URLSearchParams(window.location.search);
-      const viewParam = urlParams.get('view') as 'login' | 'register' | 'forgot-password' | null;
-      if (viewParam) {
-        setViewFromUrl(viewParam);
+    const handleHashChange = () => {
+      if (typeof window !== 'undefined') {
+        const hash = window.location.hash.replace('#', '');
+        const viewParam = hash as 'login' | 'register' | 'forgot-password' | null;
+        if (viewParam && ['login', 'register', 'forgot-password'].includes(viewParam)) {
+          setViewFromUrl(viewParam);
+        }
       }
-    }
+    };
+
+    // Initial load
+    handleHashChange();
+
+    // Listen for hash changes
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
   const updateView = (view: 'login' | 'register' | 'forgot-password') => {
     setCurrentView(view);
+    // Update URL with hash
+    if (typeof window !== 'undefined') {
+      window.location.hash = view;
+    }
   };
 
   const handleSwitchToRegister = () => updateView('register');

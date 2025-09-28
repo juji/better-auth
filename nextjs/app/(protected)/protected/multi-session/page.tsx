@@ -39,8 +39,8 @@ export default function MultiSessionPage() {
   }, []);
 
   const handleAddSession = () => {
-    // Redirect to home page with login view to create a new session
-    router.push('/?view=login');
+    // Redirect to home page with login view using hash
+    router.push('/#login');
   };
 
   const handleActivateSession = async (session: Session) => {
