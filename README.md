@@ -1,43 +1,169 @@
-# Better Auth - checking out the new Auth lib.
+# Better Auth Experiment
 
-So, what did we build..?
+A demonstration of [Better Auth](https://www.better-auth.com) - a modern, open-source authentication framework for TypeScript applications.
 
-- A [Next.js](nextjs.org) app
-- A [Hono](hono.dev) server
-- an [Express](https://expressjs.com) server
+## 🚀 What We Built
 
-Three auth method were created:
+This project showcases three different server implementations of Better Auth:
 
-- Auth with Nextjs's api directory
-- Auth with a hono server
-- Auth with an Express server
+- **[Next.js](https://nextjs.org)** - Full-stack React framework with App Router
+- **[Hono](https://hono.dev)** - Lightweight, fast web framework for Cloudflare Workers, Fastify, and more
+- **[Express](https://expressjs.com)** - Traditional Node.js web framework
 
-Every auth method have email + password auth. Also comes with forgot-password and change password routine.
+## ✨ Features
 
-The Application is hosted at https://better-auth.jujiplay.com/
+### Core Authentication
+- **Email + Password** authentication
+- **Social Logins** (GitHub, Google)
+- **Magic Link** authentication
+- **Passkey/WebAuthn** support for passwordless login
+- **Multi-session** management across devices
+- **Forgot Password** & **Change Password** flows
 
-It is the nextjs app. Also contains the three auth method.
+### User Experience
+- **Glassmorphism UI** with modern design
+- **Responsive Design** for all devices
+- **Hash-based Navigation** for seamless auth flows
+- **Protected Routes** with session validation
+- **Session Management** interface
 
-## Database & ORM
+### Technical Features
+- **TypeScript** throughout for type safety
+- **PostgreSQL** database with connection pooling
+- **Drizzle ORM** for type-safe database operations
+- **OpenAPI Documentation** (Hono implementation)
+- **Environment-based Configuration**
 
-Database is [postgres](https://www.postgresql.org).. local db on dev, and remote db (Neon, Supabase, Aiven) on live.
+## 🏗️ Architecture
 
-Check them out:
+### Database & ORM
+- **PostgreSQL** for data persistence
+- **Drizzle ORM** for schema management and queries
+- **Database Migrations** with Drizzle Kit
 
-- https://neon.com (Express)
-- https://supabase.com (Hono)
-- https://aiven.io (Next.js)
+### Hosting & Deployment
+- **Next.js App**: [better-auth.jujiplay.com](https://better-auth.jujiplay.com)
+- **Hono API**: [better-auth-hono.jujiplay.com](https://better-auth-hono.jujiplay.com)
+- **Express API**: [better-auth-express.jujiplay.com](https://better-auth-express.jujiplay.com)
 
-We are using [DrizzleOrm](https://orm.drizzle.team) to connect to postgres.
+## 📁 Project Structure
 
-## Hono: the one with the most feature.
+```
+better-auth/
+├── nextjs/          # Next.js implementation (main demo)
+├── hono/           # Hono server implementation
+├── express/        # Express server implementation
+└── docker-compose.yml  # Development environment
+```
 
-The Hono App has these features:
+## 🛠️ Technology Stack
 
-- Github oAuth
-- Google oAuth
-- Magic Link login
-- Passkwy login
-- Multiple Session support
-- OpenApi docs at https://better-auth-honojujiplay.com/auth/reference
+### Frontend (Next.js)
+- **Framework**: Next.js 15 with App Router
+- **Styling**: Tailwind CSS with custom glassmorphism effects
+- **State Management**: React hooks with Better Auth client
+- **Navigation**: Hash-based routing for auth flows
+
+### Backend (All implementations)
+- **Auth Library**: Better Auth v1.x
+- **Database**: PostgreSQL
+- **ORM**: Drizzle ORM
+- **Validation**: Built-in Better Auth validation
+
+### Development
+- **Language**: TypeScript
+- **Package Manager**: pnpm
+- **Containerization**: Docker & Docker Compose
+- **Code Quality**: ESLint, Prettier
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js 18+
+- pnpm
+- Docker & Docker Compose
+- PostgreSQL (or use the provided docker-compose)
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd better-auth
+   ```
+
+2. **Install dependencies**
+   ```bash
+   pnpm install
+   ```
+
+3. **Start the database**
+   ```bash
+   docker-compose up -d
+   ```
+
+4. **Set up environment variables**
+   - Copy `.env.example` to `.env.local`
+   - Configure your database URL and auth secrets
+
+5. **Run database migrations**
+   ```bash
+   cd nextjs && pnpm run db:push
+   ```
+
+6. **Start the development server**
+   ```bash
+   pnpm run dev
+   ```
+
+## 🎯 Key Features Showcase
+
+### Hono Implementation (Most Feature-Complete)
+- ✅ GitHub OAuth
+- ✅ Google OAuth
+- ✅ Magic Link authentication
+- ✅ Passkey/WebAuthn support
+- ✅ Multi-session management
+- ✅ OpenAPI documentation at `/auth/reference`
+
+### Next.js Implementation (Main Demo)
+- ✅ Complete UI/UX with glassmorphism design
+- ✅ All authentication methods
+- ✅ Protected routes and session management
+- ✅ Responsive design
+- ✅ Hash-based navigation
+
+### Express Implementation
+- ✅ Traditional server setup
+- ✅ Core authentication features
+- ✅ RESTful API design
+
+## 🔐 Authentication Methods
+
+| Method | Next.js | Hono | Express |
+|--------|---------|------|---------|
+| Email/Password | ✅ | ✅ | ✅ |
+| GitHub OAuth | ❌ | ✅ | ❌ |
+| Google OAuth | ❌ | ✅ | ❌ |
+| Magic Link | ❌ | ✅ | ❌ |
+| Passkeys | ✅ | ✅ | ❌ |
+| Multi-Session | ✅ | ✅ | ❌ |
+
+## 📚 API Documentation
+
+- **Hono OpenAPI**: [better-auth-hono.jujiplay.com/auth/reference](https://better-auth-hono.jujiplay.com/auth/reference)
+- **Better Auth Docs**: [better-auth.com](https://www.better-auth.com)
+
+## 🤝 Contributing
+
+This is an experimental project showcasing Better Auth capabilities. Feel free to:
+
+- Report issues
+- Suggest improvements
+- Submit pull requests
+- Use as reference for your own implementations
+
+## 📄 License
+
+This project is for educational and demonstration purposes.
 
