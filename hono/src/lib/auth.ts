@@ -6,14 +6,15 @@ import { sendEmail } from "./mailer/index.js";
 import { magicLink } from "better-auth/plugins";
 import { openAPI } from "better-auth/plugins"
 import { passkey } from "better-auth/plugins/passkey"
-import { multiSession } from "better-auth/plugins"
+import { multiSession, jwt, bearer } from "better-auth/plugins"
 
 import { 
   users, 
   accounts, 
   verifications, 
   sessions, 
-  passkeys 
+  passkeys,
+  jwkss 
 } from "./db/schema/auth.js";
 
 
@@ -22,6 +23,8 @@ export const auth = betterAuth({
   basePath: "/auth",
   plugins: [
     openAPI(),
+    jwt(),
+    bearer(),
     passkey(
       {
         rpID: process.env.BETTER_AUTH_PASSKEY_RPID || "localhost",
@@ -59,7 +62,8 @@ export const auth = betterAuth({
       accounts: accounts,
       sessions: sessions,
       verifications: verifications,
-      passkeys: passkeys
+      passkeys: passkeys,
+      jwkss: jwkss
     },
   }),
   advanced: {

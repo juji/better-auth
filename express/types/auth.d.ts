@@ -1,9 +1,10 @@
-import { Session } from "../src/lib/auth.ts";
+import { Session, User } from "better-auth";
 
 declare global {
   namespace Express {
     interface Request {
       session?: Session; 
+      user?: User;
     }
   }
 }

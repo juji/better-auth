@@ -66,6 +66,13 @@ export const verifications = pgTable("verifications", {
     .notNull(),
 });
 
+export const jwkss = pgTable("jwkss", {
+  id: text("id").primaryKey(),
+  publicKey: text("public_key").notNull(),
+  privateKey: text("private_key").notNull(),
+  createdAt: timestamp("created_at").notNull(),
+});
+
 export const passkeys = pgTable("passkeys", {
   id: text("id").primaryKey(),
   name: text("name"),
