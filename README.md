@@ -4,11 +4,11 @@ A demonstration of [Better Auth](https://www.better-auth.com) - a modern, open-s
 
 ## 🚀 What We Built
 
-This project showcases three different server implementations of Better Auth:
+This project showcases three different implementations of Better Auth:
 
-- **[Next.js](https://nextjs.org)** - Full-stack React framework with App Router
-- **[Hono](https://hono.dev)** - Lightweight, fast web framework
-- **[Express](https://expressjs.com)** - Traditional Node.js web framework
+- **[Next.js](nextjs/)** - Full-stack React application with authentication UI
+- **[Hono](hono/)** - Standalone authentication server with comprehensive features
+- **[Express](express/)** - Client application demonstrating server integration
 
 ## ✨ Features
 
@@ -29,6 +29,12 @@ This project showcases three different server implementations of Better Auth:
 
 ## 🏗️ Architecture
 
+### Implementation Overview
+
+- **Next.js**: Frontend application with authentication UI, connects to Hono backend
+- **Hono**: Complete authentication server with database, all auth methods, and API
+- **Express**: Client/server example showing how to integrate with external auth servers
+
 ### Database & ORM
 - **PostgreSQL** for data persistence
 - **Drizzle ORM** for schema management and queries
@@ -43,120 +49,147 @@ This project showcases three different server implementations of Better Auth:
 
 ```
 better-auth/
-├── nextjs/          # Next.js implementation (main demo)
-├── hono/           # Hono server implementation
-├── express/        # Express server implementation
-└── docker-compose.yml  # Development environment
+├── nextjs/          # Next.js frontend with auth UI (port 3000)
+├── hono/           # Hono auth server with full features (port 3001)
+├── express/        # Express client/server example (port 3002)
+└── docker-compose.yml  # PostgreSQL development database
 ```
 
 ## 🛠️ Technology Stack
 
 ### Frontend (Next.js)
 - **Framework**: Next.js 15 with App Router
-- **Styling**: Tailwind CSS with custom glassmorphism effects
-- **State Management**: React hooks with Better Auth client
-- **Navigation**: Hash-based routing for auth flows
+- **Styling**: Tailwind CSS
+- **Auth Client**: Better Auth React client
+- **State Management**: React hooks
 
-### Backend (All implementations)
-- **Auth Library**: Better Auth v1.x
-- **Database**: PostgreSQL
-- **ORM**: Drizzle ORM
-- **Validation**: Built-in Better Auth validation
+### Backend (Hono - Full Auth Server)
+- **Framework**: Hono
+- **Auth Library**: Better Auth v1.x with all plugins
+- **Database**: PostgreSQL with Drizzle ORM
+- **Email**: Nodemailer with SMTP
+- **Documentation**: OpenAPI integration
+
+### Backend (Express - Client Example)
+- **Framework**: Express.js
+- **Auth Client**: Better Auth client library
+- **JWT**: Jose for token verification
+- **Purpose**: Demonstrates client/server integration
 
 ### Development
-- **Language**: TypeScript
+- **Language**: TypeScript throughout
 - **Package Manager**: pnpm
 - **Containerization**: Docker & Docker Compose
-- **Code Quality**: ESLint, Prettier
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 - Node.js 18+
 - pnpm
-- Docker & Docker Compose
-- PostgreSQL (or use the provided docker-compose)
+- Docker & Docker Compose (for local database)
 
-### Installation
+### Quick Start
 
-1. **Clone the repository**
+1. **Clone and install**
    ```bash
    git clone <repository-url>
    cd better-auth
-   ```
-
-2. **Install dependencies**
-   ```bash
    pnpm install
    ```
 
-3. **Start the database**
+2. **Start PostgreSQL database**
    ```bash
    docker-compose up -d
    ```
 
-4. **Set up environment variables**
-   - Copy `.env.example` to `.env.local`
-   - Configure your database URL and auth secrets
-
-5. **Run database migrations**
+3. **Set up Hono auth server** (most feature-complete)
    ```bash
-   cd nextjs && pnpm run db:push
+   cd hono
+   # Configure .env file (see hono/README.md)
+   npm run generate
+   npm run migrate
+   npm run dev  # Runs on port 3001
    ```
 
-6. **Start the development server**
+4. **Start Next.js frontend**
    ```bash
-   pnpm run dev
+   cd ../nextjs
+   # Configure .env.local (see nextjs/README.md)
+   pnpm dev  # Runs on port 3000
    ```
+
+5. **(Optional) Start Express client**
+   ```bash
+   cd ../express
+   # Configure .env file (see express/README.md)
+   npm run dev  # Runs on port 3002
+   ```
+
+### Development URLs
+- **Next.js Frontend**: http://localhost:3000
+- **Hono Auth Server**: http://localhost:3001
+- **Express Client**: http://localhost:3002
 
 ## 🎯 Key Features Showcase
 
+## 🎯 Implementation Features
+
 ### Hono Implementation (Most Feature-Complete)
-- ✅ GitHub OAuth
-- ✅ Google OAuth
+- ✅ Complete authentication server
+- ✅ GitHub OAuth, Google OAuth
 - ✅ Magic Link authentication
 - ✅ Passkey/WebAuthn support
 - ✅ Multi-session management
-- ✅ OpenAPI documentation at `/auth/reference`
+- ✅ Email notifications
+- ✅ OpenAPI documentation
+- ✅ PostgreSQL with Drizzle ORM
 
-### Next.js Implementation (Main Demo)
-- ✅ Complete UI/UX with glassmorphism design
-- ✅ All authentication methods
-- ✅ Protected routes and session management
+### Next.js Implementation (Frontend Demo)
+- ✅ Authentication UI components
+- ✅ User registration and login
+- ✅ Protected routes
+- ✅ Session management
+- ✅ Password reset flow
 - ✅ Responsive design
-- ✅ Hash-based navigation
+- ✅ Connects to Hono backend
 
-### Express Implementation
-- ✅ Traditional server setup
-- ✅ Core authentication features
-- ✅ RESTful API design
+### Express Implementation (Integration Example)
+- ✅ Client/server architecture demo
+- ✅ JWT token validation
+- ✅ Protected API routes
+- ✅ Authentication middleware
+- ✅ External auth server integration
 
-## 🔐 Authentication Methods
+## 📚 Documentation & APIs
 
-| Method | Next.js | Hono | Express |
-|--------|---------|------|---------|
-| Email/Password | ✅ | ✅ | ✅ |
-| GitHub OAuth | ❌ | ✅ | ❌ |
-| Google OAuth | ❌ | ✅ | ❌ |
-| Magic Link | ❌ | ✅ | ❌ |
-| Passkeys | ❌ | ✅ | ❌ |
-| Multi-Session | ❌ | ✅ | ❌ |
+### Hono Auth Server
+- **OpenAPI Docs**: http://localhost:3001/auth/reference (when running)
+- **API Base**: http://localhost:3001/auth
+- **Protected Route**: http://localhost:3001/protected
 
-## 📚 API Documentation
+### Express Client Server
+- **API Base**: http://localhost:3002
+- **Protected Route**: http://localhost:3002/protected
 
-- **Hono OpenAPI**: [better-auth-hono.jujiplay.com/auth/reference](https://better-auth-hono.jujiplay.com/auth/reference)
-- **Better Auth Docs**: [better-auth.com](https://www.better-auth.com)
+### Better Auth Documentation
+- **Official Docs**: [better-auth.com](https://www.better-auth.com)
+- **GitHub**: [github.com/better-auth/better-auth](https://github.com/better-auth/better-auth)
 
 ## 🤝 Contributing
 
-This is an experimental project showcasing Better Auth capabilities. Feel free to:
+This project demonstrates different integration patterns with Better Auth:
 
-- Report issues
-- Suggest improvements
-- Submit pull requests
-- Use as reference for your own implementations
+- **Hono**: Full-featured authentication server implementation
+- **Next.js**: Frontend integration with authentication UI
+- **Express**: Client/server architecture patterns
+
+Feel free to:
+- Report issues with specific implementations
+- Suggest improvements to the demos
+- Submit pull requests for bug fixes
+- Use as reference for your own Better Auth integrations
 
 ## 📄 License
 
-This project is for educational and demonstration purposes.
+This project is for educational and demonstration purposes. See individual directory READMEs for specific implementation details.
 
