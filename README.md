@@ -146,8 +146,8 @@ better-auth/
 | GitHub OAuth | ❌ | ✅ | ❌ |
 | Google OAuth | ❌ | ✅ | ❌ |
 | Magic Link | ❌ | ✅ | ❌ |
-| Passkeys | ✅ | ✅ | ❌ |
-| Multi-Session | ✅ | ✅ | ❌ |
+| Passkeys | ❌ | ✅ | ❌ |
+| Multi-Session | ❌ | ✅ | ❌ |
 
 ## 📚 API Documentation
 
