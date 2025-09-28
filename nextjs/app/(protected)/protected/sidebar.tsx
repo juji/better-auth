@@ -129,12 +129,12 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
 
     if (hasChildren) {
       return (
-        <div key={link.text}>
+        <div key={link.text} className="m-0">
           <button
             onClick={() => toggleSection(link.text)}
-            className={`w-full text-left py-2 pr-6 transition-colors rounded flex items-center justify-between cursor-pointer ${
+            className={`w-full text-left py-2 pr-6 transition-colors rounded flex items-center justify-between cursor-pointer text-sm ${
               hasActiveChild
-                ? 'text-white bg-black'
+                ? 'text-white bg-gray-800'
                 : 'text-gray-400 hover:text-gray-200 hover:bg-white/5'
             }`}
             style={{ paddingLeft: `${paddingLeft}px` }}
@@ -154,7 +154,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
               isExpanded ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
             }`}
           >
-            <div className="py-1">
+            <div>
               {link.children!.map((child) => renderNavigationLink(child, level + 1))}
             </div>
           </div>
@@ -167,9 +167,9 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
         key={link.text}
         href={link.href || '#'}
         onClick={() => setSidebarOpen(false)}
-        className={`block py-2 pr-6 transition-colors rounded cursor-pointer ${
+        className={`block m-0 py-2 pr-6 transition-colors rounded cursor-pointer text-sm ${
           isActive
-            ? 'text-white bg-black font-medium'
+            ? 'text-white bg-gray-800 font-medium'
             : 'text-gray-400 hover:text-gray-200 hover:bg-white/5'
         }`}
         style={{ paddingLeft: `${paddingLeft}px` }}
