@@ -14,58 +14,28 @@ interface NavigationLink {
 // Navigation links data with multi-level structure
 const navigationLinks: NavigationLink[] = [
   { href: '/protected', text: 'Home' },
-  {
-    text: 'Account Management',
-    children: [
-      { href: '/protected/change-password', text: 'Change Password' },
-      { href: '/protected/session-management', text: 'Session Management' },
-      { href: '/protected/multi-session', text: 'Multiple Sessions' },
-      { href: '/protected/passkey', text: 'Passkey Management' },
-    ]
-  },
-  {
-    text: 'User Features',
-    children: [
-      { href: '#', text: 'Dashboard' },
-      { href: '#', text: 'Analytics' },
-      {
-        text: 'Profile Settings',
-        children: [
-          { href: '#', text: 'Personal Information' },
-          { href: '#', text: 'Security Settings' },
-          { href: '#', text: 'Privacy Controls' },
-          { href: '#', text: 'Notification Preferences' },
-        ]
-      },
-      { href: '#', text: 'Messages' },
-      {
-        text: 'Reports',
-        children: [
-          { href: '#', text: 'Monthly Reports' },
-          { href: '#', text: 'Performance Metrics' },
-          { href: '#', text: 'Usage Statistics' },
-          { href: '#', text: 'Export Data' },
-        ]
-      },
-    ]
-  },
-  {
-    text: 'System',
-    children: [
-      { href: '#', text: 'Help & Support' },
-      { href: '#', text: 'API Documentation' },
-      { href: '#', text: 'System Status' },
-      {
-        text: 'Developer Tools',
-        children: [
-          { href: '#', text: 'API Playground' },
-          { href: '#', text: 'Webhook Tester' },
-          { href: '#', text: 'Log Viewer' },
-          { href: '#', text: 'Database Inspector' },
-        ]
-      },
-    ]
-  },
+  { href: '/protected/change-password', text: 'Change Password' },
+  { href: '/protected/session-management', text: 'Session Management' },
+  { href: '/protected/multi-session', text: 'Multiple Sessions' },
+  { href: '/protected/passkey', text: 'Passkey Management' },
+  // below are examples of nested sections
+  // {
+  //   text: 'System',
+  //   children: [
+  //     { href: '#', text: 'Help & Support' },
+  //     { href: '#', text: 'API Documentation' },
+  //     { href: '#', text: 'System Status' },
+  //     {
+  //       text: 'Developer Tools',
+  //       children: [
+  //         { href: '#', text: 'API Playground' },
+  //         { href: '#', text: 'Webhook Tester' },
+  //         { href: '#', text: 'Log Viewer' },
+  //         { href: '#', text: 'Database Inspector' },
+  //       ]
+  //     },
+  //   ]
+  // },
 ];
 
 interface SidebarProps {
