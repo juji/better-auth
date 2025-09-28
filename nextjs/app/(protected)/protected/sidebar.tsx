@@ -32,50 +32,55 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
       <div className={`fixed lg:sticky lg:top-0 inset-y-0 left-0 z-50 w-64 h-screen bg-black/20 backdrop-blur-xl border-r border-white/10 flex flex-col transform transition-transform duration-300 ease-in-out lg:translate-x-0 ${
         sidebarOpen ? 'translate-x-0' : '-translate-x-full'
       }`}>
-        <div className="p-6">
+        {/* Header Section */}
+        <div className="flex-shrink-0 p-6 border-b border-white/10">
           <h2 className="text-lg font-semibold text-white">Protected Page</h2>
         </div>
-        <nav className="px-4 space-y-2 flex-1">
-          <Link
-            href="/protected"
-            onClick={() => setSidebarOpen(false)}
-            className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
-          >
-            Home
-          </Link>
-          <Link
-            href="/protected/change-password"
-            onClick={() => setSidebarOpen(false)}
-            className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
-          >
-            Change Password
-          </Link>
-          <Link
-            href="/protected/session-management"
-            onClick={() => setSidebarOpen(false)}
-            className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
-          >
-            Session Management
-          </Link>
-          <Link
-            href="/protected/multi-session"
-            onClick={() => setSidebarOpen(false)}
-            className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
-          >
-            Multiple Sessions
-          </Link>
-          <Link
-            href="/protected/passkey"
-            onClick={() => setSidebarOpen(false)}
-            className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
-          >
-            Passkey Management
-          </Link>
-        </nav>
 
-        {/* User info and logout at bottom */}
-        <div className="p-4 pb-6 border-t border-white/10">
-          <div className="text-base text-gray-400 mb-2 pb-2">
+        {/* Center Section - Scrollable */}
+        <div className="flex-1 overflow-y-auto">
+          <nav className="px-4 py-4 space-y-2">
+            <Link
+              href="/protected"
+              onClick={() => setSidebarOpen(false)}
+              className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
+            >
+              Home
+            </Link>
+            <Link
+              href="/protected/change-password"
+              onClick={() => setSidebarOpen(false)}
+              className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
+            >
+              Change Password
+            </Link>
+            <Link
+              href="/protected/session-management"
+              onClick={() => setSidebarOpen(false)}
+              className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
+            >
+              Session Management
+            </Link>
+            <Link
+              href="/protected/multi-session"
+              onClick={() => setSidebarOpen(false)}
+              className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
+            >
+              Multiple Sessions
+            </Link>
+            <Link
+              href="/protected/passkey"
+              onClick={() => setSidebarOpen(false)}
+              className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
+            >
+              Passkey Management
+            </Link>
+          </nav>
+        </div>
+
+        {/* Footer Section */}
+        <div className="flex-shrink-0 p-4 border-t border-white/10">
+          <div className="text-base text-gray-400 mb-3 pb-2">
             {session?.user?.email}
           </div>
           <button
