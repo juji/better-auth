@@ -1,38 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Better Auth Next.js Demo
+
+This is a Next.js application that demonstrates authentication features using the Better Auth library.
+
+## Features
+
+- User registration and login
+- Password reset functionality
+- Protected routes
+- Session management
+- Passkey authentication
+- Multi-session support
+- Magic link authentication
+- Social login options
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js
+- pnpm (recommended) or npm/yarn
+- A running Hono backend server (see the hono directory)
+
+### Installation
+
+1. Install dependencies:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-<!-- updated -->
+2. Set up environment variables:
+Create a `.env.local` file with:
+```
+NEXT_PUBLIC_HONO_SERVER=http://localhost:3000
+```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. Start the development server:
+```bash
+pnpm dev
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Open [http://localhost:3000](http://localhost:3000) to view the application.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project Structure
 
-## Learn More
+- `app/` - Next.js app router pages
+  - `(protected)/` - Protected route group
+  - `page.tsx` - Main authentication page
+- `components/` - React components for authentication
+- `lib/` - Authentication client configuration
 
-To learn more about Next.js, take a look at the following resources:
+## Authentication Flow
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The application connects to a Hono backend server for authentication. The auth client is configured in `lib/auth-client-hono.ts` with plugins for:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Magic link authentication
+- Passkey authentication
+- Multi-session management
 
-## Deploy on Vercel
+## Protected Resources
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Authenticated users can access protected API endpoints through the demo pages in the `(protected)` route group.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Development
+
+- Uses Next.js 15 with App Router
+- TypeScript for type safety
+- Tailwind CSS for styling
+- Turbopack for fast builds
+
+## Scripts
+
+- `pnpm dev` - Start development server
+- `pnpm build` - Build for production
+- `pnpm start` - Start production server
