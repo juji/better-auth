@@ -164,7 +164,23 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
         sidebarOpen ? 'translate-x-0' : '-translate-x-full'
       }`}>
         {/* Header Section */}
-        <div className="flex-shrink-0 p-6 border-b border-white/10">
+        <div className="flex items-center p-6 border-b border-white/10">
+          <div className="flex items-center justify-between mr-3">
+            <Link
+              href="/"
+              className="flex items-center justify-center w-8 h-8 bg-white/10 hover:bg-white/20 transition-colors rounded cursor-pointer"
+              title="Go to Homepage"
+            >
+              <svg
+                className="w-4 h-4 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </Link>
+          </div>
           <h2 className="text-lg font-semibold text-white">Protected Page</h2>
         </div>
 
