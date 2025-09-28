@@ -52,6 +52,13 @@ export default function ProtectedPageLayout({
             Change Password
           </Link>
           <Link
+            href="/protected/session-management"
+            onClick={() => setSidebarOpen(false)}
+            className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
+          >
+            Session Management
+          </Link>
+          <Link
             href="/protected/multi-session"
             onClick={() => setSidebarOpen(false)}
             className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
