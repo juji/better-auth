@@ -1,5 +1,5 @@
 import React from 'react';
-import { signIn, useSession } from '@/lib/auth-client-hono';
+import { signIn, useSession, passkey } from '@/lib/auth-client-hono';
 import { SocialButtons } from './social-buttons';
 
 interface LoginFormProps {
@@ -12,6 +12,7 @@ export function LoginForm({ onSwitchToRegister, onSwitchToForgotPassword, onSucc
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(false);
+  const [isPasskeyLoading, setIsPasskeyLoading] = React.useState(false);
   const [error, setError] = React.useState('');
 
   const { refetch } = useSession();
@@ -54,6 +55,36 @@ export function LoginForm({ onSwitchToRegister, onSwitchToForgotPassword, onSucc
       setError(err.message || 'An error occurred during login');
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handlePasskeyLogin = async () => {
+    setIsPasskeyLoading(true);
+    setError('');
+
+    try {
+      console.log('Attempting passkey login');
+      const result = await signIn.passkey({
+        autoFill: false,
+      });
+      console.log('Passkey login result:', result);
+
+      if (result?.error) {
+        console.log('Passkey login error:', result.error);
+        setError(result.error.message || 'Passkey authentication failed');
+        return;
+      }
+
+      console.log('Passkey login successful - refreshing session');
+      refetch();
+
+      console.log('Passkey authentication successful');
+      onSuccess?.();
+    } catch (err: any) {
+      console.error('Passkey login error:', err);
+      setError(err.message || 'An error occurred during passkey authentication');
+    } finally {
+      setIsPasskeyLoading(false);
     }
   };
   return (
@@ -130,6 +161,28 @@ export function LoginForm({ onSwitchToRegister, onSwitchToForgotPassword, onSucc
           )}
         </button>
       </form>
+
+      <div className="mt-4">
+        <button
+          onClick={handlePasskeyLogin}
+          disabled={isPasskeyLoading}
+          className="w-full py-3 px-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all transform hover:scale-105 active:scale-95 cursor-pointer flex items-center justify-center"
+        >
+          {isPasskeyLoading ? (
+            <div className="flex items-center justify-center">
+              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+              Authenticating...
+            </div>
+          ) : (
+            <div className="flex items-center justify-center">
+              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+              Sign In with Passkey
+            </div>
+          )}
+        </button>
+      </div>
 
       <div className="mt-6">
         <div className="relative">

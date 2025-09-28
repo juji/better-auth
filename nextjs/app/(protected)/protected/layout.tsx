@@ -55,6 +55,12 @@ export default function ProtectedPageLayout({
           >
             Multiple Sessions
           </Link>
+          <Link
+            href="/protected/passkey"
+            className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 transition-colors rounded"
+          >
+            Passkey Management
+          </Link>
         </nav>
 
         {/* User info and logout at bottom */}
