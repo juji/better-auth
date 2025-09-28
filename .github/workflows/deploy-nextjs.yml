@@ -8,6 +8,7 @@ on:
   push:
     branches: [ main ]
     paths: [ 'nextjs/**' ]
+  workflow_dispatch: # Allow manual triggering
 
 jobs:
   deploy:
