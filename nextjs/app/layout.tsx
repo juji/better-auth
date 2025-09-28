@@ -39,6 +39,14 @@ export default function RootLayout({
               </div>
               <div className="flex space-x-6">
                 <Link
+                  href="https://jujiyangasli.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+                >
+                  jujiyangasli.com
+                </Link>
+                <Link
                   href="/tos"
                   className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
                 >
