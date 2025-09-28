@@ -20,13 +20,6 @@ This project showcases three different server implementations of Better Auth:
 - **Multi-session** management across devices
 - **Forgot Password** & **Change Password** flows
 
-### User Experience
-- **Glassmorphism UI** with modern design
-- **Responsive Design** for all devices
-- **Hash-based Navigation** for seamless auth flows
-- **Protected Routes** with session validation
-- **Session Management** interface
-
 ### Technical Features
 - **TypeScript** throughout for type safety
 - **PostgreSQL** database with connection pooling
