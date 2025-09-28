@@ -95,17 +95,8 @@ export default function MultiSessionPage() {
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-white mb-4">Multiple Sessions</h1>
           <p className="text-gray-300 mb-4">
-            Manage your active sessions across different devices and browsers.
+            The multi-session plugin allows users to maintain multiple active sessions across different accounts in the same browser. This plugin is useful for applications that require users to switch between multiple accounts without logging out.
           </p>
-          <div className="p-4 bg-slate-500/10 border border-slate-500/20 rounded-lg">
-            <h3 className="text-sm font-medium text-slate-400 mb-2">How do I get multiple sessions?</h3>
-            <ul className="text-xs text-gray-300 space-y-1">
-              <li>• <strong>Multiple devices:</strong> Log in from different devices (phone, tablet, computer)</li>
-              <li>• <strong>Multiple browsers:</strong> Use different browsers on the same device</li>
-              <li>• <strong>Incognito/Private mode:</strong> Each private browsing session creates a new session</li>
-              <li>• <strong>Add New Session button:</strong> Click here to create an additional session</li>
-            </ul>
-          </div>
         </div>
 
         {error && (
@@ -171,7 +162,7 @@ export default function MultiSessionPage() {
                           <span className="font-medium">Created:</span> {formatDate(sessionData.session.createdAt)}
                         </div>
                         <div>
-                          <span className="font-medium">Last Active:</span> {formatDate(sessionData.session.updatedAt)}
+                          <span className="font-medium">Expires:</span> {formatDate(sessionData.session.expiresAt)}
                         </div>
                         {sessionData.session.userAgent && (
                           <div>
@@ -223,9 +214,6 @@ export default function MultiSessionPage() {
             <li>• <strong>Revoke:</strong> End this session (user will be logged out from that device)</li>
             <li>• <strong>Current Session:</strong> The session you're actively using right now</li>
             <li>• <strong>Browser Logout:</strong> When you logout, all sessions started in this browser will be logged out</li>
-            <li>• Sessions automatically expire based on your security settings</li>
-            <li>• Regularly review and revoke suspicious sessions for better security</li>
-            <li>• Each session represents a unique login from a device/browser combination</li>
           </ul>
         </div>
       </div>
