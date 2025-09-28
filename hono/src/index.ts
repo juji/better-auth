@@ -27,8 +27,8 @@ const welcomeStrings = `
 <div style="background-color: #000; color: #eaeaea; padding: 16px; font-family: Arial, sans-serif; height: 100vh;">
   <p>Hello From Hono!</p>
   <p>Auth docs at <a style="color: #c2ffc2;" 
-    href="https://better-auth-hono-ashen.vercel.app/auth/reference">
-    https://better-auth-hono-ashen.vercel.app/auth/reference</a></p>
+    href="https://better-auth-hono.jujiplay.com/auth/reference">
+    https://better-auth-hono.jujiplay.com/auth/reference</a></p>
 </div>
 </body></html>
 `
