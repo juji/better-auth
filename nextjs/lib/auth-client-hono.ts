@@ -2,6 +2,8 @@ import { createAuthClient } from "better-auth/react"
 import { magicLinkClient } from "better-auth/client/plugins";
 import { passkeyClient } from "better-auth/client/plugins"
 import { multiSessionClient } from "better-auth/client/plugins"
+import { jwtClient } from "better-auth/client/plugins"
+
 
 export const authClient = createAuthClient({
   baseURL: (process.env.NEXT_PUBLIC_HONO_SERVER || "http://localhost:3000") + '/auth',
@@ -9,6 +11,7 @@ export const authClient = createAuthClient({
     magicLinkClient(),
     passkeyClient(),
     multiSessionClient(),
+    jwtClient(),
   ]
 })
 
@@ -22,5 +25,6 @@ export const {
   requestPasswordReset,
   changePassword,
   passkey,
+  token,
   multiSession
 } = authClient

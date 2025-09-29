@@ -14,13 +14,23 @@ export interface AuthResult {
 }
 
 export async function authenticateRequest(request: Request): Promise<AuthResult> {
-  // Get Authorization header
-  const authHeader = request.headers.get('authorization');
-  if (!authHeader) {
-    return { session: null, user: null, error: 'No authorization header' };
+  let token: string | null = null;
+
+  // First try to get token from httpOnly cookie
+  if (request instanceof Request && 'cookies' in request) {
+    // Next.js request object
+    const nextRequest = request as any;
+    token = nextRequest.cookies?.get?.('authToken')?.value || null;
   }
 
-  const token = authHeader.split(' ')[1]; // Assuming Bearer token
+  // Fallback to Authorization header
+  if (!token) {
+    const authHeader = request.headers.get('authorization');
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+      token = authHeader.split(' ')[1];
+    }
+  }
+
   if (!token) {
     return { session: null, user: null, error: 'No token provided' };
   }
@@ -29,15 +39,23 @@ export async function authenticateRequest(request: Request): Promise<AuthResult>
   const url = new URL(request.url);
   const audience = url.host;
 
-  // First verify the JWT token
-  await verifyJwt(token, audience);
+  try {
+    // First verify the JWT token
+    await verifyJwt(token, audience);
 
-  // Then get the user session
-  const { session, error } = await getUserSession({ token });
+    // Then get the user session
+    const { session, error } = await getUserSession({ token });
 
-  return {
-    session: session?.session || null,
-    user: session?.user || null,
-    error: error
-  };
+    return {
+      session: session?.session || null,
+      user: session?.user || null,
+      error: error
+    };
+  } catch (error) {
+    return {
+      session: null,
+      user: null,
+      error: 'Invalid token'
+    };
+  }
 }

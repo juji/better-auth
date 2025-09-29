@@ -4,19 +4,22 @@ import { getUserSession } from "../lib/auth-client.js";
 
 export async function authMiddleware(req, res, next) {
 
-  // Extract the token from headers, verify it, and attach user info to req object
+  // Extract the token from cookies or headers, verify it, and attach user info to req object
 
-  // get Authorization header
-  const authHeader = req.headers['authorization'];
-  if (!authHeader) {
-    return res.status(401).json({ error: 'No authorization header' });
+  let token = req.cookies?.authToken;
+
+  // Fallback to Authorization header
+  if (!token) {
+    const authHeader = req.headers['authorization'];
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+      token = authHeader.split(' ')[1];
+    }
   }
 
-  const token = authHeader.split(' ')[1]; // Assuming Bearer token
   if (!token) {
     return res.status(401).json({ error: 'No token provided' });
   }
-  
+
   try{
     // Here verify the token and fetch user info
     await verifyJwt(token);
@@ -27,9 +30,9 @@ export async function authMiddleware(req, res, next) {
     }
 
     req.user = session.user; // Attach user info to request object
-    req.sesssion = session.session;
+    req.session = session.session;
     next(); // Proceed to the next middleware or route handler
-    
+
   } catch (error) {
     return res.status(401).json({ error: 'Invalid token' });
   }
