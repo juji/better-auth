@@ -18,10 +18,11 @@ export default function ProtectedPage() {
   return (
     <div className="text-white p-8">
 
-      <h1 className="text-3xl font-bold mb-4">Another app in the ecosystem</h1>
+      <h1 className="text-3xl font-bold mb-4">Burgundy</h1>
+      <p>Another app in the ecosystem</p>
 
       {/* Cookie-based Authentication Section */}
-      <div className="mb-12">
+      <div className="mb-12 mt-12">
 
         <div className="space-y-4">
           <h3 className="text-xl font-semibold text-white">Cookie-Based API Access</h3>
