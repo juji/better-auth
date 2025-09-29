@@ -2,7 +2,7 @@
 
 import { useSession } from '@/lib/auth-client-hono';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function ProtectedLayout({
   children,
@@ -10,13 +10,6 @@ export default function ProtectedLayout({
   children: React.ReactNode;
 }) {
   const { data: session, isPending } = useSession();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!isPending && !session) {
-      router.push('/');
-    }
-  }, [session, isPending, router]);
 
   // Show loading state while checking auth
   if (isPending) {
@@ -28,9 +21,12 @@ export default function ProtectedLayout({
     );
   }
 
-  // Don't render anything while redirecting
   if (!session) {
-    return null;
+    return (
+      <div className="flex min-h-screen flex-col items-center justify-center py-2">
+        <p className="text-gray-400 dark:text-yellow-300 animate-pulse">You are not authorized to view this page.</p>
+      </div>
+    );
   }
 
   // Render children with smooth fade-in transition
