@@ -49,8 +49,7 @@ AUTH_SERVER=http://localhost:3001
 CORS_ORIGINS=http://localhost:3000
 
 # JWT verification
-AUTH_SERVER_JWKS={"kty":"RSA","use":"sig","n":"...","e":"AQAB","kid":"..."}
-JWT_AUDIENCE=your-app-audience
+
 ```
 
 3. Start the development server:
@@ -88,7 +87,6 @@ The `authMiddleware` function:
 
 - `AUTH_SERVER`: URL of the Better Auth server (default: http://localhost:3001)
 - `CORS_ORIGINS`: Comma-separated list of allowed origins
-- `AUTH_SERVER_JWKS`: JWKS configuration for JWT verification
 - `JWT_AUDIENCE`: Expected JWT audience claim
 
 ### JWKS Setup

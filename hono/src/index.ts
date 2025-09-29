@@ -15,7 +15,7 @@ if(process.env.CORS_ORIGINS){
     origin: process.env.CORS_ORIGINS.split(",").map(s => s.trim()),
     allowMethods: ["POST", "GET", "OPTIONS"],
     allowHeaders: ["Content-Type", "Authorization"],
-    exposeHeaders: ["Content-Length"],
+    exposeHeaders: ["Content-Length", 'Set-Auth-Jwt', 'Set-Auth-Token'],
     credentials: true,
   }))
 }
@@ -38,7 +38,12 @@ app.get('/', (c) => {
 })
 
 app.get('/protected', authMiddleware, (c) => {
-  return c.json({ message: 42, authSession: c.get('session') });
+  return c.json({ 
+    message: 42, 
+    user: c.get('session')?.user,
+    accessedVia: 'Hono API Route',
+    timestamp: new Date().toISOString(),
+  });
 })
 
 export default app

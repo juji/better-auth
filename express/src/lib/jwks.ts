@@ -1,12 +1,7 @@
 
-import * as jose from 'jose'
+import { createRemoteJWKSet, jwtVerify } from 'jose'
 
-const key = JSON.parse(process.env.AUTH_SERVER_JWKS || '{}')
-const JWKS = jose.createLocalJWKSet({
-  keys: [
-    key
-  ],
-})
+let cachedJWKS: ReturnType<typeof createRemoteJWKSet> | null = null;
 
 export function verifyJwt(jwt: string, audience: string) {
 
@@ -14,13 +9,13 @@ export function verifyJwt(jwt: string, audience: string) {
     throw new Error("AUTH_SERVER is not set")
   }
 
-  console.log('jwt:', jwt)
-  console.log('key:', key)
-  console.log('jwks:', JWKS)
-  console.log('audience:', audience)
-  console.log('issuer:', process.env.AUTH_SERVER)
+  if(!cachedJWKS){
+    cachedJWKS = createRemoteJWKSet(
+      new URL(process.env.AUTH_SERVER + '/auth/jwks')
+    )
+  }
 
-  return jose.jwtVerify(jwt, JWKS, {
+  return jwtVerify(jwt, cachedJWKS, {
     issuer: process.env.AUTH_SERVER,
     audience: audience,
   })

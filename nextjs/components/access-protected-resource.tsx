@@ -2,14 +2,7 @@
 
 import { useState } from "react";
 import useSWR from "swr";
-
-const fetcher = (url: string, options?: RequestInit) => fetch(url, {
-  ...options||{},
-  ...url.startsWith('http') && !url.startsWith(window.location.origin) ? {
-    mode: 'cors',
-    credentials: 'include'
-  } : {}
-}).then(res => res.json())
+import { fetcher } from "@/lib/fetcher";
 
 export function AccessProtectedResource({ url }: { url: string }) {
 
@@ -41,7 +34,7 @@ export function AccessProtectedResource({ url }: { url: string }) {
             </svg>
           </div>
           <div>
-            <p className="text-red-400 font-medium">Access Failed</p>
+            <p className="text-red-400 font-medium">Access Failed: {url}</p>
             <p className="text-red-300/80 text-sm">{error instanceof Error ? error.message : 'Unknown error'}</p>
           </div>
         </div>
@@ -59,7 +52,7 @@ export function AccessProtectedResource({ url }: { url: string }) {
             </svg>
           </div>
           <div>
-            <p className="text-green-400 font-medium">Protected Resource Accessed</p>
+            <p className="text-green-400 font-medium">{url}</p>
             <p className="text-green-300/80 text-sm">Successfully retrieved data</p>
           </div>
         </div>

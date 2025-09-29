@@ -26,9 +26,14 @@ export const auth = betterAuth({
     jwt({
       jwt: {
         audience: process.env.JWT_AUDIENCE || 'http://asdf.com:3000',
+        definePayload: ({user}) => {
+          return {
+            user: user
+          }
+        }
       }
     }),
-    bearer(),
+    // bearer(),
     passkey(
       {
         rpID: process.env.BETTER_AUTH_PASSKEY_RPID || "localhost",

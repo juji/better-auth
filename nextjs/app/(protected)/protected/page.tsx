@@ -14,6 +14,10 @@ export default function ProtectedPage() {
         </p>
       </div>
       <AccessProtectedResource url={process.env.NEXT_PUBLIC_HONO_SERVER + "/protected"} />
+      <br />
+      <AccessProtectedResource url={"/api/protected"} />
+      <br />
+      <AccessProtectedResource url={process.env.NEXT_PUBLIC_EXPRESS_SERVER + "/protected"} />
     </div>
   );
 }

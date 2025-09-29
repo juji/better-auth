@@ -4,9 +4,9 @@ import { authenticateRequest } from '@/lib/auth';
 export async function GET(request: NextRequest) {
   try {
     // Authenticate the request
-    const { session, user, error } = await authenticateRequest(request);
+    const { user, error } = await authenticateRequest(request);
 
-    if (error || !session || !user) {
+    if (error || !user) {
       return NextResponse.json(
         { error: error || 'Authentication failed' },
         { status: 401 }
@@ -15,8 +15,7 @@ export async function GET(request: NextRequest) {
 
     // Return the protected data with session info
     return NextResponse.json({
-      message: 'Successfully accessed protected API route!',
-      session: session,
+      message: 42,
       user: user,
       accessedVia: 'Next.js API Route',
       timestamp: new Date().toISOString(),
