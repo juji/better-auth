@@ -34,6 +34,15 @@ export function LoggedIn() {
         </button>
       </div>
 
+      <div className="text-center mt-6">
+        <button
+          onClick={() => window.location.hash = 'login'}
+          className="text-sm text-gray-400 hover:underline cursor-pointer"
+        >
+          Login again
+        </button>
+      </div>
+
       {/* Decorative elements */}
       <div className="absolute -top-4 -right-4 w-8 h-8 bg-purple-500/20 rounded-full blur-sm"></div>
       <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-pink-500/20 rounded-full blur-sm"></div>
