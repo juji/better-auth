@@ -77,10 +77,11 @@ export const auth = betterAuth({
   }),
   advanced: {
     cookiePrefix: "j-auth-hono", // custom cookie prefix
-    crossSubDomainCookies: {
-      enabled: true,
-      domain: process.env.CROSS_SUBDOMAIN_COOKIE_DOMAIN,
-    }
+    // use jwt for cross domain auth
+    // crossSubDomainCookies: {
+    //   enabled: true,
+    //   domain: process.env.CROSS_SUBDOMAIN_COOKIE_DOMAIN,
+    // }
   },
   emailAndPassword: {
     enabled: true,
