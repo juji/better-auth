@@ -21,7 +21,6 @@ export default function BeautifulLogin() {
     const handleHashChange = () => {
       if (typeof window !== 'undefined') {
         const hash = window.location.hash.replace('#', '');
-        console.log('Hash changed:', hash);
         const viewParam = hash as 'login' | 'register' | 'forgot-password' | null;
         if (viewParam && ['login', 'register', 'forgot-password'].includes(viewParam)) {
           setViewFromUrl(viewParam);
