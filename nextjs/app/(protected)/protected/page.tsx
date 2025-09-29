@@ -1,5 +1,6 @@
 
 import { AccessProtectedResource } from "@/components/access-protected-resource";
+import Image from "next/image";
 
 /*
 
@@ -17,11 +18,74 @@ export default function ProtectedPage() {
   return (
     <div className="text-white p-8">
       <div className="mb-12 space-y-6">
+        <h1 className="text-4xl font-bold text-white mb-6">Authentication Architecture</h1>
+        <p className="text-gray-300 leading-relaxed text-lg max-w-4xl">
+          This demo showcases a complete authentication architecture with multiple server types
+          working together to provide secure access across different domains and use cases.
+        </p>
+
+        <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-6">
+          <h2 className="text-xl font-semibold text-white mb-4">🏗️ System Architecture</h2>
+          <div className="grid md:grid-cols-3 gap-6 text-sm">
+            <div className="space-y-3">
+              <h3 className="font-medium text-blue-400">Hono API Server</h3>
+              <p className="text-gray-300">
+                A full-featured API server with integrated authentication capabilities. Handles user sessions,
+                processes authentication requests, and provides secure cookie-based access to protected endpoints.
+              </p>
+              <div className="text-xs text-gray-400">
+                <strong>Tech:</strong> Hono + Better Auth<br/>
+                <strong>Auth:</strong> Sessions & Cookies<br/>
+                <strong>Domain:</strong> {process.env.NEXT_PUBLIC_HONO_SERVER}
+              </div>
+            </div>
+            <div className="space-y-3">
+              <h3 className="font-medium text-green-400">Next.js Frontend</h3>
+              <p className="text-gray-300">
+                The main application frontend that authenticates users through the Hono API server
+                and demonstrates JWT-based API access patterns.
+              </p>
+              <div className="text-xs text-gray-400">
+                <strong>Tech:</strong> Next.js + React<br/>
+                <strong>Auth:</strong> Client Integration + JWT<br/>
+                <strong>Domain:</strong> {typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000'}
+              </div>
+            </div>
+            <div className="space-y-3">
+              <h3 className="font-medium text-purple-400">Express API Server</h3>
+              <p className="text-gray-300">
+                An external API server demonstrating cross-domain JWT-based authentication
+                for service-to-service communication.
+              </p>
+              <div className="text-xs text-gray-400">
+                <strong>Tech:</strong> Express.js<br/>
+                <strong>Auth:</strong> JWT Verification<br/>
+                <strong>Domain:</strong> {process.env.NEXT_PUBLIC_EXPRESS_SERVER}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Architecture Diagram */}
+      <div className="mb-12">
+        <div className="bg-gray-800/30 border border-gray-700 rounded-lg p-3 flex justify-center">
+          <Image
+            src="/auth-infra.png"
+            alt="Authentication Infrastructure Diagram"
+            width={800}
+            height={400}
+            className="w-full h-auto rounded-lg max-h-[600px] object-contain bg-black"
+            priority
+          />
+        </div>
+      </div>
+
+      <div className="mb-12 space-y-6">
         <h1 className="text-4xl font-bold text-white mb-6">Authentication Patterns</h1>
         <p className="text-gray-300 leading-relaxed text-lg max-w-4xl">
           This page demonstrates the two primary authentication approaches: cookie-based authentication
-          for seamless same-domain API access, and JWT-based authentication for secure cross-domain
-          service communication.
+          for seamless API access, and JWT-based authentication for secure service communication.
         </p>
       </div>
 
@@ -31,7 +95,7 @@ export default function ProtectedPage() {
           <h2 className="text-3xl font-bold text-white mb-4">🔐 Connecting to API using Cookies</h2>
           <p className="text-gray-300 leading-relaxed text-lg max-w-3xl">
             The primary authentication method uses HTTP-only cookies set by the auth server.
-            This provides seamless, secure access to same-domain API endpoints without manual
+            This provides seamless, secure access to API endpoints without manual
             token management. Cookies are automatically included in requests and cannot be
             accessed by client-side JavaScript.
           </p>
@@ -43,7 +107,7 @@ export default function ProtectedPage() {
             <div className="space-y-2">
               <h4 className="font-medium text-green-400">1. Auth Server Sets Cookie</h4>
               <p className="text-gray-300">
-                Better Auth server sets httpOnly, secure cookies containing session data.
+                Better Auth sets httpOnly, secure cookies containing session data.
               </p>
             </div>
             <div className="space-y-2">
@@ -64,9 +128,9 @@ export default function ProtectedPage() {
         <div className="space-y-4">
           <h3 className="text-xl font-semibold text-white">Cookie-Based API Access</h3>
           <div>
-            <h4 className="text-lg font-medium text-green-400 mb-2">Hono Auth Server</h4>
+            <h4 className="text-lg font-medium text-green-400 mb-2">Hono Server</h4>
             <p className="text-gray-400 text-sm mb-3">
-              The authentication server that manages cookies and provides session-based API access
+              The server that manages authentication via cookies and provides session-based API access
             </p>
             <AccessProtectedResource url={process.env.NEXT_PUBLIC_HONO_SERVER + "/protected"} />
           </div>
@@ -90,7 +154,11 @@ export default function ProtectedPage() {
             <div className="space-y-2">
               <h4 className="font-medium text-cyan-400">1. Token Generation</h4>
               <p className="text-gray-300">
-                Auth server generates JWTs with user data and signs them with private keys.
+                Auth server (Hono) generates JWTs with user data and signs them with private keys.
+              </p>
+              <p className="text-gray-300">
+                Tokens are short-lived and can be refreshed as needed. The client (NextJs) handles token storage.
+                Token is stored in memory (not in cookies).
               </p>
             </div>
             <div className="space-y-2">
@@ -138,10 +206,10 @@ export default function ProtectedPage() {
           <div>
             <h4 className="font-medium text-green-400 mb-2">Cookie Authentication (Hono)</h4>
             <ul className="text-gray-300 space-y-1">
-              <li>• Auth server manages user sessions</li>
+              <li>• API server manages user sessions</li>
               <li>• Automatic browser cookie handling</li>
               <li>• Seamless authentication flow</li>
-              <li>• Primary method for auth server APIs</li>
+              <li>• Primary method for auth-enabled APIs</li>
             </ul>
           </div>
           <div>

@@ -29,7 +29,7 @@ export default function ProtectedPageLayout({
         </div>
 
         {/* Content Area */}
-        <main className="flex-1 p-1 sm:p-6">
+        <main className="flex-1 p-1 sm:p-6 max-w-4xl w-full">
           <div className="animate-in fade-in duration-500 ease-out">
             {children}
           </div>

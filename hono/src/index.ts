@@ -15,7 +15,13 @@ if(process.env.CORS_ORIGINS){
     origin: process.env.CORS_ORIGINS.split(",").map(s => s.trim()),
     allowMethods: ["POST", "GET", "OPTIONS"],
     allowHeaders: ["Content-Type", "Authorization"],
-    exposeHeaders: ["Content-Length", 'Set-Auth-Jwt', 'Set-Auth-Token'],
+
+    // expose headers for jwt?
+    // no need, jwt token creation is accessed through tokens endpoint
+    exposeHeaders: [
+      "Content-Length", 
+      // 'Set-Auth-Jwt'
+    ],
     credentials: true,
   }))
 }

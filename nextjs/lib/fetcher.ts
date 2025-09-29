@@ -1,4 +1,5 @@
 import { token } from "@/lib/auth-client-hono";
+import { decodeJwt } from 'jose';
 
 const tokenCache: { 
   token: string | null, 
@@ -32,8 +33,12 @@ function getToken(){
     if (error || !data?.token) {
       throw new Error('No auth token available');
     }
+    
+    // Decode JWT to get actual expiry time
+    const decoded = decodeJwt(data.token);
+    const expiryTime = decoded.exp ? decoded.exp * 1000 : Date.now() + (15 * 60 * 1000); // fallback to 15 minutes
     tokenCache.token = data.token;
-    tokenCache.expiry = Date.now() + (60 * 60 * 1000) - (5 * 60 * 1000); // 5 minutes early
+    tokenCache.expiry = Math.round(expiryTime * 0.77); // 77% of actual expiry time
     return { token: data.token };
   })();
 
