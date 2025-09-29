@@ -37,8 +37,10 @@ function getToken(){
     // Decode JWT to get actual expiry time
     const decoded = decodeJwt(data.token);
     const expiryTime = decoded.exp ? decoded.exp * 1000 : Date.now() + (15 * 60 * 1000); // fallback to 15 minutes
+
+    
     tokenCache.token = data.token;
-    tokenCache.expiry = Math.round(expiryTime * 0.77); // 77% of actual expiry time
+    tokenCache.expiry = expiryTime - (1 * 60 * 1000); // 1 minute before actual expiry time
     return { token: data.token };
   })();
 
