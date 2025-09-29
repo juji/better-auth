@@ -4,12 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently -c green,yellow,magenta,blue --names hono,express,next,other \"pnpm run dev:hono\" \"pnpm run dev:express\" \"pnpm run dev:next\" \"pnpm run dev:other\"",
+    "dev": "concurrently -c green,yellow,magenta,blue --names hono,express,next,burgundy \"pnpm run dev:hono\" \"pnpm run dev:express\" \"pnpm run dev:next\" \"pnpm run dev:burgundy\"",
     "dev:hono": "cd hono && pnpm run dev",
-    "dev:other": "cd other-nextjs && pnpm run dev",
+    "dev:burgundy": "cd burgundy && pnpm run dev",
     "dev:express": "cd express && pnpm run dev",
     "dev:next": "cd nextjs && pnpm run dev",
-    "postinstall": "cd hono && pnpm install && cd ../express && pnpm install && cd ../nextjs && pnpm install && cd ../other-nextjs && pnpm install"
+    "postinstall": "cd hono && pnpm install && cd ../express && pnpm install && cd ../nextjs && pnpm install && cd ../burgundy && pnpm install"
   },
   "keywords": [],
   "author": "",
