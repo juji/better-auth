@@ -1,6 +1,6 @@
 
 import { AccessProtectedResource } from "@/components/access-protected-resource";
-import Image from "next/image";
+import { ZoomableImage } from "@/components/zoomable-image";
 
 /*
 
@@ -55,16 +55,13 @@ export default function ProtectedPage() {
 
         {/* Architecture Diagram */}
         <div className="mb-8">
-          <div className="bg-gray-800/30 border border-gray-700 rounded-lg p-3 flex justify-center">
-            <Image
-              src="/auth-init.png"
-              alt="Initial Authentication Flow"
-              width={800}
-              height={400}
-              className="w-full h-auto rounded-lg max-h-[400px] object-contain bg-black"
-              priority
-            />
-          </div>
+          <ZoomableImage
+            src="/auth-init.png"
+            alt="Initial Authentication Flow"
+            width={800}
+            height={400}
+            priority
+          />
         </div>
 
         <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-6 mb-6">
@@ -123,16 +120,13 @@ export default function ProtectedPage() {
 
         {/* JWT Diagram */}
         <div className="mb-8">
-          <div className="bg-gray-800/30 border border-gray-700 rounded-lg p-3 flex justify-center">
-            <Image
-              src="/jwt.png"
-              alt="JWT Authentication Flow"
-              width={800}
-              height={400}
-              className="w-full h-auto rounded-lg max-h-[400px] object-contain bg-black"
-              priority
-            />
-          </div>
+          <ZoomableImage
+            src="/jwt.png"
+            alt="JWT Authentication Flow"
+            width={800}
+            height={400}
+            priority
+          />
         </div>
 
         <div className="bg-orange-900/20 border border-orange-600/30 rounded-lg p-6 mb-6">
