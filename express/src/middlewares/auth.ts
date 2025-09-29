@@ -31,7 +31,10 @@ export async function authMiddleware(req, res, next) {
     }
     audience = audience || 'http://localhost:3000';
     await verifyJwt(token, audience);
+
+    console.log("Token verified, fetching user session...");
     const { session, error } = await getUserSession({ token });
+    console.log("User session fetched:", { session, error });
 
     if(error || !session) {
       return res.status(401).json({ error: 'Invalid session' });

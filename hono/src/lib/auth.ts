@@ -23,7 +23,11 @@ export const auth = betterAuth({
   basePath: "/auth",
   plugins: [
     openAPI(),
-    jwt(),
+    jwt({
+      jwt: {
+        audience: process.env.JWT_AUDIENCE || 'http://localhost:3000',
+      }
+    }),
     bearer(),
     passkey(
       {
