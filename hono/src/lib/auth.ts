@@ -25,7 +25,7 @@ export const auth = betterAuth({
     openAPI(),
     jwt({
       jwt: {
-        audience: process.env.JWT_AUDIENCE || 'http://localhost:3000',
+        audience: process.env.JWT_AUDIENCE || 'http://asdf.com:3000',
       }
     }),
     bearer(),
