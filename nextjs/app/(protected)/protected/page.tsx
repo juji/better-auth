@@ -194,12 +194,38 @@ export default function ProtectedPage() {
           <p className="text-gray-300 text-sm mb-4">
             Check out the Burgundy subdomain - it uses the same authentication system seamlessly:
           </p>
-          <div className="bg-gray-900/50 rounded p-4">
-            <p className="text-cyan-400 font-mono text-sm">
-              {process.env.NEXT_PUBLIC_BURGUNDY_SERVER || 'burgundy.localhost:3001'}
-            </p>
-            <p className="text-gray-400 text-xs mt-2">
-              Nothing more was needed - the JWT approach handles cross-domain authentication automatically.
+          
+          {/* Burgundy iframe */}
+          <div className="mb-6">
+            <div className="bg-gray-900/50 rounded p-3 mb-3">
+              <a 
+                href={process.env.NEXT_PUBLIC_BURGUNDY_SERVER || 'http://burgundy.localhost:3001'}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-cyan-400 font-mono text-sm hover:text-cyan-300 hover:underline transition-colors"
+              >
+                {process.env.NEXT_PUBLIC_BURGUNDY_SERVER || 'burgundy.localhost:3001'}
+              </a>
+              <p className="text-gray-400 text-xs mt-1">
+                Live preview of the Burgundy subdomain using the same auth system
+              </p>
+            </div>
+            
+            <div className="border border-gray-600 rounded-lg overflow-hidden">
+              <iframe
+                src={process.env.NEXT_PUBLIC_BURGUNDY_SERVER || 'http://burgundy.localhost:3001'}
+                width="100%"
+                height="600"
+                className="w-full"
+                title="Burgundy Subdomain"
+                sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation-by-user-activation"
+              />
+            </div>
+          </div>
+          
+          <div className="bg-green-900/20 border border-green-600/30 rounded p-3">
+            <p className="text-green-200 text-xs">
+              ✅ <strong>Nothing more was needed</strong> - the JWT approach handles cross-domain authentication automatically.
             </p>
           </div>
         </div>
