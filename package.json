@@ -4,13 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently -c green,yellow,magenta --names hono,express,next \"pnpm run dev:hono\" \"pnpm run dev:express\" \"pnpm run dev:next\"",
-    "dev:hono:old": ". .env; VERCEL_ORG_ID=$HONO_VERCEL_ORG_ID VERCEL_PROJECT_ID=$HONO_VERCEL_PROJECT_ID vercel dev --listen 3001",
-    "dev:express:old": ". .env; VERCEL_ORG_ID=$EXPRESS_VERCEL_ORG_ID VERCEL_PROJECT_ID=$EXPRESS_VERCEL_PROJECT_ID vercel dev --listen 3002",
+    "dev": "concurrently -c green,yellow,magenta,blue --names hono,express,next,other \"pnpm run dev:hono\" \"pnpm run dev:express\" \"pnpm run dev:next\" \"pnpm run dev:other\"",
     "dev:hono": "cd hono && pnpm run dev",
+    "dev:other": "cd other-nextjs && pnpm run dev",
     "dev:express": "cd express && pnpm run dev",
     "dev:next": "cd nextjs && pnpm run dev",
-    "postinstall": "cd hono && pnpm install && cd ../express && pnpm install && cd ../nextjs && pnpm install"
+    "postinstall": "cd hono && pnpm install && cd ../express && pnpm install && cd ../nextjs && pnpm install && cd ../other-nextjs && pnpm install"
   },
   "keywords": [],
   "author": "",
