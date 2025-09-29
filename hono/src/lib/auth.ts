@@ -37,7 +37,7 @@ export const auth = betterAuth({
     passkey(
       {
         rpID: process.env.BETTER_AUTH_PASSKEY_RPID || "localhost",
-        rpName: "BetterAuth Demo",
+        rpName: "BetterAuth Demo App",
         origin: process.env.BETTER_AUTH_PASSKEY_ORIGIN || "http://localhost:3000",
       }
     ), 
