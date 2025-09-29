@@ -22,8 +22,8 @@ export default function ProtectedLayout({
   if (isPending) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center py-2">
-        <div className="animate-spin w-8 h-8 border-2 border-purple-500 border-t-transparent rounded-full mb-4"></div>
-        <p className="text-gray-600 dark:text-gray-400 animate-pulse">Checking authentication...</p>
+        <div className="animate-spin w-8 h-8 border-2 border-yellow-500 border-t-transparent rounded-full mb-4"></div>
+        <p className="text-gray-400 dark:text-yellow-300 animate-pulse">Checking authentication...</p>
       </div>
     );
   }

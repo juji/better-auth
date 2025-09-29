@@ -18,13 +18,15 @@ export default function ProtectedPage() {
   return (
     <div className="text-white p-8">
 
+      <h1 className="text-3xl font-bold mb-4">Another app in the ecosystem</h1>
+
       {/* Cookie-based Authentication Section */}
       <div className="mb-12">
 
         <div className="space-y-4">
           <h3 className="text-xl font-semibold text-white">Cookie-Based API Access</h3>
           <div>
-            <h4 className="text-lg font-medium text-green-400 mb-2">Hono Server</h4>
+            <h4 className="text-lg font-medium text-yellow-400 mb-2">Hono Server</h4>
             <p className="text-gray-400 text-sm mb-3">
               The server that manages authentication via cookies and provides session-based API access
             </p>
@@ -41,7 +43,7 @@ export default function ProtectedPage() {
 
           <div className="space-y-6">
             <div>
-              <h4 className="text-lg font-medium text-cyan-400 mb-2">Next.js API Routes</h4>
+              <h4 className="text-lg font-medium text-orange-400 mb-2">Next.js API Routes</h4>
               <p className="text-gray-400 text-sm mb-3">
                 Same-domain API endpoints using JWT token verification
               </p>

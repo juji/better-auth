@@ -21,8 +21,8 @@ export function AccessProtectedResource({ url }: { url: string }) {
     return (
       <div className="backdrop-blur-lg bg-black/20 border border-white/10 rounded-xl p-6 shadow-2xl">
         <div className="flex items-center space-x-3">
-          <div className="animate-spin w-5 h-5 border-2 border-cyan-500 border-t-transparent rounded-full"></div>
-          <p className="text-cyan-400 font-medium">Accessing protected resource...</p>
+          <div className="animate-spin w-5 h-5 border-2 border-orange-500 border-t-transparent rounded-full"></div>
+          <p className="text-orange-400 font-medium">Accessing protected resource...</p>
         </div>
       </div>
     );
@@ -47,29 +47,29 @@ export function AccessProtectedResource({ url }: { url: string }) {
   }
 
   return (
-    <div className="backdrop-blur-lg bg-black/20 border border-green-500/30 rounded-xl p-6 shadow-2xl">
+    <div className="backdrop-blur-lg bg-black/20 border border-yellow-500/30 rounded-xl p-6 shadow-2xl">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 space-y-3 sm:space-y-0">
         <div className="flex items-center space-x-3 min-w-0 flex-1">
-          <div className="w-5 h-5 bg-green-500/20 rounded-full flex items-center justify-center flex-shrink-0">
-            <svg className="w-3 h-3 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="w-5 h-5 bg-yellow-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+            <svg className="w-3 h-3 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
           </div>
           <div className="min-w-0 flex-1">
-            <p className="text-green-400 font-medium truncate">{url}</p>
-            <p className="text-green-300/80 text-sm">Successfully retrieved data</p>
+            <p className="text-yellow-400 font-medium truncate">{url}</p>
+            <p className="text-yellow-300/80 text-sm">Successfully retrieved data</p>
           </div>
         </div>
         <div className="flex space-x-2 flex-shrink-0 justify-end">
           <button
             onClick={reloadData}
-            className="px-3 sm:px-4 py-2 bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-400 hover:to-red-500 text-white font-medium rounded-lg transition-all transform hover:scale-105 active:scale-95 cursor-pointer shadow-lg hover:shadow-orange-500/25 text-sm sm:text-base"
+            className="px-3 sm:px-4 py-2 bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-400 hover:to-indigo-500 text-white font-medium rounded-lg transition-all transform hover:scale-105 active:scale-95 cursor-pointer shadow-lg hover:shadow-purple-500/25 text-sm sm:text-base"
           >
             Reload
           </button>
           <button
             onClick={toggleData}
-            className="px-3 sm:px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-medium rounded-lg transition-all transform hover:scale-105 active:scale-95 cursor-pointer shadow-lg hover:shadow-cyan-500/25 text-sm sm:text-base"
+            className="px-3 sm:px-4 py-2 bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-400 hover:to-cyan-500 text-white font-medium rounded-lg transition-all transform hover:scale-105 active:scale-95 cursor-pointer shadow-lg hover:shadow-teal-500/25 text-sm sm:text-base"
           >
             {showData ? 'Hide Data' : 'Show Data'}
           </button>
@@ -79,7 +79,7 @@ export function AccessProtectedResource({ url }: { url: string }) {
       {showData && (
         <div className="mt-4">
           <div className="bg-black/40 border border-white/10 rounded-lg p-4 overflow-x-auto">
-            <pre className="text-cyan-300 text-sm font-mono whitespace-pre-wrap break-all">
+            <pre className="text-orange-300 text-sm font-mono whitespace-pre-wrap break-all">
               {JSON.stringify(data, null, 2)}
             </pre>
           </div>
