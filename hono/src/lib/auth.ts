@@ -36,9 +36,9 @@ export const auth = betterAuth({
     // bearer(),
     passkey(
       {
-        rpID: process.env.BETTER_AUTH_PASSKEY_RPID || "localhost",
+        rpID: process.env.BETTER_AUTH_PASSKEY_RPID || "localhost", // example: juji.com
         rpName: "BetterAuth Demo App",
-        origin: process.env.BETTER_AUTH_PASSKEY_ORIGIN || "http://localhost:3000",
+        origin: process.env.BETTER_AUTH_PASSKEY_ORIGIN || "http://localhost:3000", // example: https://juji.com
       }
     ), 
     multiSession(),
