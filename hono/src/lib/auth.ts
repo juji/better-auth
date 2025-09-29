@@ -28,7 +28,10 @@ export const auth = betterAuth({
         audience: process.env.JWT_AUDIENCE || 'http://asdf.com:3000',
         definePayload: ({user}) => {
           return {
-            user: user
+            user: {
+              ...user,
+              honoServerTimestamp: new Date().toISOString()
+            }
           }
         }
       }
