@@ -1,6 +1,6 @@
 import { Session, User } from "better-auth";
-import { verifyJwt } from "./jwks.js";
-import { getUserSession } from "./auth-client.js";
+import { verifyJwt } from "./jwks";
+import { getUserSession } from "./auth-client";
 
 export interface AuthResult {
   session: Session | null;
