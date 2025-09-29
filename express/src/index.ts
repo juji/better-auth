@@ -42,9 +42,15 @@ app.get('/auth/token', async (req, res) => {
     }
 
     // Verify the JWT
-    await verifyJwt(token);
-
-    // Set httpOnly cookie with the token
+    // Use request origin as audience
+    let audience = req.headers.origin;
+    if (!audience && req.headers.referer) {
+      try {
+        audience = new URL(req.headers.referer).origin;
+      } catch {}
+    }
+    audience = audience || 'http://localhost:3000';
+    await verifyJwt(token, audience);    // Set httpOnly cookie with the token
     const maxAge = parseInt(process.env.COOKIE_MAX_AGE || '86400000'); // Default 24 hours in milliseconds
     res.cookie('authToken', token, {
       httpOnly: true,

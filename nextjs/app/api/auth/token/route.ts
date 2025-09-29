@@ -4,14 +4,10 @@ import * as jose from 'jose';
 // Create remote JWKS for token verification
 const JWKS = jose.createRemoteJWKSet(new URL(`${process.env.NEXT_PUBLIC_HONO_SERVER || "http://localhost:3001"}/auth/jwks`));
 
-async function verifyJwt(token: string) {
-  if (!process.env.JWT_AUDIENCE) {
-    throw new Error("JWT_AUDIENCE is not set");
-  }
-
+async function verifyJwt(token: string, audience: string) {
   return jose.jwtVerify(token, JWKS, {
     issuer: process.env.NEXT_PUBLIC_HONO_SERVER || "http://localhost:3001",
-    audience: process.env.JWT_AUDIENCE,
+    audience: audience,
   });
 }
 
@@ -28,8 +24,12 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'No token provided' }, { status: 401 });
     }
 
+    // Use the request host as audience
+    const url = new URL(request.url);
+    const audience = url.host;
+
     // Verify the JWT
-    await verifyJwt(token);
+    await verifyJwt(token, audience);
 
     // Create response with httpOnly cookie
     const response = NextResponse.json({ success: true });

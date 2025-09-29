@@ -22,7 +22,15 @@ export async function authMiddleware(req, res, next) {
 
   try{
     // Here verify the token and fetch user info
-    await verifyJwt(token);
+    // Use request origin as audience
+    let audience = req.headers.origin;
+    if (!audience && req.headers.referer) {
+      try {
+        audience = new URL(req.headers.referer).origin;
+      } catch {}
+    }
+    audience = audience || 'http://localhost:3000';
+    await verifyJwt(token, audience);
     const { session, error } = await getUserSession({ token });
 
     if(error || !session) {

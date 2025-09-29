@@ -8,20 +8,15 @@ const JWKS = jose.createLocalJWKSet({
   ],
 })
 
-export function verifyJwt(jwt: string) {
+export function verifyJwt(jwt: string, audience: string) {
 
   if(!process.env.AUTH_SERVER){
     throw new Error("AUTH_SERVER is not set")
   }
 
-  if(!process.env.JWT_AUDIENCE){
-    throw new Error("JWT_AUDIENCE is not set")
-  }
-
   return jose.jwtVerify(jwt, JWKS, {
     issuer: process.env.AUTH_SERVER,
-    audience: process.env.JWT_AUDIENCE,
+    audience: audience,
   })
-  
-}
 
+}
