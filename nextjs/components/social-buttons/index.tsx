@@ -2,9 +2,10 @@ import { signIn } from '@/lib/auth-client-hono';
 
 interface SocialButtonsProps {
   onError?: (error: string) => void;
+  onSuccess?: () => void;
 }
 
-export function SocialButtons({ onError }: SocialButtonsProps) {
+export function SocialButtons({ onError, onSuccess }: SocialButtonsProps) {
   const handleSocialLogin = async (provider: 'github' | 'google') => {
     try {
       await signIn.social({
@@ -12,6 +13,7 @@ export function SocialButtons({ onError }: SocialButtonsProps) {
         callbackURL: window.location.origin + '/',
         errorCallbackURL: window.location.origin + '/',
       });
+      onSuccess?.();
     } catch (error) {
       console.error(`${provider} login error:`, error);
       onError?.(`Failed to login with ${provider === 'github' ? 'GitHub' : 'Google'}`);
