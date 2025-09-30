@@ -11,6 +11,7 @@ interface Organization {
   slug: string;
   logo?: string | null;
   createdAt: Date | string;
+  members?: any[]; // Full organization includes members
 }
 
 export default function OrganizationDetailPage() {
@@ -28,18 +29,17 @@ export default function OrganizationDetailPage() {
       setIsLoading(true);
       setError(null);
       try {
-        // For now, we'll get all organizations and find the one with matching slug
-        // In a real app, you'd want an API endpoint to get organization by slug
-        const { data, error } = await organization.list();
+        const { data, error } = await organization.getFullOrganization({
+          query: {
+            organizationSlug: slug,
+          },
+        });
         if (error) {
           setError(error.message || 'Failed to load organization');
+        } else if (data) {
+          setOrganizationData(data);
         } else {
-          const org = data?.find((org: Organization) => org.slug === slug);
-          if (org) {
-            setOrganizationData(org);
-          } else {
-            setError('Organization not found');
-          }
+          setError('Organization not found');
         }
       } catch (err) {
         setError('Failed to load organization');
@@ -132,7 +132,9 @@ export default function OrganizationDetailPage() {
             <div className="bg-black/30 border border-white/10 rounded-lg p-6">
               <h3 className="text-lg font-semibold text-white mb-2">Members</h3>
               <div className="text-center py-4">
-                <div className="text-2xl font-bold text-blue-400 mb-1">0</div>
+                <div className="text-2xl font-bold text-blue-400 mb-1">
+                  {organizationData.members?.length || 0}
+                </div>
                 <p className="text-sm text-gray-400">Total members</p>
               </div>
               <Link
