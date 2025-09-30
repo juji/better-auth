@@ -15,18 +15,58 @@ export function LoginForm({ onSwitchToRegister, onSwitchToForgotPassword, onSucc
   const [isLoading, setIsLoading] = React.useState(false);
   const [isPasskeyLoading, setIsPasskeyLoading] = React.useState(false);
   const [error, setError] = React.useState('');
+  const [magicLinkSent, setMagicLinkSent] = React.useState(false);
+  const [countdown, setCountdown] = React.useState(15);
 
   const { refetch } = useSession();
+
+  // Countdown timer for magic link success message
+  React.useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (magicLinkSent && countdown > 0) {
+      interval = setInterval(() => {
+        setCountdown(prev => prev - 1);
+      }, 1000);
+    } else if (countdown === 0) {
+      setMagicLinkSent(false);
+      setCountdown(15);
+    }
+    return () => clearInterval(interval);
+  }, [magicLinkSent, countdown]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setError('');
 
-    console.log('Attempting login:', { email });
+    console.log('Attempting login:', { email, password: password ? '***' : 'empty' });
 
     try {
-      console.log('Calling signIn.email');
+      // Check if password is empty - use magic link
+      if (!password || password.trim() === '') {
+        console.log('Password empty - using magic link authentication');
+        const result = await signIn.magicLink({
+          email,
+          callbackURL: window.location.origin + '/protected',
+          newUserCallbackURL: window.location.origin + '/protected',
+          errorCallbackURL: window.location.origin + '/?error=magic-link-failed',
+        });
+        console.log('Magic link result:', result);
+
+        if (result?.error) {
+          console.log('Magic link error:', result.error);
+          setError(result.error.message || 'Failed to send magic link');
+          return;
+        }
+
+        console.log('Magic link sent successfully');
+        setError('');
+        setMagicLinkSent(true);
+        return;
+      }
+
+      // Regular email/password login
+      console.log('Using email/password authentication');
       const result = await signIn.email({
         email,
         password,
@@ -93,10 +133,51 @@ export function LoginForm({ onSwitchToRegister, onSwitchToForgotPassword, onSucc
     <div className="flex justify-center lg:justify-end">
       <div className="w-full max-w-md">
         <div className="backdrop-blur-lg bg-black/20 border border-white/10 rounded-2xl p-8 shadow-2xl">
-      <div className="text-center mb-8">
-        <h2 className="text-2xl font-bold text-white mb-2">Welcome</h2>
-        <p className="text-gray-300">Sign in to your account</p>
-      </div>
+          {magicLinkSent ? (
+            // Magic link sent success message
+            <div className="text-center space-y-6">
+              <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center mx-auto">
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold text-white mb-2">Check Your Email!</h2>
+                <p className="text-gray-300 mb-4">
+                  We've sent a magic link to <span className="font-semibold text-purple-400">{email}</span>
+                </p>
+                <p className="text-gray-400 text-sm mb-6">
+                  Click the link in your email to sign in instantly. No password required!
+                </p>
+                <div className="bg-gray-800/50 rounded-lg p-4 mb-6">
+                  <p className="text-gray-300 text-sm">
+                    Returning to login form in <span className="font-bold text-purple-400">{countdown}</span> seconds...
+                  </p>
+                  <div className="w-full bg-gray-700 rounded-full h-2 mt-2">
+                    <div 
+                      className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full transition-all duration-1000 ease-linear"
+                      style={{ width: `${(countdown / 15) * 100}%` }}
+                    ></div>
+                  </div>
+                </div>
+                <button
+                  onClick={() => {
+                    setMagicLinkSent(false);
+                    setCountdown(15);
+                  }}
+                  className="text-purple-400 hover:text-purple-300 text-sm font-medium transition-colors cursor-pointer"
+                >
+                  Back to Login
+                </button>
+              </div>
+            </div>
+          ) : (
+            // Regular login form
+            <>
+              <div className="text-center mb-8">
+                <h2 className="text-2xl font-bold text-white mb-2">Welcome</h2>
+                <p className="text-gray-300">Sign in to your account</p>
+              </div>
 
       {error && (
         <div className="mb-6 p-4 bg-red-900/70 border border-red-500/50 rounded-lg text-red-100 text-sm flex items-start">
@@ -135,8 +216,11 @@ export function LoginForm({ onSwitchToRegister, onSwitchToForgotPassword, onSucc
             onChange={(e) => setPassword(e.target.value)}
             className="w-full px-4 py-3 bg-black/30 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
             placeholder="Enter your password"
-            required
+            required={false}
           />
+          <p className="mt-1 text-xs text-gray-400 text-right">
+            Leave empty for passwordless login
+          </p>
         </div>
 
         <div className="flex items-center justify-between">
@@ -195,10 +279,10 @@ export function LoginForm({ onSwitchToRegister, onSwitchToForgotPassword, onSucc
           {isLoading ? (
             <div className="flex items-center justify-center">
               <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
-              Signing In...
+              {!password && email ? 'Sending Magic Link...' : 'Signing In...'}
             </div>
           ) : (
-            'Sign In'
+            !password && email ? 'Send Magic Link' : 'Sign In'
           )}
         </button>
       </form>
@@ -250,8 +334,10 @@ export function LoginForm({ onSwitchToRegister, onSwitchToForgotPassword, onSucc
       {/* Decorative elements */}
       <div className="absolute -top-4 -right-4 w-8 h-8 bg-purple-500/20 rounded-full blur-sm"></div>
       <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-pink-500/20 rounded-full blur-sm"></div>
-    </div>
-    </div>
+            </>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
