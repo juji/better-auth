@@ -177,9 +177,9 @@ export default function ProtectedPage() {
         
         <div className="mb-6">
           <p className="text-gray-300 leading-relaxed text-lg max-w-4xl">
-            The authentication system is already accessible across different subdomains without any 
-            additional configuration. This demonstrates the flexibility of the JWT-based approach 
-            for distributed systems.
+            The authentication system can be made accessible across different subdomains by adding 
+            them to the CORS origins configuration in the Hono server. This demonstrates the flexibility 
+            of the JWT-based approach for distributed systems while maintaining proper security boundaries.
           </p>
         </div>
 
