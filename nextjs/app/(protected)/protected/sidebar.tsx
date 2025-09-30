@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react';
 interface NavigationLink {
   href?: string;
   text: string;
+  newTab?: boolean;
   children?: NavigationLink[];
 }
 
@@ -18,6 +19,7 @@ const navigationLinks: NavigationLink[] = [
   { href: '/protected/session-management', text: 'Session Management' },
   { href: '/protected/multi-session', text: 'Multiple Sessions' },
   { href: '/protected/passkey', text: 'Passkey Management' },
+  { href: `https://${process.env.NEXT_PUBLIC_HONO_SERVER}/auth/reference`, text: 'Docs', newTab: true },
   // below are examples of nested sections
   // {
   //   text: 'System',
@@ -137,6 +139,8 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
         key={link.text}
         href={link.href || '#'}
         onClick={() => setSidebarOpen(false)}
+        target={link.newTab ? '_blank' : undefined}
+        rel={link.newTab ? 'noopener noreferrer' : undefined}
         className={`block m-0 py-2 pr-6 transition-colors rounded cursor-pointer text-sm ${
           isActive
             ? 'text-white bg-gray-800 font-medium'
