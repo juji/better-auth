@@ -75,6 +75,7 @@ export function AuthHeader() {
           </Link>
         </div>
       </div>
+      <p className="mt-5 text-sm">Maintenance mode is enabled. Data will reset every Monday, 00:00 UTC.</p>
     </div>
   );
 }
