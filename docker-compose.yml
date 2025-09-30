@@ -1,4 +1,4 @@
-version: '3.8'
+
 
 services:
 
@@ -22,9 +22,24 @@ services:
       timeout: 5s
       retries: 5
 
+  # mailpit for testing email sending
+  mailpit:
+      image: axllent/mailpit
+      container_name: mailpit
+      restart: unless-stopped
+      volumes:
+        - mailpit-data:/data
+      # environment:
+      #   - MP_SMTP_AUTH="user:password"
+      ports:
+        - 8025:8025
+        - 1025:1025
+      
+
 networks:
   better-auth-network:
     driver: bridge
 
 volumes:
   postgres-hono-data:
+  mailpit-data:
