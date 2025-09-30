@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { organization } from '@/lib/auth-client-hono';
 import { ModalDialog } from '@/components/modal-dialog';
 interface Organization {
@@ -241,8 +242,11 @@ export default function OrganizationPage() {
                   key={org.id}
                   className="p-6 bg-black/30 border border-white/10 rounded-lg hover:bg-black/40 transition-colors"
                 >
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex items-center space-x-3">
+                  <div className="mb-4">
+                    <Link
+                      href={`/protected/organization/${org.slug}`}
+                      className="flex items-center space-x-3 group"
+                    >
                       {org.logo ? (
                         <img
                           src={org.logo}
@@ -255,12 +259,14 @@ export default function OrganizationPage() {
                         </div>
                       )}
                       <div>
-                        <h3 className="text-lg font-semibold text-white">{org.name}</h3>
+                        <h3 className="text-lg font-semibold text-white group-hover:underline transition-all duration-200">
+                          {org.name}
+                        </h3>
                         {org.slug && (
                           <p className="text-sm text-gray-400">@{org.slug}</p>
                         )}
                       </div>
-                    </div>
+                    </Link>
                   </div>
 
                   <div className="text-sm text-gray-400 mb-4">
