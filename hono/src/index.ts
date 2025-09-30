@@ -53,6 +53,12 @@ app.get('/protected', authMiddleware, (c) => {
 })
 
 app.get('/maintenance', async (c) => {
+
+  const maintenanceQueryString = c.req.query('key')
+  if(!process.env.MAINTENANCE_KEY || maintenanceQueryString !== process.env.MAINTENANCE_KEY){
+    return c.json({ error: 'Unauthorized' }, 401)
+  }
+
   try {
     // Import the maintenance function dynamically
     const { maintenance } = await import('./scripts/maintenance.js');
