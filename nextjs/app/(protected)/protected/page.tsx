@@ -219,7 +219,7 @@ export default function ProtectedPage() {
           
           <div className="bg-green-900/20 border border-green-600/30 rounded p-3">
             <p className="text-green-200 text-xs">
-              ✅ <strong>Nothing more was needed</strong> - the JWT approach handles cross-domain authentication automatically.
+              ✅ <strong>Configuration complete</strong> - after adding the subdomain to CORS origins, the JWT approach handles cross-domain authentication seamlessly.
             </p>
           </div>
         </div>
