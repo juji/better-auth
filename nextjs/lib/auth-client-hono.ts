@@ -28,5 +28,6 @@ export const {
   changePassword,
   passkey,
   token,
-  multiSession
+  multiSession,
+  organization
 } = authClient

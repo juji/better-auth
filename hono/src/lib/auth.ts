@@ -16,11 +16,29 @@ import {
   verifications, 
   sessions, 
   passkeys,
-  jwkss 
+  jwkss,
+  members,
+  organizations,
+  invitations,
 } from "./db/schema/auth.js";
 
 
 export const auth = betterAuth({
+  database: drizzleAdapter(db, {
+    provider: "pg", // or "mysql", "sqlite",
+    usePlural: true,
+    schema: {
+      users: users,
+      accounts: accounts,
+      sessions: sessions,
+      verifications: verifications,
+      passkeys: passkeys,
+      jwkss: jwkss,
+      members: members,
+      organizations: organizations,
+      invitations: invitations,
+    },
+  }),
   trustedOrigins: process.env.CORS_ORIGINS?.split(",").map(s => s.trim()) || [],
   basePath: "/auth",
   plugins: [
@@ -69,18 +87,6 @@ export const auth = betterAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     },
   },
-  database: drizzleAdapter(db, {
-    provider: "pg", // or "mysql", "sqlite",
-    usePlural: true,
-    schema: {
-      users: users,
-      accounts: accounts,
-      sessions: sessions,
-      verifications: verifications,
-      passkeys: passkeys,
-      jwkss: jwkss
-    },
-  }),
   advanced: {
     cookiePrefix: "j-auth-hono", // custom cookie prefix
     // use jwt for cross domain auth

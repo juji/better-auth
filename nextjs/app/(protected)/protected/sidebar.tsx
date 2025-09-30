@@ -15,6 +15,7 @@ interface NavigationLink {
 // Navigation links data with multi-level structure
 const navigationLinks: NavigationLink[] = [
   { href: '/protected', text: 'Home' },
+  { href: '/protected/organization', text: 'Organizations' },
   { href: '/protected/change-password', text: 'Change Password' },
   { href: '/protected/session-management', text: 'Session Management' },
   { href: '/protected/multi-session', text: 'Multiple Sessions' },
