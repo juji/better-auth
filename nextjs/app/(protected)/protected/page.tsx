@@ -172,7 +172,7 @@ export default function ProtectedPage() {
 
         <div className="space-y-6">
           <h3 className="text-xl font-semibold text-white">JWT-Based Service Communication</h3>
-          <p className="text-gray-400 text-sm mb-4">
+          <p className="mb-4">
             The requests below do not touch the auth database. They carry user data in the JWT token. 
             Notice the 'honoServerTimestamp' values - they should be the same, showing we don't request 
             a new JWT for each request but store it in memory with a 15-minute TTL.
