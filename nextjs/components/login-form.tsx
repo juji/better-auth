@@ -141,14 +141,40 @@ export function LoginForm({ onSwitchToRegister, onSwitchToForgotPassword, onSucc
 
         <div className="flex items-center justify-between">
           <div className="flex items-center">
-            <input
-              id="remember-me"
-              type="checkbox"
-              checked={rememberMe}
-              onChange={(e) => setRememberMe(e.target.checked)}
-              className="w-4 h-4 text-purple-600 bg-black/30 border-white/10 rounded focus:ring-purple-500 focus:ring-2 cursor-pointer"
-            />
-            <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-300 cursor-pointer">
+            <div className="relative">
+              <input
+                id="remember-me"
+                type="checkbox"
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
+                className="sr-only"
+              />
+              <div
+                className={`w-5 h-5 border-2 rounded cursor-pointer transition-all duration-200 flex items-center justify-center ${
+                  rememberMe
+                    ? 'bg-gradient-to-r from-blue-600 to-cyan-600 border-blue-600'
+                    : 'bg-black/30 border-white/20 hover:border-white/40'
+                }`}
+                onClick={() => setRememberMe(!rememberMe)}
+              >
+                {rememberMe && (
+                  <svg
+                    className="w-3 h-3 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={3}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                )}
+              </div>
+            </div>
+            <label htmlFor="remember-me" className="ml-3 block text-sm text-gray-300 cursor-pointer select-none">
               Remember me
             </label>
           </div>
