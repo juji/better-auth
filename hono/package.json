@@ -9,7 +9,8 @@
     "empty-db": "tsx scripts/empty-db.ts",
     "generate-users": "tsx scripts/generate-users.ts",
     "load-users": "tsx scripts/load-users.ts",
-    "remove-users": "tsx scripts/remove-users.ts"
+    "remove-users": "tsx scripts/remove-users.ts",
+    "new-users": "tsx scripts/remove-users.ts && tsx scripts/generate-users.ts && tsx scripts/load-users.ts"
   },
   "dependencies": {
     "@hono/node-server": "^1.19.4",
