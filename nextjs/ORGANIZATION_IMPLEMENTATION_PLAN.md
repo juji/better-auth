@@ -44,17 +44,7 @@ app/(protected)/protected/organization/
 
 This is where we can find find details about org.
 
-There's a link to manage users and teams
-
-## The Users Management Page 
-
-app/(protected)/protected/organization/
-├── page.tsx                    # Organization overview
-└── [slug]/
-    └── page.tsx                # Specific Organizations
-    └── users/
-        └── page.tsx            # Users Management
-
+In addition, this is where we manage users and teams.
 
 List all users, Add/remove user from org,
 assign roles into users
