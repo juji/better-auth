@@ -1,6 +1,12 @@
-# Organization Implementation Plan for Next.js Client
+# Organization Implementation Plan
 
 This document outlines the plan to add comprehensive organization capabilities to the Next.js client, leveraging the Better Auth organization plugin that has been configured on the server.
+
+NOTE, 30 Sept 2025.
+
+I think, Orgs should be out of scope for this lib. It should be like, a plugin.
+Well, duh... it is a plugin...
+
 
 ## 📋 Plan: create fake users
 
@@ -12,11 +18,14 @@ This should be done on the hono server.
     check hono/src/lib/db/schema/auth.ts
     for the data fields...
 
-2. create sql containing 100 fake users
+2. create json data set containing 100 fake users
+    inside hono/scripts/users directory
 
 3. load the data into db, by creating a script
+    script: hono/scripts/load-users.ts
 
 4. create script to remove those data as well.
+    script: hono/scripts/remove-users.ts
 
 
 ## Create "Organization" Page 
