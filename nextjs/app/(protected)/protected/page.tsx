@@ -21,10 +21,27 @@ export default function ProtectedPage() {
       <div className="mb-12 space-y-6">
         <h1 className="text-4xl font-bold text-white mb-6">An Authentication Experiment</h1>
         <p className="text-gray-300 leading-relaxed text-lg max-w-4xl">
-          This is an experiment to implement authentication systems using Better Auth. 
+          This is an experiment to implement authentication systems using{' '}
+          <a 
+            href="https://www.better-auth.com" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-blue-400 hover:text-blue-300 underline"
+          >
+            Better Auth
+          </a>. 
           It demonstrates how services can be built with proper separation of concerns between 
           authentication and application logic, creating a separate entity in the application 
-          stack - in this case, a Hono server for auth with its own dedicated database.
+          stack - in this case, a{' '}
+          <a 
+            href="https://hono.dev" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-blue-400 hover:text-blue-300 underline"
+          >
+            Hono
+          </a>{' '}
+          server for auth with its own dedicated database.
         </p>
         
         <div className="bg-yellow-900/20 border border-yellow-600/30 rounded-lg p-4">
@@ -42,7 +59,15 @@ export default function ProtectedPage() {
         
         <div className="mb-8">
           <p className="text-gray-300 leading-relaxed text-lg max-w-4xl mb-6">
-            The client (what you are using right now) is NextJS, and the API server is Hono. 
+            The client (what you are using right now) is{' '}
+            <a 
+              href="https://nextjs.org" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-blue-400 hover:text-blue-300 underline"
+            >
+              Next.js
+            </a>, and the API server is Hono. 
             You are currently authenticating your session with the Hono server. I prefer 
             separating concerns between the main app and other services, so I chose this architecture.
           </p>
