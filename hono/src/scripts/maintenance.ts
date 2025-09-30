@@ -16,7 +16,7 @@ interface User {
   updatedAt: string;
 }
 
-const generateUsers = (count: number): User[] => {
+export const generateUsers = (count: number): User[] => {
   const users: User[] = [];
 
   for (let i = 0; i < count; i++) {
@@ -36,7 +36,7 @@ const generateUsers = (count: number): User[] => {
   return users;
 };
 
-async function emptyDatabase() {
+export async function emptyDatabase() {
   console.log('🗑️  Emptying database...');
 
   // Disable foreign key checks temporarily to avoid constraint issues
@@ -70,7 +70,7 @@ async function emptyDatabase() {
   console.log('✅ Database emptied successfully!');
 }
 
-async function createAndLoadUsers() {
+export async function createAndLoadUsers() {
   console.log('👥 Generating 100 fake users...');
 
   const usersData = generateUsers(100);
@@ -104,7 +104,7 @@ async function createAndLoadUsers() {
   console.log('✅ All users loaded successfully!');
 }
 
-async function maintenance() {
+export async function maintenance(exitProcess = true) {
   try {
     console.log('🔧 Starting database maintenance...');
 
@@ -118,11 +118,18 @@ async function maintenance() {
 
   } catch (error) {
     console.error('❌ Error during maintenance:', error);
-    process.exit(1);
+    if (exitProcess) {
+      process.exit(1);
+    }
+    throw error; // Re-throw for programmatic calls
   } finally {
-    process.exit(0);
+    if (exitProcess) {
+      process.exit(0);
+    }
   }
 }
 
-// Run the maintenance script
-maintenance();
+// Run the maintenance script only when executed directly
+if (import.meta.url === `file://${process.argv[1]}`) {
+  maintenance(true);
+}

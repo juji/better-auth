@@ -52,6 +52,28 @@ app.get('/protected', authMiddleware, (c) => {
   });
 })
 
+app.get('/maintenance', async (c) => {
+  try {
+    // Import the maintenance function dynamically
+    const { maintenance } = await import('./scripts/maintenance.js');
+    
+    // Run maintenance without exiting the process
+    await maintenance(false);
+    
+    return c.json({ 
+      message: 'Maintenance completed successfully',
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    console.error('Maintenance error:', error);
+    return c.json({ 
+      error: 'Maintenance failed',
+      details: error instanceof Error ? error.message : 'Unknown error',
+      timestamp: new Date().toISOString(),
+    }, 500);
+  }
+})
+
 export default app
 
 
