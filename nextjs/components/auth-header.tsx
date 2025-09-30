@@ -37,42 +37,42 @@ export function AuthHeader() {
           <h3 className="text-xl font-semibold text-white">Tech Stack</h3>
         </div>
         <div className="grid text-left grid-cols-2 sm:grid-cols-3 gap-4">
-          <div className=" text-gray-300">
+          <Link href="https://nextjs.org" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors">
             <div>
               <div className="font-semibold text-white">Next.js 15</div>
               <div className="text-xs text-gray-400">React Framework</div>
             </div>
-          </div>
-          <div className=" text-gray-300">
+          </Link>
+          <Link href="https://typescriptlang.org" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors">
             <div>
               <div className="font-semibold text-white">TypeScript</div>
               <div className="text-xs text-gray-400">Type Safety</div>
             </div>
-          </div>
-          <div className=" text-gray-300">
+          </Link>
+          <Link href="https://tailwindcss.com" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors">
             <div>
               <div className="font-semibold text-white">Tailwind CSS</div>
               <div className="text-xs text-gray-400">Styling</div>
             </div>
-          </div>
-          <div className=" text-gray-300">
+          </Link>
+          <Link href="https://better-auth.com" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors">
             <div>
               <div className="font-semibold text-white">Better Auth</div>
               <div className="text-xs text-gray-400">Authentication</div>
             </div>
-          </div>
-          <div className=" text-gray-300">
+          </Link>
+          <Link href="https://postgresql.org" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors">
             <div>
               <div className="font-semibold text-white">PostgreSQL</div>
               <div className="text-xs text-gray-400">Database</div>
             </div>
-          </div>
-          <div className=" text-gray-300">
+          </Link>
+          <Link href="https://hono.dev" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors">
             <div>
               <div className="font-semibold text-white">Hono</div>
               <div className="text-xs text-gray-400">API Server</div>
             </div>
-          </div>
+          </Link>
         </div>
       </div>
     </div>
