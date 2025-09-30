@@ -94,9 +94,18 @@ export default function MultiSessionPage() {
       <div className="max-w-4xl mx-auto">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-white mb-4">Multiple Sessions</h1>
-          <p className="text-gray-300 mb-4">
+          <blockquote className="border-l-4 border-blue-500 pl-4 italic text-gray-300 mb-4">
             The multi-session plugin allows users to maintain multiple active sessions across different accounts in the same browser. This plugin is useful for applications that require users to switch between multiple accounts without logging out.
-          </p>
+            <br />
+            <a
+              href="https://www.better-auth.com/docs/plugins/multi-session"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-400 hover:text-blue-300 underline mt-2 inline-block"
+            >
+              https://www.better-auth.com/docs/plugins/multi-session
+            </a>
+          </blockquote>
         </div>
 
         {error && (
