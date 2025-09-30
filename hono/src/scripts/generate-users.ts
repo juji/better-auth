@@ -16,13 +16,13 @@ const generateUsers = (count: number): User[] => {
   const users: User[] = [];
 
   for (let i = 0; i < count; i++) {
-    const username = faker.person.fullName()
+    const id = faker.string.uuid()
     const user: User = {
-      id: faker.string.uuid(),
-      name: username,
+      id: id,
+      name: faker.person.fullName(),
       email: faker.internet.email(),
       emailVerified: faker.datatype.boolean(),
-      image: `https://avatar.iran.liara.run/username?username=${encodeURIComponent(username)}`,
+      image: `https://robohash.org/${id}`,
       createdAt: faker.date.past().toISOString(),
       updatedAt: faker.date.recent().toISOString(),
     };
