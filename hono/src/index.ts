@@ -2,7 +2,7 @@ import { Hono } from 'hono'
 
 import { auth, type Session } from "./lib/auth.js"; // path to your auth file
 import { cors } from "hono/cors";
-import { authMiddleware } from './middlewares/auth.js';
+import { authMiddleware } from '#middlewares/auth.js';
 
 type Variables = {
   session?: Session

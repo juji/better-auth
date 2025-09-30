@@ -1,4 +1,4 @@
-import { verifyJwt } from "../lib/jwks.js";
+import { verifyJwt } from "#lib/jwks.js";
 
 
 export async function authMiddleware(req, res, next) {

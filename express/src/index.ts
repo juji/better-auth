@@ -1,7 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
-import { authMiddleware } from './middlewares/auth.js';
+import { authMiddleware } from '#middlewares/auth.js';
 
 const app = express()
 
