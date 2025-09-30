@@ -16,7 +16,7 @@ interface Organization {
 
 export default function OrganizationDetailPage() {
   const params = useParams();
-  const slug = params.slug as string;
+  const id = params.id as string;
 
   const [organizationData, setOrganizationData] = useState<Organization | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -24,14 +24,14 @@ export default function OrganizationDetailPage() {
 
   useEffect(() => {
     const loadOrganization = async () => {
-      if (!slug) return;
+      if (!id) return;
 
       setIsLoading(true);
       setError(null);
       try {
         const { data, error } = await organization.getFullOrganization({
           query: {
-            organizationSlug: slug,
+            organizationId: id,
           },
         });
         if (error) {
@@ -49,7 +49,7 @@ export default function OrganizationDetailPage() {
     };
 
     loadOrganization();
-  }, [slug]);
+  }, [id]);
 
   if (isLoading) {
     return (
@@ -138,7 +138,7 @@ export default function OrganizationDetailPage() {
                 <p className="text-sm text-gray-400">Total members</p>
               </div>
               <Link
-                href={`/protected/organization/${organizationData.slug}/users`}
+                href={`/protected/organization/${organizationData.id}/users`}
                 className="w-full px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white text-sm rounded transition-all duration-200 cursor-pointer shadow-lg hover:shadow-blue-500/25 transform hover:scale-105 active:scale-95 text-center block"
               >
                 Manage Users

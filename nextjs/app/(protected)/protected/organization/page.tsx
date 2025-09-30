@@ -244,7 +244,7 @@ export default function OrganizationPage() {
                 >
                   <div className="mb-4">
                     <Link
-                      href={`/protected/organization/${org.slug}`}
+                      href={`/protected/organization/${org.id}`}
                       className="flex items-center space-x-3 group"
                     >
                       {org.logo ? (

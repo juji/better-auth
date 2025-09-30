@@ -14,19 +14,16 @@ interface User {
 
 interface AddUserToOrganizationProps {
   organizationId: string;
-  organizationSlug: string;
   existingMemberIds: string[];
   onUserAdded: () => void;
 }
 
 export default function AddUserToOrganization({
   organizationId,
-  organizationSlug,
   existingMemberIds,
   onUserAdded
 }: AddUserToOrganizationProps) {
   const [searchQuery, setSearchQuery] = useState('');
-  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<User[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const [isAddingUser, setIsAddingUser] = useState<string | null>(null);
@@ -34,27 +31,21 @@ export default function AddUserToOrganization({
 
   // Debounce search query
   useEffect(() => {
+    console.log('Search query changed:', searchQuery);  
     const timer = setTimeout(() => {
-      setDebouncedSearchQuery(searchQuery);
+      handleSearch(searchQuery);
     }, 300);
 
     return () => clearTimeout(timer);
   }, [searchQuery]);
-
-  // Perform search when debounced query changes
-  useEffect(() => {
-    if (debouncedSearchQuery) {
-      handleSearch(debouncedSearchQuery);
-    } else {
-      setSearchResults([]);
-    }
-  }, [debouncedSearchQuery, existingMemberIds]);
 
   const handleSearch = async (query: string) => {
     if (!query.trim()) {
       setSearchResults([]);
       return;
     }
+
+    console.log('Performing search for:', query);
 
     setIsSearching(true);
     setError(null);
@@ -86,20 +77,26 @@ export default function AddUserToOrganization({
     setError(null);
 
     try {
-      const { error } = await organization.inviteMember({
-        email: user.email,
-        role: 'member',
-      });
+      const response = await fetcher(
+        `${process.env.NEXT_PUBLIC_HONO_SERVER || "http://localhost:3000"}/organizations/add-member`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            organizationId,
+            userId: user.id,
+            role: 'member',
+          }),
+        }
+      );
 
-      if (error) {
-        setError(error.message || 'Failed to add user to organization');
-      } else {
-        // Refresh the parent component
-        onUserAdded();
-        // Clear search results
-        setSearchResults([]);
-        setSearchQuery('');
-      }
+      // Refresh the parent component
+      onUserAdded();
+      // Clear search results
+      setSearchResults([]);
+      setSearchQuery('');
     } catch (err) {
       setError('Failed to add user to organization');
       console.error('Add user error:', err);
@@ -188,9 +185,9 @@ export default function AddUserToOrganization({
         )}
 
         {/* No Results */}
-        {debouncedSearchQuery && !isSearching && searchResults.length === 0 && (
+        {searchQuery && !isSearching && searchResults.length === 0 && (
           <div className="text-center py-6">
-            <p className="text-gray-400">No users found matching "{debouncedSearchQuery}"</p>
+            <p className="text-gray-400">No users found matching "{searchQuery}"</p>
           </div>
         )}
       </div>

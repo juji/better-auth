@@ -30,7 +30,7 @@ interface Organization {
 
 export default function OrganizationUsersPage() {
   const params = useParams();
-  const slug = params.slug as string;
+  const id = params.id as string;
 
   const [organizationData, setOrganizationData] = useState<Organization | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -38,14 +38,14 @@ export default function OrganizationUsersPage() {
 
   useEffect(() => {
     const loadOrganization = async () => {
-      if (!slug) return;
+      if (!id) return;
 
       setIsLoading(true);
       setError(null);
       try {
         const { data, error } = await organization.getFullOrganization({
           query: {
-            organizationSlug: slug,
+            organizationId: id,
           },
         });
         if (error) {
@@ -63,7 +63,7 @@ export default function OrganizationUsersPage() {
     };
 
     loadOrganization();
-  }, [slug]);
+  }, [id]);
 
   if (isLoading) {
     return (
@@ -84,7 +84,7 @@ export default function OrganizationUsersPage() {
         <div className="max-w-6xl mx-auto">
           <div className="mb-8">
             <Link
-              href={`/protected/organization/${slug}`}
+              href={`/protected/organization/${id}`}
               className="text-blue-400 hover:text-blue-300 transition-colors inline-flex items-center"
             >
               ← Back to Organization
@@ -115,7 +115,7 @@ export default function OrganizationUsersPage() {
         {/* Back Navigation */}
         <div className="mb-8">
           <Link
-            href={`/protected/organization/${organizationData.slug}`}
+            href={`/protected/organization/${organizationData.id}`}
             className="text-blue-400 hover:text-blue-300 transition-colors inline-flex items-center"
           >
             ← Back to {organizationData.name}
@@ -135,7 +135,6 @@ export default function OrganizationUsersPage() {
         {/* Add User Component */}
         <AddUserToOrganization
           organizationId={organizationData.id}
-          organizationSlug={organizationData.slug}
           existingMemberIds={organizationData.members.map(member => member.userId)}
           onUserAdded={() => {
             // Reload the organization data to show the new member
@@ -143,7 +142,7 @@ export default function OrganizationUsersPage() {
               try {
                 const { data, error } = await organization.getFullOrganization({
                   query: {
-                    organizationSlug: organizationData.slug,
+                    organizationId: organizationData.id,
                   },
                 });
                 if (!error && data) {
