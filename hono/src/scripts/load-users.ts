@@ -1,8 +1,8 @@
 #!/usr/bin/env tsx
 
 import 'dotenv/config';
-import { db } from '../src/lib/db/index.js';
-import { users } from '../src/lib/db/schema/auth.js';
+import { db } from '#lib/db/index.js';
+import { users } from '#lib/db/schema/auth.js';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
@@ -22,7 +22,7 @@ async function loadUsers() {
 
     // Read the fake users data
     const usersData: User[] = JSON.parse(
-      readFileSync(join(process.cwd(), 'scripts', 'users', 'fake-users.json'), 'utf-8')
+      readFileSync(join(process.cwd(), 'src', 'scripts', 'users', 'fake-users.json'), 'utf-8')
     );
 
     console.log(`📋 Found ${usersData.length} users to load`);

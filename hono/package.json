@@ -6,11 +6,11 @@
     "generate": "drizzle-kit generate",
     "generate-auth": "npx @better-auth/cli generate --output ./src/lib/db/schema/auth.ts",
     "dev": "tsx watch src/dev.ts",
-    "empty-db": "tsx scripts/empty-db.ts",
-    "generate-users": "tsx scripts/generate-users.ts",
-    "load-users": "tsx scripts/load-users.ts",
-    "remove-users": "tsx scripts/remove-users.ts",
-    "new-users": "tsx scripts/remove-users.ts && tsx scripts/generate-users.ts && tsx scripts/load-users.ts"
+    "empty-db": "tsx src/scripts/empty-db.ts",
+    "generate-users": "tsx src/scripts/generate-users.ts",
+    "load-users": "tsx src/scripts/load-users.ts",
+    "remove-users": "tsx src/scripts/remove-users.ts",
+    "new-users": "tsx src/scripts/remove-users.ts && tsx src/scripts/generate-users.ts && tsx src/scripts/load-users.ts"
   },
   "dependencies": {
     "@hono/node-server": "^1.19.4",
