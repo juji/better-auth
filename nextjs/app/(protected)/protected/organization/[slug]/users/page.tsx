@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { organization } from '@/lib/auth-client-hono';
+import AddUserToOrganization from './add-user-to-organization';
 
 interface User {
   id: string;
@@ -130,6 +131,31 @@ export default function OrganizationUsersPage() {
             Manage organization members and their roles
           </p>
         </div>
+
+        {/* Add User Component */}
+        <AddUserToOrganization
+          organizationId={organizationData.id}
+          organizationSlug={organizationData.slug}
+          existingMemberIds={organizationData.members.map(member => member.userId)}
+          onUserAdded={() => {
+            // Reload the organization data to show the new member
+            const loadOrganization = async () => {
+              try {
+                const { data, error } = await organization.getFullOrganization({
+                  query: {
+                    organizationSlug: organizationData.slug,
+                  },
+                });
+                if (!error && data) {
+                  setOrganizationData(data);
+                }
+              } catch (err) {
+                console.error('Failed to reload organization:', err);
+              }
+            };
+            loadOrganization();
+          }}
+        />
 
         {/* Users List */}
         <div className="bg-black/30 border border-white/10 rounded-lg overflow-hidden">
