@@ -11,6 +11,7 @@ interface LoginFormProps {
 export function LoginForm({ onSwitchToRegister, onSwitchToForgotPassword, onSuccess }: LoginFormProps) {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const [rememberMe, setRememberMe] = React.useState(true);
   const [isLoading, setIsLoading] = React.useState(false);
   const [isPasskeyLoading, setIsPasskeyLoading] = React.useState(false);
   const [error, setError] = React.useState('');
@@ -29,6 +30,7 @@ export function LoginForm({ onSwitchToRegister, onSwitchToForgotPassword, onSucc
       const result = await signIn.email({
         email,
         password,
+        rememberMe,
       });
       console.log('signIn.email result:', result);
 
@@ -135,15 +137,28 @@ export function LoginForm({ onSwitchToRegister, onSwitchToForgotPassword, onSucc
             placeholder="Enter your password"
             required
           />
-          <div className="mt-2 text-right">
-            <button
-              type="button"
-              onClick={onSwitchToForgotPassword}
-              className="text-purple-400 hover:text-purple-300 text-sm font-medium transition-colors cursor-pointer"
-            >
-              Forgot Password?
-            </button>
+        </div>
+
+        <div className="flex items-center justify-between">
+          <div className="flex items-center">
+            <input
+              id="remember-me"
+              type="checkbox"
+              checked={rememberMe}
+              onChange={(e) => setRememberMe(e.target.checked)}
+              className="w-4 h-4 text-purple-600 bg-black/30 border-white/10 rounded focus:ring-purple-500 focus:ring-2 cursor-pointer"
+            />
+            <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-300 cursor-pointer">
+              Remember me
+            </label>
           </div>
+          <button
+            type="button"
+            onClick={onSwitchToForgotPassword}
+            className="text-purple-400 hover:text-purple-300 text-sm font-medium transition-colors cursor-pointer"
+          >
+            Forgot Password?
+          </button>
         </div>
 
         <button
