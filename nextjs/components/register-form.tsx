@@ -148,7 +148,7 @@ export function RegisterForm({ onSwitchToLogin, onSuccess }: RegisterFormProps) 
           </div>
         </div>
 
-        <SocialButtons onError={setError} />
+        <SocialButtons onError={setError} onSuccess={onSuccess} />
       </div>
 
       <div className="mt-6 text-center">
