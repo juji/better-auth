@@ -19,7 +19,7 @@ const navigationLinks: NavigationLink[] = [
   { href: '/protected/session-management', text: 'Session Management' },
   { href: '/protected/multi-session', text: 'Multiple Sessions' },
   { href: '/protected/passkey', text: 'Passkey Management' },
-  { href: `https://${process.env.NEXT_PUBLIC_HONO_SERVER}/auth/reference`, text: 'Docs', newTab: true },
+  { href: `${process.env.NEXT_PUBLIC_HONO_SERVER}/auth/reference`, text: 'Docs', newTab: true },
   // below are examples of nested sections
   // {
   //   text: 'System',
