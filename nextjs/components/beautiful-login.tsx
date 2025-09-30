@@ -73,7 +73,7 @@ export default function BeautifulLogin() {
           <LoginForm 
             onSwitchToRegister={handleSwitchToRegister} 
             onSwitchToForgotPassword={handleSwitchToForgotPassword}
-            onSuccess={() => { router.push('/protected') }} />
+            onSuccess={() => { }} />
         ) : currentView === 'forgot-password' ? (
           <ForgotPasswordForm 
             onSwitchToLogin={handleSwitchToLogin}
@@ -84,7 +84,7 @@ export default function BeautifulLogin() {
         ) : (
           <RegisterForm 
             onSwitchToLogin={handleSwitchToLogin}
-            onSuccess={() => { router.push('/protected')}} />
+            onSuccess={() => {}} />
         )}
       </div>
     </div>
