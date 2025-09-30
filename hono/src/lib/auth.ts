@@ -6,7 +6,9 @@ import { sendEmail } from "./mailer/index.js";
 import { magicLink } from "better-auth/plugins";
 import { openAPI } from "better-auth/plugins"
 import { passkey } from "better-auth/plugins/passkey"
-import { multiSession, jwt, bearer } from "better-auth/plugins"
+import { multiSession, jwt, /* bearer */ } from "better-auth/plugins"
+import { organization } from "better-auth/plugins"
+
 
 import { 
   users, 
@@ -22,6 +24,7 @@ export const auth = betterAuth({
   trustedOrigins: process.env.CORS_ORIGINS?.split(",").map(s => s.trim()) || [],
   basePath: "/auth",
   plugins: [
+    organization(),
     openAPI(),
     jwt({
       jwt: {

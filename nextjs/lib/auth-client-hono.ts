@@ -3,6 +3,7 @@ import { magicLinkClient } from "better-auth/client/plugins";
 import { passkeyClient } from "better-auth/client/plugins"
 import { multiSessionClient } from "better-auth/client/plugins"
 import { jwtClient } from "better-auth/client/plugins"
+import { organizationClient } from "better-auth/client/plugins"
 
 
 export const authClient = createAuthClient({
@@ -12,6 +13,7 @@ export const authClient = createAuthClient({
     passkeyClient(),
     multiSessionClient(),
     jwtClient(),
+    organizationClient(),
   ],
 })
 
