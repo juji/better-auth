@@ -10,6 +10,7 @@
     "generate-users": "tsx src/scripts/generate-users.ts",
     "load-users": "tsx src/scripts/load-users.ts",
     "remove-users": "tsx src/scripts/remove-users.ts",
+    "maintenance": "tsx src/scripts/maintenance.ts",
     "new-users": "tsx src/scripts/remove-users.ts && tsx src/scripts/generate-users.ts && tsx src/scripts/load-users.ts"
   },
   "dependencies": {
