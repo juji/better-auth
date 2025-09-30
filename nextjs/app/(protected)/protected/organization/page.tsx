@@ -201,6 +201,9 @@ export default function OrganizationPage() {
       <div className="max-w-6xl mx-auto">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-white mb-4">Organizations</h1>
+          <p className="text-sm text-gray-400 mb-2">
+            This is a learning exercise about organization management and multi-tenant architecture.
+          </p>
           <p className="text-gray-300 mb-4">
             Manage your organizations. Create, update, and delete organizations as needed.
           </p>
