@@ -70,49 +70,12 @@ export async function emptyDatabase() {
   console.log('✅ Database emptied successfully!');
 }
 
-export async function createAndLoadUsers() {
-  console.log('👥 Generating 100 fake users...');
-
-  const usersData = generateUsers(100);
-  console.log(`📋 Generated ${usersData.length} users`);
-
-  console.log('📥 Loading users into database...');
-
-  // Insert users in batches to avoid overwhelming the database
-  const batchSize = 10;
-  let inserted = 0;
-
-  for (let i = 0; i < usersData.length; i += batchSize) {
-    const batch = usersData.slice(i, i + batchSize);
-
-    await db.insert(users).values(
-      batch.map(user => ({
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        emailVerified: user.emailVerified,
-        image: user.image,
-        createdAt: new Date(user.createdAt),
-        updatedAt: new Date(user.updatedAt),
-      }))
-    );
-
-    inserted += batch.length;
-    console.log(`✅ Inserted ${inserted}/${usersData.length} users`);
-  }
-
-  console.log('✅ All users loaded successfully!');
-}
-
 export async function maintenance(exitProcess = true) {
   try {
     console.log('🔧 Starting database maintenance...');
 
     // Step 1: Empty the database
     await emptyDatabase();
-
-    // Step 2: Create and load 100 users
-    await createAndLoadUsers();
 
     console.log('🎉 Database maintenance completed successfully!');
 
