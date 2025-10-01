@@ -4,7 +4,6 @@ import { auth, type Session } from "./lib/auth.js"; // path to your auth file
 import { cors } from "hono/cors";
 import { authMiddleware } from '#middlewares/auth.js';
 import usersRouter from './routes/users..js';
-import organizationsRouter from './routes/organizations.js';
 
 type Variables = {
   session?: Session
@@ -84,9 +83,6 @@ app.get('/maintenance', async (c) => {
 
 // Users routes
 app.route('/users', usersRouter);
-
-// Organizations routes
-app.route('/organizations', organizationsRouter);
 
 export default app
 
