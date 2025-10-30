@@ -1,0 +1,14 @@
+name: Cleanup Supabase Database
+
+on:
+  schedule:
+    - cron: '0 0 * * 1,4' # Runs every Monday and Thursday at midnight UTC
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send HTTP Request to Keep Supabase Alive
+        run: |
+          curl --fail --show-error --silent "https://better-auth-hono.jujiplay.com/maintenance?key=${{ secrets.MAINTENANCE_KEY }}"
